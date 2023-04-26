@@ -1,1 +1,1 @@
-# SWM
+# Solid Waste Management System
