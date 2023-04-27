@@ -1,16 +1,19 @@
-import { useState } from 'react';
+
 import MyMap from "./MyMap";
+//import LocationMarker from "./LocationMarkers";
 import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
 
+
+function App() {
+ 
   return (
     
    <MyMap>
-
+   
    </MyMap>
   )
+  
 }
 
 export default App
