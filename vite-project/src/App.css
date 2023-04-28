@@ -1,8 +1,8 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  
+  /*max-width: 1280px; margin: 0 auto;*/
   text-align: center;
+  background-color: maroon
 }
 
 * {
@@ -13,6 +13,12 @@
 
 #root {
   height: 100vh
+}
+
+
+.header{
+  
+  color: white 
 }
 
 /* sizing of map container */
