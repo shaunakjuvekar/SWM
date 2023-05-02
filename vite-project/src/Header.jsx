@@ -6,7 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 
 function Header() {
     return (
-      <Navbar class="header">
+      <Navbar className="header">
         <Container>
           <Navbar.Brand>Solid Waste Management System</Navbar.Brand>
         
@@ -14,4 +14,4 @@ function Header() {
       </Navbar>
     );
   }
-export default Header;
+export default Header;  
