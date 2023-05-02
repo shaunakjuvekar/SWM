@@ -25,3 +25,16 @@
 .leaflet-container {
   height: 100vh
 }
+
+.submitButton{
+  
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 15px;
+    z-index: 400;
+    border-radius: 10px;
+    background-color: blue;
+    color: white;
+    font-weight: 700;
+}
