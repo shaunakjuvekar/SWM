@@ -2,12 +2,13 @@ import React from "react";
 import "leaflet/dist/leaflet.css";
 
 import LocationMarker from "./LocationMarkers";
-
+import SearchBar from "./SearchBar";
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import {Icon} from 'leaflet';
 
 import redIcon from "./red_icon.png";
+
 
 
 function MyMap(){
@@ -33,7 +34,7 @@ function MyMap(){
     <div>
      
     <MapContainer className='leaflet-container' center={initPosition} zoom={13} scrollWheelZoom={true}>
-      
+    <SearchBar />
     <TileLayer
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
