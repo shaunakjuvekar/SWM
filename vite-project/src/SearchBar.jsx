@@ -20,7 +20,7 @@ function SearchBar() {
     const map = useMap();
     useEffect(() => {
       const provider = new OpenStreetMapProvider();
-      console.log(provider)
+      //console.log(provider)
   
       const searchControl = new GeoSearchControl({
         provider,
