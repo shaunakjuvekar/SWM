@@ -19,7 +19,7 @@ function LocationMarker(props){
     
         iconUrl: redIcon,
         iconAnchor: [28,15],
-        iconSize: [38,38]
+        iconSize: [32,32]
       })
     
     const initial_coordinates = { lat: 37.24, lng: -80.43 }
@@ -40,20 +40,31 @@ function LocationMarker(props){
       
       dragend(e) {
         console.log(e)
+        console.log(e.target.getLatLng())
         text.innerHTML = e.target.getLatLng();
+        
       },
     }), [text])
 
+    function clickHandler(){
+      const pass_markers = markers
+      setMarkers([])
+      console.log("check markers", markers)
+      props.onSubmit(pass_markers)
+      
+    }
+
 return (
   <div >
-  <Button className="submitButton" variant="primary" size="sm" onClick={() => props.onSubmit(markers)} >Submit </Button>
+  <Button className="submitButton" variant="primary" size="sm" onClick={clickHandler} >Submit </Button>
   <React.Fragment>   
    {markers.map(marker => 
      
        <Marker
          eventHandlers={eventHandlers}
          position={[marker.lat, marker.lng]}
-         icon={markerIcon} draggable={true} >
+         icon={markerIcon} draggable={true} 
+         key={[marker.lat, marker.lng]}>
            <Popup>Coordinates: {[marker.lat, ' ', marker.lng]}</Popup>
          </Marker>
      )

@@ -3,6 +3,7 @@ import "leaflet/dist/leaflet.css";
 
 import LocationMarker from "./LocationMarkers";
 import SearchBar from "./SearchBar";
+import APIService from "./APIService";
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import {Icon} from 'leaflet';
@@ -25,9 +26,11 @@ function MyMap(){
     iconSize: [28,28]
   })
 
-  function onSubmit(e){
+  function onSubmit(body){
     console.log("called from child")
-    console.log(e)
+    console.log(body)
+    APIService.InsertArticle(body)
+    body = []
   }
 
   return (
