@@ -27,8 +27,8 @@ function MyMap(){
   })
 
   function onSubmit(body){
-    console.log("called from child")
-    console.log(body)
+    //console.log("called from child")
+    //console.log(body)
     APIService.InsertArticle(body)
     body = []
   }
@@ -42,10 +42,6 @@ function MyMap(){
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
-
-
-  
- {console.log("Before LM!!")}
  
   <LocationMarker onSubmit={onSubmit}/>
   
