@@ -48,3 +48,35 @@
     color: white;
     font-weight: 700;
 }
+
+.submitButton:hover {
+  background-color:#002ead;
+  transition: 0.3s;
+}
+
+.del-marker{
+  text-align: center;
+  padding: 5px;
+  
+}
+
+.del-btn{
+  background-color: darkred;
+  color: white;
+  font-weight: 700;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.form-button{
+  background-color:#40c211;
+  color: black;
+  font-weight: 700;
+  padding: 5px;
+  border-radius: 10px;
+}
+.form-button:hover{
+  background-color:#339112;
+  transition: 0.3s;
+}
