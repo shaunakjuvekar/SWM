@@ -8,23 +8,12 @@ import APIService from "./APIService";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import {Icon} from 'leaflet';
 
-import redIcon from "./red_icon.png";
+import redIcon from "./marker-icon-2x.png";
 
 
 
 function MyMap(){
   const initPosition = [37.229572, -80.4139]
-  const markers = [
-    {
-      geocode: [37.2298, -80.4139],
-      popupMsg: "First marker"
-    } 
-  ]
-  const markerIcon = new Icon({
-    
-    iconUrl: redIcon,
-    iconSize: [28,28]
-  })
 
   function onSubmit(body){
     //console.log("called from child")
@@ -51,3 +40,19 @@ function MyMap(){
 }
 
 export default MyMap;
+
+
+/*
+  const markers = [
+    {
+      geocode: [37.2298, -80.4139],
+      popupMsg: "First marker"
+    } 
+  ]
+  const markerIcon = new Icon({
+    
+    iconUrl: redIcon,
+    iconSize: [28,28]
+  })
+
+*/
