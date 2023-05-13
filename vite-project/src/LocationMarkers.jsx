@@ -25,6 +25,9 @@ function LocationMarker(props){
     const initial_coordinates = { lat: 37.24, lng: -80.43}
     const [markers, setMarkers] = useState([initial_coordinates]);
     const [costs, setCosts] = useState([0])
+    const [labels, setLabels] = useState([''])
+    const [node_numbers, setNodes] = useState([0])
+    const [node_index, setIndex] = useState(0)
 
     //console.log("Inside Location Marker-> initial markers: ",  markers);
     //console.log("Inside Location Marker-> costs: ",  costs);
@@ -33,9 +36,11 @@ function LocationMarker(props){
     const map = useMapEvents({
     click(event) {
         let { lat,lng } = event.latlng;  
-        lat = Math.round(lat * 100) / 100;
-        lng = Math.round(lng * 100) / 100;
+        lat = Math.round(lat * 100000) / 100000;
+        lng = Math.round(lng * 100000) / 100000;
         setMarkers((prevValue) => [...prevValue, {lat, lng}])
+        setIndex(node_index+1)
+        setNodes((prevVal) => [...prevVal, node_index+1])
         //console.log(markers)
     },
     });
@@ -47,12 +52,15 @@ function LocationMarker(props){
         let obj = markers[i]
         if (i!=0 && i!=markers.length-1){
           obj['cost'] = parseInt(costs[i])
+          obj['node_label'] = labels[i]
           obj['echelon'] = echelon.echelonKey
+          obj['index'] = node_numbers[i]
           final_markers.push(obj)
         }
       }
       setMarkers([{lat: 37.24, lng: -80.43}])
       setCosts([0])
+      
       echelon.changeEchelon()
       
       console.log("Inside Click handler -> Final markers: ", final_markers)
@@ -60,13 +68,15 @@ function LocationMarker(props){
       
     }
 
-    const costHandler = (event) => {
-        console.log("markers inside Cost handler: " , markers)
+    const formHandler = (event) => {
+        console.log("markers inside form Handler: " , markers)
         event.preventDefault();
         const cost = event.target.elements.cost.value
+        const label = event.target.elements.node_label.value
         //console.log(event)
         setCosts((prevValue)=>[...prevValue, cost])
-        //setMarkers((prevValue) => [...prevValue, {lat, lng, cost}])   
+        setLabels((prevVal) => [...prevVal, label])
+        
     }
 
       
@@ -84,10 +94,10 @@ return (
          //eventHandlers = {handleDragEnd(event, index)}
          >
            <Popup>Coordinates: {[marker.lat, ', ', marker.lng]}
-        
            
-            <form onSubmit={costHandler}>
+            <form onSubmit={formHandler}>
               <input id='cost' placeholder='Enter cost' type='text' ></input>
+              <input id='node_label' placeholder='Enter node label' type='text' ></input>
               <button className='form-button'>Submit</button>
             </form>
            </Popup>
