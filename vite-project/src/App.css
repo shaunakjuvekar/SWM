@@ -49,6 +49,19 @@
     font-weight: 700;
 }
 
+.calculateButton{
+  
+  position: absolute;
+  top: 20px;
+  right: 200px;
+  padding: 15px;
+  z-index: 400;
+  border-radius: 10px;
+  background-color: rgb(219, 29, 29);
+  color: white;
+  font-weight: 700;
+}
+
 .submitButton:hover {
   background-color:#002ead;
   transition: 0.3s;

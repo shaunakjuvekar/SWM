@@ -23,33 +23,35 @@ function LocationMarker(props){
 
     const echelon = useContext(AppContext);
     
-    const initial_coordinates = { lat: 37.24231, lng: -80.43173}
-    const [markers, setMarkers] = useState([{...initial_coordinates, id: uuidv4()}]);
+    //const initial_coordinates = { lat: 37.24231, lng: -80.43173}
+    const [markers, setMarkers] = useState([{id: uuidv4()}]);
     const [costs, setCosts] = useState([0])
     const [labels, setLabels] = useState([''])
     const [node_numbers, setNodes] = useState([0])
     const [node_index, setIndex] = useState(0)
-    const [deleteFlag, setDeleteFlag] = useState(false)
+    //const [deleteFlag, setDeleteFlag] = useState(false)
     
     //debugger;
-    console.log("Inside Location Marker-> initial markers: ",  markers);
-    //console.log("Inside Location Marker-> costs: ",  costs);
+    //console.log("Inside Location Marker-> initial markers: ",  markers);
+    
     //const [text, setText] = useState(null)
   
     const map = useMapEvents({
     click(event) {
 
-        // TO DO: Exclude Submit button too in this function and then adjust clickHandler
-        console.log(event.originalEvent.srcElement.textContent)
-        console.log(event.originalEvent.srcElement.textContent!='Delete')
-        console.log(event.originalEvent.srcElement.textContent.search(/^Submit/)!=-1)
+        //console.log(event.originalEvent.srcElement.textContent)
+        //console.log(event.originalEvent.srcElement.textContent!='Delete')
+        //console.log(event.originalEvent.srcElement.textContent.search(/^Submit/)!=-1)
         if (event.originalEvent.srcElement.textContent!='Delete'){
           if (event.originalEvent.srcElement.textContent.search(/^Submit/)==-1){
-            console.log("Inside If condition")
-            let { lat,lng } = event.latlng;  
-            lat = Math.round(lat * 100000) / 100000;
-            lng = Math.round(lng * 100000) / 100000;
-            setMarkers((prevValue) => [...prevValue, {...{lat, lng}, id: uuidv4()}])
+            if (event.originalEvent.srcElement.textContent.search(/^Calculate/)==-1)
+            {
+              //console.log("Inside If condition")
+              let { lat,lng } = event.latlng;  
+              lat = Math.round(lat * 100000) / 100000;
+              lng = Math.round(lng * 100000) / 100000;
+              setMarkers((prevValue) => [...prevValue, {...{lat, lng}, id: uuidv4()}])
+            }
           }
         }
         setIndex(node_index+1)
@@ -61,77 +63,73 @@ function LocationMarker(props){
     function clickHandler(){
     
       let final_markers = []
-      console.log(labels)
-      console.log(costs)
-      console.log("markers", markers)
-      if (markers.length==1 && markers[0].lat==37.24231  && markers[0].lng==-80.43173){
-        props.onSubmit([])
-      }
-      else{
-        for (let i=0;i<markers.length;i++){
-          let obj = markers[i]
-          if (deleteFlag){
-            obj['cost'] = parseInt(costs[i+1])
-            obj['node_label'] = labels[i+1]
-            obj['echelon'] = echelon.echelonKey
-            obj['index'] = node_numbers[i+1]
-            final_markers.push(obj)
-          }
-          else {
-            if (i!=0){          // && i!=markers.length-1
-              obj['cost'] = parseInt(costs[i])
-              obj['node_label'] = labels[i]
-              obj['echelon'] = echelon.echelonKey
-              obj['index'] = node_numbers[i]
-              final_markers.push(obj)
-            }
-          } 
+      //console.log(labels)
+      //console.log(costs)
+      console.log("cost array", costs)
+      console.log("label array", labels)
+      for (let i=0;i<markers.length;i++){
+        let obj = markers[i]         
+        
+        
+        if (costs[i]==undefined || costs[i]==''){
+          obj['cost'] = 0
         }
+        else{
+          obj['cost'] = parseInt(costs[i])
+        }
+        obj['node_label'] = labels[i]??''
+        obj['echelon'] = echelon.echelonKey
+        obj['index'] = node_numbers[i]
+        final_markers.push(obj)     
+        
       }
-     
-
-
-
-      setMarkers([{...initial_coordinates,id: uuidv4()}])
+      final_markers = final_markers.filter(marker => marker.lat!=undefined)
+      console.log("Inside Click handler -> Final markers: ", final_markers)
+      echelon.updateArray(final_markers)
+      echelon.changeEchelon()
+      props.onSubmit(final_markers)
+      setMarkers([{id: uuidv4()}])
       setCosts([0])
       setLabels([''])
       
-      echelon.changeEchelon()
       
-      console.log("Inside Click handler -> Final markers: ", final_markers)
-      props.onSubmit(final_markers)
       
     }
 
     const formHandler = (event) => {
         console.log("markers inside form Handler: " , markers)
         event.preventDefault();
-        const cost = event.target.elements.cost.value
-        const label = event.target.elements.node_label.value
-        console.log(label)
+        let cost = event.target.elements.cost.value
+        let label = event.target.elements.node_label.value
         setCosts((prevValue)=>[...prevValue, cost])
         setLabels((prevVal) => [...prevVal, label])
-        console.log(labels)
+        //console.log(labels)
         map.closePopup();
     }
 
     const deleteMarker = (markerId) => {
-      setDeleteFlag(true)
+      //setDeleteFlag(true)
       setMarkers(prevMarkers => prevMarkers.filter(marker => marker.id !== markerId));
     };
+
+    const calculateRoutes = () => {
+      //console.log(echelon.markerArrayKey)
+      echelon.calculateRoutes(echelon.markerArrayKey)
+      
+    }
     
 
 return (
-  <div >
+  <div>
+  <Button className="calculateButton" variant="primary" size="sm" onClick={calculateRoutes}>Calculate</Button>   
   <Button className="submitButton" variant="primary" size="sm" onClick={clickHandler} >Submit: Echelon {echelon.echelonKey}</Button>   
    {markers.map((marker, index) => 
+       marker.lat!=undefined?
        <Marker
-         //eventHandlers={eventHandlers}
          position={[marker.lat, marker.lng]}
          icon={markerIcon} draggable={true} 
          key={marker.id}
-         //onDragEnd={(event) => handleDragEnd(event, index)}
-         //eventHandlers = {handleDragEnd(event, index)}
+        
          >
            <Popup>Coordinates: {[marker.lat, ', ', marker.lng]}
             
@@ -146,8 +144,8 @@ return (
               
             </form>
            </Popup>
-         </Marker>
-
+         </Marker>:<div></div>
+        
      )
    }
 </div>
@@ -191,14 +189,6 @@ export default LocationMarker;
 
     /*
    
-    
-      ######
-      Inside Popup
-       <div className="del-marker">
-              <button  className="del-btn" onClick={deleteMarker}>Delete</button>
-           </div>
-      ######
-
 
     const eventHandlers = useMemo(() => ({
       
