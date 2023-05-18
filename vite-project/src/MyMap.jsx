@@ -8,18 +8,27 @@ import APIService from "./APIService";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import {Icon} from 'leaflet';
 
-import redIcon from "./marker-icon-2x.png";
+import icon from "./marker-icon-2x.png"
 
 
 
 function MyMap(){
   const initPosition = [37.229572, -80.4139]
 
+  const markerIcon = new Icon({
+    
+    iconUrl: icon,
+    iconAnchor: [28,15],
+    iconSize: [30,30]
+  })
+
   function onSubmit(body){
-    //console.log("called from child")
-    //console.log(body)
     APIService.InsertArticle(body)
     body = []
+  }
+
+  function onCalculate(body){
+    console.log("inside onCalculate")
   }
 
   return (
@@ -31,7 +40,11 @@ function MyMap(){
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
- 
+    <Marker     
+         position={[initPosition[0], initPosition[1]]}
+         icon={markerIcon} draggable={true}>
+          <Popup>Initial Marker</Popup>
+    </Marker>
   <LocationMarker onSubmit={onSubmit}/>
   
   </MapContainer>

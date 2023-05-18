@@ -49,6 +49,19 @@
     font-weight: 700;
 }
 
+.calculateButton{
+  
+  position: absolute;
+  top: 20px;
+  right: 200px;
+  padding: 15px;
+  z-index: 400;
+  border-radius: 10px;
+  background-color: rgb(219, 29, 29);
+  color: white;
+  font-weight: 700;
+}
+
 .submitButton:hover {
   background-color:#002ead;
   transition: 0.3s;
@@ -69,6 +82,28 @@
   border-radius: 10px;
 }
 
+#cost{
+  width: 40%;
+  margin-right: 10px;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+#node_label{
+  width: 50%;
+  margin-right: 10px;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+
+.button-div{
+  text-align: center;
+  margin-top: 5px;
+}
+
 .form-button{
   background-color:#40c211;
   color: black;
@@ -76,6 +111,7 @@
   padding: 5px;
   border-radius: 10px;
 }
+
 .form-button:hover{
   background-color:#339112;
   transition: 0.3s;
