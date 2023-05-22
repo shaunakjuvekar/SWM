@@ -26,11 +26,7 @@ function MyMap(){
     APIService.InsertArticle(body)
     body = []
   }
-
-  function onCalculate(body){
-    console.log("inside onCalculate")
-  }
-
+  
   return (
     <div>
      
@@ -40,6 +36,7 @@ function MyMap(){
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
+    
     <Marker     
          position={[initPosition[0], initPosition[1]]}
          icon={markerIcon} draggable={true}>
@@ -56,6 +53,17 @@ export default MyMap;
 
 
 /*
+
+  const polyline = [
+    [37.26179, -80.4034],
+    [37.25277, -80.43775],
+    [37.21887, -80.43775],
+    [37.19863, -80.39327]
+  ]
+
+
+  <Polyline positions={polyline}></Polyline>
+
   const markers = [
     {
       geocode: [37.2298, -80.4139],

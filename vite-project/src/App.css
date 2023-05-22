@@ -49,6 +49,18 @@
     font-weight: 700;
 }
 
+.popup_submit{
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  padding: 15px;
+  z-index: 400;
+  border-radius: 10px;
+  background-color: greenyellow;
+  color: white;
+  font-weight: 700;
+}
+
 .calculateButton{
   
   position: absolute;
@@ -80,6 +92,12 @@
   margin: 5px;
   padding: 5px;
   border-radius: 10px;
+}
+
+.cost-msg{
+  font-size: small;
+  color: red;
+  margin-left: 10px;
 }
 
 #cost{

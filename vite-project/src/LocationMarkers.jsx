@@ -29,9 +29,11 @@ function LocationMarker(props){
     const [labels, setLabels] = useState([''])
     const [node_numbers, setNodes] = useState([0])
     const [node_index, setIndex] = useState(0)
-    //const [deleteFlag, setDeleteFlag] = useState(false)
+    const [submitMessage, setSubmitMessage] = useState(false);
+    const [costInputState, setCostState] = useState(false)
     
     //debugger;
+    //console.log(labels)
     //console.log("Inside Location Marker-> initial markers: ",  markers);
     
     //const [text, setText] = useState(null)
@@ -62,14 +64,18 @@ function LocationMarker(props){
 
     function clickHandler(){
     
+      if (labels.length!=markers.length){
+          setSubmitMessage(true)
+      }
+      else{
+        setSubmitMessage(false)
+      }
+      //console.log("submitMessage: ", submitMessage)
       let final_markers = []
-      //console.log(labels)
-      //console.log(costs)
-      console.log("cost array", costs)
-      console.log("label array", labels)
+      //console.log("cost array", costs)
+      //console.log("label array", labels)
       for (let i=0;i<markers.length;i++){
         let obj = markers[i]         
-        
         
         if (costs[i]==undefined || costs[i]==''){
           obj['cost'] = 0
@@ -91,9 +97,7 @@ function LocationMarker(props){
       setMarkers([{id: uuidv4()}])
       setCosts([0])
       setLabels([''])
-      
-      
-      
+           
     }
 
     const formHandler = (event) => {
@@ -121,26 +125,36 @@ function LocationMarker(props){
 
 return (
   <div>
+  
   <Button className="calculateButton" variant="primary" size="sm" onClick={calculateRoutes}>Calculate</Button>   
-  <Button className="submitButton" variant="primary" size="sm" onClick={clickHandler} >Submit: Echelon {echelon.echelonKey}</Button>   
+  
+  <Button disabled={labels.length!=markers.length} className="submitButton" variant="primary" size="sm" 
+  onClick={clickHandler}>Submit: Echelon {echelon.echelonKey}</Button>   
+ 
    {markers.map((marker, index) => 
        marker.lat!=undefined?
        <Marker
          position={[marker.lat, marker.lng]}
          icon={markerIcon} draggable={true} 
-         key={marker.id}
-        
-         >
+         key={marker.id}>
            <Popup>Coordinates: {[marker.lat, ', ', marker.lng]}
             
             <div className="del-marker">
                 <button  className="del-btn" onClick={() => deleteMarker(marker.id)}>Delete</button>
             </div>
             
-            <form onSubmit={formHandler}>
-              <input id='cost' placeholder=' Enter cost' type='text' ></input>
-              <input id='node_label' placeholder=' Enter node label' type='text' ></input>
-              <div className="button-div"><button className='form-button'>Submit</button></div>
+            <form onSubmit={formHandler} >
+              <input id='cost' placeholder=' Enter cost' type='text' 
+                  onChange={(e) => {
+                  const value = e.target.value;
+                  //console.log(isNaN(+value))
+                  setCostState(isNaN(+value)); // false if its a number, true if not 
+                  
+              }}
+              ></input>
+              <input id='node_label' placeholder=' Enter node label' type='text' required></input>
+              <div className="button-div"><button className='form-button' 
+              disabled = {costInputState}>Submit</button>{costInputState?<span className="cost-msg">Please enter numerical cost</span>:<span></span>}</div>
               
             </form>
            </Popup>
@@ -158,7 +172,21 @@ export default LocationMarker;
 
 /*
 
+{submitMessage==true?<div>Please fill all input label fields!</div>:<></>}
 
+   {isOpen && (
+             <div >
+              <div >
+                This is the content of the pop-up.
+              </div>
+              <button onClick={() => setIsOpen(false)}>
+                Close Pop-up
+              </button>
+             </div>
+            )} 
+
+  
+  
     useEffect(() => {
       console.log("Inside UseEffect() ", markers);
     }, [markers]);
