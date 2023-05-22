@@ -5,7 +5,7 @@ import LocationMarker from "./LocationMarkers";
 import SearchBar from "./SearchBar";
 import APIService from "./APIService";
 
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
 import {Icon} from 'leaflet';
 
 import icon from "./marker-icon-2x.png"
@@ -14,6 +14,13 @@ import icon from "./marker-icon-2x.png"
 
 function MyMap(){
   const initPosition = [37.229572, -80.4139]
+
+  const polyline = [
+    [37.26179, -80.4034],
+    [37.25277, -80.43775],
+    [37.21887, -80.43775],
+    [37.19863, -80.39327]
+  ]
 
   const markerIcon = new Icon({
     
@@ -40,6 +47,7 @@ function MyMap(){
       attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
     />
+    
     <Marker     
          position={[initPosition[0], initPosition[1]]}
          icon={markerIcon} draggable={true}>
@@ -56,6 +64,9 @@ export default MyMap;
 
 
 /*
+
+  <Polyline positions={polyline}></Polyline>
+
   const markers = [
     {
       geocode: [37.2298, -80.4139],
