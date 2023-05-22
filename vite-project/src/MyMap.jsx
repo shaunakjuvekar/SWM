@@ -5,7 +5,7 @@ import LocationMarker from "./LocationMarkers";
 import SearchBar from "./SearchBar";
 import APIService from "./APIService";
 
-import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import {Icon} from 'leaflet';
 
 import icon from "./marker-icon-2x.png"
@@ -14,13 +14,6 @@ import icon from "./marker-icon-2x.png"
 
 function MyMap(){
   const initPosition = [37.229572, -80.4139]
-
-  const polyline = [
-    [37.26179, -80.4034],
-    [37.25277, -80.43775],
-    [37.21887, -80.43775],
-    [37.19863, -80.39327]
-  ]
 
   const markerIcon = new Icon({
     
@@ -33,11 +26,7 @@ function MyMap(){
     APIService.InsertArticle(body)
     body = []
   }
-
-  function onCalculate(body){
-    console.log("inside onCalculate")
-  }
-
+  
   return (
     <div>
      
@@ -64,6 +53,14 @@ export default MyMap;
 
 
 /*
+
+  const polyline = [
+    [37.26179, -80.4034],
+    [37.25277, -80.43775],
+    [37.21887, -80.43775],
+    [37.19863, -80.39327]
+  ]
+
 
   <Polyline positions={polyline}></Polyline>
 

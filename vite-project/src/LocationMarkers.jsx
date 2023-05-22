@@ -31,12 +31,10 @@ function LocationMarker(props){
     const [node_index, setIndex] = useState(0)
     const [submitMessage, setSubmitMessage] = useState(false);
     const [costInputState, setCostState] = useState(false)
-    //const [formState, setFormState] = useState(true)
-    //const [deleteFlag, setDeleteFlag] = useState(false)
     
     //debugger;
-    console.log(labels)
-    console.log("Inside Location Marker-> initial markers: ",  markers);
+    //console.log(labels)
+    //console.log("Inside Location Marker-> initial markers: ",  markers);
     
     //const [text, setText] = useState(null)
   
@@ -72,8 +70,7 @@ function LocationMarker(props){
       else{
         setSubmitMessage(false)
       }
-      
-      console.log("submitMessage: ", submitMessage)
+      //console.log("submitMessage: ", submitMessage)
       let final_markers = []
       //console.log("cost array", costs)
       //console.log("label array", labels)
@@ -100,9 +97,7 @@ function LocationMarker(props){
       setMarkers([{id: uuidv4()}])
       setCosts([0])
       setLabels([''])
-      
-      
-      
+           
     }
 
     const formHandler = (event) => {
@@ -110,9 +105,6 @@ function LocationMarker(props){
         event.preventDefault();
         let cost = event.target.elements.cost.value
         let label = event.target.elements.node_label.value
-        if (costInputState){
-
-        }
         setCosts((prevValue)=>[...prevValue, cost])
         setLabels((prevVal) => [...prevVal, label])
         //console.log(labels)
