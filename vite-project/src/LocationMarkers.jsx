@@ -6,6 +6,7 @@ import { useMapEvents } from 'react-leaflet/hooks'
 import { Marker, Popup} from 'react-leaflet';
 import {Icon, marker} from 'leaflet';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import { v4 as uuidv4 } from 'uuid'; // Import the uuid library
 
 import redIcon from "./red_icon.png";
@@ -29,11 +30,11 @@ function LocationMarker(props){
     const [labels, setLabels] = useState([''])
     const [node_numbers, setNodes] = useState([0])
     const [node_index, setIndex] = useState(0)
-    const [submitMessage, setSubmitMessage] = useState(false);
+    const [labelCountMatch, setLabelCountMatch] = useState(false);
     const [costInputState, setCostState] = useState(false)
     
     //debugger;
-    //console.log(labels)
+    console.log(labels)
     //console.log("Inside Location Marker-> initial markers: ",  markers);
     
     //const [text, setText] = useState(null)
@@ -63,41 +64,43 @@ function LocationMarker(props){
     });
 
     function clickHandler(){
+
+      console.log(labelCountMatch)
     
       if (labels.length!=markers.length){
-          setSubmitMessage(true)
+        setLabelCountMatch(true)
       }
       else{
-        setSubmitMessage(false)
-      }
-      //console.log("submitMessage: ", submitMessage)
-      let final_markers = []
-      //console.log("cost array", costs)
-      //console.log("label array", labels)
-      for (let i=0;i<markers.length;i++){
-        let obj = markers[i]         
-        
-        if (costs[i]==undefined || costs[i]==''){
-          obj['cost'] = 0
+        setLabelCountMatch(false)
+        let final_markers = []
+        //console.log("cost array", costs)
+        //console.log("label array", labels)
+        for (let i=0;i<markers.length;i++){
+          let obj = markers[i]         
+          
+          if (costs[i]==undefined || costs[i]==''){
+            obj['cost'] = 0
+          }
+          else{
+            obj['cost'] = parseInt(costs[i])
+          }
+          obj['node_label'] = labels[i]??''
+          obj['echelon'] = echelon.echelonKey
+          obj['index'] = node_numbers[i]
+          final_markers.push(obj)     
+          
         }
-        else{
-          obj['cost'] = parseInt(costs[i])
-        }
-        obj['node_label'] = labels[i]??''
-        obj['echelon'] = echelon.echelonKey
-        obj['index'] = node_numbers[i]
-        final_markers.push(obj)     
-        
+        final_markers = final_markers.filter(marker => marker.lat!=undefined)
+        console.log("Inside Click handler -> Final markers: ", final_markers)
+        echelon.updateArray(final_markers)
+        echelon.changeEchelon()
+        props.onSubmit(final_markers)
+        setMarkers([{id: uuidv4()}])
+        setCosts([0])
+        setLabels([''])
+             
       }
-      final_markers = final_markers.filter(marker => marker.lat!=undefined)
-      console.log("Inside Click handler -> Final markers: ", final_markers)
-      echelon.updateArray(final_markers)
-      echelon.changeEchelon()
-      props.onSubmit(final_markers)
-      setMarkers([{id: uuidv4()}])
-      setCosts([0])
-      setLabels([''])
-           
+     
     }
 
     const formHandler = (event) => {
@@ -113,13 +116,23 @@ function LocationMarker(props){
 
     const deleteMarker = (markerId) => {
       //setDeleteFlag(true)
+      let indexToRemove = markers.findIndex(marker => marker.id == markerId)
+      
+      setLabels(prevLabels => prevLabels.filter((elem, index) => index !== indexToRemove))
+      setCosts(prevCosts => prevCosts.filter((elem, index) => index !== indexToRemove))
       setMarkers(prevMarkers => prevMarkers.filter(marker => marker.id !== markerId));
+      
+      
     };
 
     const calculateRoutes = () => {
       //console.log(echelon.markerArrayKey)
       echelon.calculateRoutes(echelon.markerArrayKey)
       
+    }
+
+    const handleClose = () => {
+      setLabelCountMatch(false)
     }
     
 
@@ -128,8 +141,20 @@ return (
   
   <Button className="calculateButton" variant="primary" size="sm" onClick={calculateRoutes}>Calculate</Button>   
   
-  <Button disabled={labels.length!=markers.length} className="submitButton" variant="primary" size="sm" 
-  onClick={clickHandler}>Submit: Echelon {echelon.echelonKey}</Button>   
+  {labelCountMatch?
+  <Modal className='modal' show={true} onHide={handleClose}>
+  <Modal.Header>
+    <Modal.Title>Please enter node labels for every marker!</Modal.Title>
+  </Modal.Header>
+  <Modal.Footer>
+          <Button className='modal-btn' variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+  </Modal.Footer>
+  </Modal>:  <Button className="submitButton" variant="primary" size="sm"  //disabled={labels.length!=markers.length} 
+  onClick={clickHandler}>Submit: Echelon {echelon.echelonKey}
+  </Button>   
+}
  
    {markers.map((marker, index) => 
        marker.lat!=undefined?
@@ -211,13 +236,7 @@ export default LocationMarker;
       console.log(final_markers)
       setMarkers(final_markers)
     }
-    */
-
-
-
-    /*
    
-
     const eventHandlers = useMemo(() => ({
       
       dragend(e) {

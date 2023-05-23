@@ -94,6 +94,34 @@
   border-radius: 10px;
 }
 
+.modal{
+  position: absolute;
+  top: 130px;
+  right: 30px;
+  padding: 10px;
+  z-index: 400;
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+  font-weight: 600;
+  font-size: small;
+  border-style:dashed;
+  text-align: center;
+}
+
+.modal-btn{
+  
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 5px;
+}
+
+.modal-btn:hover {
+  background-color:darkgray;
+  transition: 0.3s;
+}
+
+
 .cost-msg{
   font-size: small;
   color: red;
