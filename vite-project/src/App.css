@@ -65,8 +65,8 @@
   
   position: absolute;
   top: 20px;
-  right: 200px;
-  padding: 15px;
+  right: 330px;
+  padding: 18px;
   z-index: 400;
   border-radius: 10px;
   background-color: rgb(219, 29, 29);
@@ -74,8 +74,33 @@
   font-weight: 700;
 }
 
+.dropdown-btn{
+  position: absolute;
+  top: 20px;
+  
+  right: 190px;
+  padding: 8px;
+  z-index: 400;
+  border-radius: 10px;
+  background-color: rgb(35, 147, 22);
+  color: white;
+  font-weight: 700;
+  font-size: small;
+}
+
+.select-menu{
+  border-radius: 20px;
+  padding: 3px;
+  margin-top: 3px;
+}
+
 .submitButton:hover {
-  background-color:#002ead;
+  background-color:#0b329b;
+  transition: 0.3s;
+}
+
+.calculateButton:hover {
+  background-color:rgb(139, 49, 49);
   transition: 0.3s;
 }
 
@@ -93,6 +118,34 @@
   padding: 5px;
   border-radius: 10px;
 }
+
+.modal{
+  position: absolute;
+  top: 130px;
+  right: 30px;
+  padding: 10px;
+  z-index: 400;
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+  font-weight: 600;
+  font-size: small;
+  border-style:dashed;
+  text-align: center;
+}
+
+.modal-btn{
+  
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 5px;
+}
+
+.modal-btn:hover {
+  background-color:darkgray;
+  transition: 0.3s;
+}
+
 
 .cost-msg{
   font-size: small;

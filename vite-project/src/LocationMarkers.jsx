@@ -6,9 +6,11 @@ import { useMapEvents } from 'react-leaflet/hooks'
 import { Marker, Popup} from 'react-leaflet';
 import {Icon, marker} from 'leaflet';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { v4 as uuidv4 } from 'uuid'; // Import the uuid library
 
-import redIcon from "./red_icon.png";
+import redIcon from "./assets/red_icon.png";
 import AppContext from "./AppContext";
 
 function LocationMarker(props){
@@ -29,10 +31,12 @@ function LocationMarker(props){
     const [labels, setLabels] = useState([''])
     const [node_numbers, setNodes] = useState([0])
     const [node_index, setIndex] = useState(0)
-    const [submitMessage, setSubmitMessage] = useState(false);
+    const [labelCountMatch, setLabelCountMatch] = useState(false);
     const [costInputState, setCostState] = useState(false)
+    const [capacity, setCapacity] = useState(100);
     
     //debugger;
+    //console.log(capacity)
     //console.log(labels)
     //console.log("Inside Location Marker-> initial markers: ",  markers);
     
@@ -47,13 +51,16 @@ function LocationMarker(props){
         if (event.originalEvent.srcElement.textContent!='Delete'){
           if (event.originalEvent.srcElement.textContent.search(/^Submit/)==-1){
             if (event.originalEvent.srcElement.textContent.search(/^Calculate/)==-1)
-            {
-              //console.log("Inside If condition")
-              let { lat,lng } = event.latlng;  
-              lat = Math.round(lat * 100000) / 100000;
-              lng = Math.round(lng * 100000) / 100000;
-              setMarkers((prevValue) => [...prevValue, {...{lat, lng}, id: uuidv4()}])
-            }
+              if (event.originalEvent.srcElement.textContent.search(/^Echelon/)==-1 && 
+              event.originalEvent.srcElement.textContent.search(/^[0-9]/)==-1)
+            
+                {
+                  //console.log("Inside If condition")
+                  let { lat,lng } = event.latlng;  
+                  lat = Math.round(lat * 100000) / 100000;
+                  lng = Math.round(lng * 100000) / 100000;
+                  setMarkers((prevValue) => [...prevValue, {...{lat, lng}, id: uuidv4()}])
+                }
           }
         }
         setIndex(node_index+1)
@@ -63,41 +70,44 @@ function LocationMarker(props){
     });
 
     function clickHandler(){
+
+      console.log(labelCountMatch)
     
       if (labels.length!=markers.length){
-          setSubmitMessage(true)
+        setLabelCountMatch(true)
       }
       else{
-        setSubmitMessage(false)
-      }
-      //console.log("submitMessage: ", submitMessage)
-      let final_markers = []
-      //console.log("cost array", costs)
-      //console.log("label array", labels)
-      for (let i=0;i<markers.length;i++){
-        let obj = markers[i]         
-        
-        if (costs[i]==undefined || costs[i]==''){
-          obj['cost'] = 0
+        setLabelCountMatch(false)
+        let final_markers = []
+        //console.log("cost array", costs)
+        //console.log("label array", labels)
+        for (let i=0;i<markers.length;i++){
+          let obj = markers[i]         
+          
+          if (costs[i]==undefined || costs[i]==''){
+            obj['cost'] = 0
+          }
+          else{
+            obj['cost'] = parseInt(costs[i])
+          }
+          obj['node_label'] = labels[i]??''
+          obj['echelon'] = echelon.echelonKey
+          obj['index'] = node_numbers[i]
+          obj['capacity'] = parseInt(capacity)
+          final_markers.push(obj)     
+          
         }
-        else{
-          obj['cost'] = parseInt(costs[i])
-        }
-        obj['node_label'] = labels[i]??''
-        obj['echelon'] = echelon.echelonKey
-        obj['index'] = node_numbers[i]
-        final_markers.push(obj)     
-        
+        final_markers = final_markers.filter(marker => marker.lat!=undefined)
+        console.log("Inside Click handler -> Final markers: ", final_markers)
+        echelon.updateArray(final_markers)
+        echelon.changeEchelon()
+        props.onSubmit(final_markers)
+        setMarkers([{id: uuidv4()}])
+        setCosts([0])
+        setLabels([''])
+             
       }
-      final_markers = final_markers.filter(marker => marker.lat!=undefined)
-      console.log("Inside Click handler -> Final markers: ", final_markers)
-      echelon.updateArray(final_markers)
-      echelon.changeEchelon()
-      props.onSubmit(final_markers)
-      setMarkers([{id: uuidv4()}])
-      setCosts([0])
-      setLabels([''])
-           
+     
     }
 
     const formHandler = (event) => {
@@ -113,7 +123,13 @@ function LocationMarker(props){
 
     const deleteMarker = (markerId) => {
       //setDeleteFlag(true)
+      let indexToRemove = markers.findIndex(marker => marker.id == markerId)
+      
+      setLabels(prevLabels => prevLabels.filter((elem, index) => index !== indexToRemove))
+      setCosts(prevCosts => prevCosts.filter((elem, index) => index !== indexToRemove))
       setMarkers(prevMarkers => prevMarkers.filter(marker => marker.id !== markerId));
+      
+      
     };
 
     const calculateRoutes = () => {
@@ -121,15 +137,50 @@ function LocationMarker(props){
       echelon.calculateRoutes(echelon.markerArrayKey)
       
     }
-    
+
+    const handleClose = () => {
+      setLabelCountMatch(false)
+    }
 
 return (
   <div>
   
   <Button className="calculateButton" variant="primary" size="sm" onClick={calculateRoutes}>Calculate</Button>   
-  
-  <Button disabled={labels.length!=markers.length} className="submitButton" variant="primary" size="sm" 
-  onClick={clickHandler}>Submit: Echelon {echelon.echelonKey}</Button>   
+
+
+    <div className="dropdown-btn">
+      <label>
+        Echelon Capacity
+        <div>
+          <select className="select-menu" defaultValue="0"
+          onChange = {e => setCapacity(e.target.value)}>
+        
+            <option value="100" >100</option>
+
+            <option value="300">300</option>
+
+            <option value="500">500</option>
+
+          </select>
+      </div>
+      
+      </label>
+      </div>
+
+  {labelCountMatch?
+  <Modal className='modal' show={true} onHide={handleClose}>
+  <Modal.Header>
+    <Modal.Title>Please enter node labels for every marker!</Modal.Title>
+  </Modal.Header>
+  <Modal.Footer>
+          <Button className='modal-btn' variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+  </Modal.Footer>
+  </Modal>:  <Button className="submitButton" variant="primary" size="sm"  //disabled={labels.length!=markers.length} 
+  onClick={clickHandler}>Submit: Echelon {echelon.echelonKey}
+  </Button>   
+}
  
    {markers.map((marker, index) => 
        marker.lat!=undefined?
@@ -172,6 +223,18 @@ export default LocationMarker;
 
 /*
 
+  <Dropdown className="dropdown-btn">
+      <Dropdown.Toggle variant="success" id="dropdown-basic">
+        Dropdown Button
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Dropdown.Item href="#/action-1">Action 1</Dropdown.Item>
+        <Dropdown.Item href="#/action-2">Action 2</Dropdown.Item>
+        <Dropdown.Item href="#/action-3">Action 3</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+
 {submitMessage==true?<div>Please fill all input label fields!</div>:<></>}
 
    {isOpen && (
@@ -211,13 +274,7 @@ export default LocationMarker;
       console.log(final_markers)
       setMarkers(final_markers)
     }
-    */
-
-
-
-    /*
    
-
     const eventHandlers = useMemo(() => ({
       
       dragend(e) {

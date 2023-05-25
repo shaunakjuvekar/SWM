@@ -8,8 +8,8 @@ import APIService from "./APIService";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import {Icon} from 'leaflet';
 
-import icon from "./marker-icon-2x.png"
-
+//import icon from "./marker-icon-2x.png"
+import icon from "./assets/location-pin.png"
 
 
 function MyMap(){
@@ -19,14 +19,14 @@ function MyMap(){
     
     iconUrl: icon,
     iconAnchor: [28,15],
-    iconSize: [30,30]
+    iconSize: [35,35]
   })
 
   function onSubmit(body){
     APIService.InsertArticle(body)
     body = []
   }
-  
+
   return (
     <div>
      
