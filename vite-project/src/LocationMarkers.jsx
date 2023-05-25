@@ -7,9 +7,10 @@ import { Marker, Popup} from 'react-leaflet';
 import {Icon, marker} from 'leaflet';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { v4 as uuidv4 } from 'uuid'; // Import the uuid library
 
-import redIcon from "./red_icon.png";
+import redIcon from "./assets/red_icon.png";
 import AppContext from "./AppContext";
 
 function LocationMarker(props){
@@ -32,9 +33,11 @@ function LocationMarker(props){
     const [node_index, setIndex] = useState(0)
     const [labelCountMatch, setLabelCountMatch] = useState(false);
     const [costInputState, setCostState] = useState(false)
+    const [capacity, setCapacity] = useState(100);
     
     //debugger;
-    console.log(labels)
+    //console.log(capacity)
+    //console.log(labels)
     //console.log("Inside Location Marker-> initial markers: ",  markers);
     
     //const [text, setText] = useState(null)
@@ -48,13 +51,16 @@ function LocationMarker(props){
         if (event.originalEvent.srcElement.textContent!='Delete'){
           if (event.originalEvent.srcElement.textContent.search(/^Submit/)==-1){
             if (event.originalEvent.srcElement.textContent.search(/^Calculate/)==-1)
-            {
-              //console.log("Inside If condition")
-              let { lat,lng } = event.latlng;  
-              lat = Math.round(lat * 100000) / 100000;
-              lng = Math.round(lng * 100000) / 100000;
-              setMarkers((prevValue) => [...prevValue, {...{lat, lng}, id: uuidv4()}])
-            }
+              if (event.originalEvent.srcElement.textContent.search(/^Echelon/)==-1 && 
+              event.originalEvent.srcElement.textContent.search(/^[0-9]/)==-1)
+            
+                {
+                  //console.log("Inside If condition")
+                  let { lat,lng } = event.latlng;  
+                  lat = Math.round(lat * 100000) / 100000;
+                  lng = Math.round(lng * 100000) / 100000;
+                  setMarkers((prevValue) => [...prevValue, {...{lat, lng}, id: uuidv4()}])
+                }
           }
         }
         setIndex(node_index+1)
@@ -87,6 +93,7 @@ function LocationMarker(props){
           obj['node_label'] = labels[i]??''
           obj['echelon'] = echelon.echelonKey
           obj['index'] = node_numbers[i]
+          obj['capacity'] = parseInt(capacity)
           final_markers.push(obj)     
           
         }
@@ -134,13 +141,32 @@ function LocationMarker(props){
     const handleClose = () => {
       setLabelCountMatch(false)
     }
-    
 
 return (
   <div>
   
   <Button className="calculateButton" variant="primary" size="sm" onClick={calculateRoutes}>Calculate</Button>   
-  
+
+
+    <div className="dropdown-btn">
+      <label>
+        Echelon Capacity
+        <div>
+          <select className="select-menu" defaultValue="0"
+          onChange = {e => setCapacity(e.target.value)}>
+        
+            <option value="100" >100</option>
+
+            <option value="300">300</option>
+
+            <option value="500">500</option>
+
+          </select>
+      </div>
+      
+      </label>
+      </div>
+
   {labelCountMatch?
   <Modal className='modal' show={true} onHide={handleClose}>
   <Modal.Header>
@@ -196,6 +222,18 @@ export default LocationMarker;
 
 
 /*
+
+  <Dropdown className="dropdown-btn">
+      <Dropdown.Toggle variant="success" id="dropdown-basic">
+        Dropdown Button
+      </Dropdown.Toggle>
+
+      <Dropdown.Menu>
+        <Dropdown.Item href="#/action-1">Action 1</Dropdown.Item>
+        <Dropdown.Item href="#/action-2">Action 2</Dropdown.Item>
+        <Dropdown.Item href="#/action-3">Action 3</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
 
 {submitMessage==true?<div>Please fill all input label fields!</div>:<></>}
 
