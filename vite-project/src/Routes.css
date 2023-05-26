@@ -1,0 +1,11 @@
+.show-routes{
+    position: absolute;
+    top: 60px;
+    right: 30px;
+    padding: 15px;
+    z-index: 400;
+    border-radius: 10px;
+    background-color: rgb(79, 79, 112);
+    color: white;
+    font-weight: 700;
+}

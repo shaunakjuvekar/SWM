@@ -1,17 +1,17 @@
 import React from "react";
-import './App.css';
+import './LocationMarkers.css';
 import "leaflet/dist/leaflet.css";
 import { useState, useContext, useEffect } from 'react';
 import { useMapEvents } from 'react-leaflet/hooks'
 import { Marker, Popup} from 'react-leaflet';
-import {Icon, marker} from 'leaflet';
+import {Icon} from 'leaflet';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import Dropdown from 'react-bootstrap/Dropdown';
 import { v4 as uuidv4 } from 'uuid'; // Import the uuid library
 
 import redIcon from "./assets/red_icon.png";
 import AppContext from "./AppContext";
+import Routes from "./Routes"
 
 function LocationMarker(props){
     
@@ -34,25 +34,26 @@ function LocationMarker(props){
     const [labelCountMatch, setLabelCountMatch] = useState(false);
     const [costInputState, setCostState] = useState(false)
     const [capacity, setCapacity] = useState(100);
+    const [routeButton, setRouteButton] = useState(false)
+    const [viewRoutes, setViewRoutes] = useState(false)
+    const [submitStatus, setSubmitStatus] = useState(false)
     
     //debugger;
     //console.log(capacity)
     //console.log(labels)
     //console.log("Inside Location Marker-> initial markers: ",  markers);
-    
-    //const [text, setText] = useState(null)
   
     const map = useMapEvents({
     click(event) {
 
         //console.log(event.originalEvent.srcElement.textContent)
-        //console.log(event.originalEvent.srcElement.textContent!='Delete')
-        //console.log(event.originalEvent.srcElement.textContent.search(/^Submit/)!=-1)
+       
         if (event.originalEvent.srcElement.textContent!='Delete'){
           if (event.originalEvent.srcElement.textContent.search(/^Submit/)==-1){
             if (event.originalEvent.srcElement.textContent.search(/^Calculate/)==-1)
               if (event.originalEvent.srcElement.textContent.search(/^Echelon/)==-1 && 
               event.originalEvent.srcElement.textContent.search(/^[0-9]/)==-1)
+                if (event.originalEvent.srcElement.textContent.search(/^View/)==-1)
             
                 {
                   //console.log("Inside If condition")
@@ -74,9 +75,12 @@ function LocationMarker(props){
       console.log(labelCountMatch)
     
       if (labels.length!=markers.length){
+        //console.log(labels)
+        //console.log(markers)
         setLabelCountMatch(true)
       }
       else{
+        setSubmitStatus(true)
         setLabelCountMatch(false)
         let final_markers = []
         //console.log("cost array", costs)
@@ -135,6 +139,7 @@ function LocationMarker(props){
     const calculateRoutes = () => {
       //console.log(echelon.markerArrayKey)
       echelon.calculateRoutes(echelon.markerArrayKey)
+      setRouteButton(true)
       
     }
 
@@ -142,10 +147,17 @@ function LocationMarker(props){
       setLabelCountMatch(false)
     }
 
+    const routeHandler = () => {
+      console.log("View Routes")
+      setViewRoutes(true)
+
+    }
+
 return (
   <div>
-  
-  <Button className="calculateButton" variant="primary" size="sm" onClick={calculateRoutes}>Calculate</Button>   
+  {viewRoutes==false?<div>
+    {routeButton==true?<Button className="viewrouteButton" variant="primary" size="sm" onClick={routeHandler}>View Routes</Button>:<></>}
+  {submitStatus==true?<Button className="calculateButton" variant="primary" size="sm" onClick={calculateRoutes}>Calculate</Button>:<></>}   
 
 
     <div className="dropdown-btn">
@@ -155,11 +167,11 @@ return (
           <select className="select-menu" defaultValue="0"
           onChange = {e => setCapacity(e.target.value)}>
         
-            <option value="100" >100</option>
+            <option className='option-menu' value="100" >100</option>
 
-            <option value="300">300</option>
+            <option className='option-menu' value="300">300</option>
 
-            <option value="500">500</option>
+            <option className='option-menu' value="500">500</option>
 
           </select>
       </div>
@@ -209,10 +221,12 @@ return (
               
             </form>
            </Popup>
-         </Marker>:<div></div>
+         </Marker>:<div>{console.log("Else condition")}</div>
         
      )
    }
+  </div>:<Routes></Routes>}
+ 
 </div>
  
   )

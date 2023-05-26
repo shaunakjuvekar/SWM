@@ -28,4 +28,19 @@ export default class APIService{
     .catch(error => console.log(error))
     }
 
+    static getRoutes(){
+        return fetch(`http://localhost:5002/get_data`,{
+            'method':'GET',
+             headers : {
+            'Content-Type':'application/json'
+      },
+    })
+    .then(response => response.json())
+    .catch(error => console.log(error))
+    
+   
+    }
+
+
+
 }
