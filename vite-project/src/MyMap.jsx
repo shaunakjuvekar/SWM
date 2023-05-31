@@ -54,15 +54,6 @@ export default MyMap;
 
 /*
 
-  const polyline = [
-    [37.26179, -80.4034],
-    [37.25277, -80.43775],
-    [37.21887, -80.43775],
-    [37.19863, -80.39327]
-  ]
-
-
-  <Polyline positions={polyline}></Polyline>
 
   const markers = [
     {

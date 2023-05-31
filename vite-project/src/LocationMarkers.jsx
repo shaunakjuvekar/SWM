@@ -72,7 +72,7 @@ function LocationMarker(props){
 
     function clickHandler(){
 
-      console.log(labelCountMatch)
+      //console.log(labelCountMatch)
     
       if (labels.length!=markers.length){
         //console.log(labels)
@@ -221,7 +221,7 @@ return (
               
             </form>
            </Popup>
-         </Marker>:<div>{console.log("Else condition")}</div>
+         </Marker>:<div></div>
         
      )
    }
