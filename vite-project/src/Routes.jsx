@@ -16,15 +16,15 @@ function Routes(){
     const [currentNodes, setCurrentNodes] = useState([])
     const [currentPaths, setCurrentPaths] = useState([])
     const [colorVal, setColor] = useState('blue')
+    const [coordsMap, setMap] = useState({})
 
-    const colorArray = ['red','orange', 'blue', 'black', 'maroon', 'blue', 'purple']
+    const colorArray = ['black'] //'red','orange', 'blue', 'black', 'maroon', 'blue', 'purple'
    
     let filtered_data = []
     let polylines = []
     
     console.log(markers)
-
-    
+    console.log("Polylines: ", currentPaths)
 
     const markerIcon = new Icon({
     
@@ -39,14 +39,21 @@ function Routes(){
         let routeData = async () => {
         const data = await APIService.getRoutes()
         setNodes(data)
+        console.log("All Nodes", allNodes)
+        let tempDict = {}
+        for (let i=0;i<data.length;i++){
+            tempDict[data[i].label] = [parseFloat(data[i].lat), parseFloat(data[i].lng)]
+        }
+        console.log("tempDict", tempDict)
+        setMap(tempDict)
         filtered_data = data.filter(e=>e.route_costs.length>0)
         setCurrentNodes(filtered_data)
         setMenuLabels(filtered_data)
         polylines = filtered_data.map(node=>[parseFloat(node.lat), parseFloat(node.lng)])
-        setCurrentPaths([polylines])
-        console.log("Polylines:" , [polylines])
+        //setCurrentPaths([polylines])
+        //console.log("Polylines:" , [polylines])
         setMarkers(filtered_data)
-        setColor(colorArray[Math.floor(Math.random()*7)])
+        //setColor(colorArray[Math.floor(Math.random()*colorArray.length)])
         
 
     
@@ -55,7 +62,7 @@ function Routes(){
     }
 
     function showLabelRoute(e){
-        setColor(colorArray[Math.floor(Math.random()*7)])
+        setColor(colorArray[Math.floor(Math.random()*colorArray.length)])
         
         console.log(e)
         console.log(currentNodes)
@@ -64,11 +71,11 @@ function Routes(){
         let currentLabelNodes = JSON.parse(current_node[0]['routes'])
         let newPathMarkers = []
         for (let i=0;i<currentLabelNodes.length;i++){
-            console.log(currentLabelNodes[i])
+            
             let tempArr = []
             let addEndRoute = false
             if (currentLabelNodes[i].length>1){
-                console.log("add at end")
+                //console.log("add at end")
                 addEndRoute = true
             }
             tempArr.push(current_node[0].label)
@@ -80,23 +87,43 @@ function Routes(){
             }
             newPathMarkers.push(tempArr)
         }
-        console.log(newPathMarkers)
+        console.log("NewPathMarkers: ", newPathMarkers)
         
+        
+        let newPathCoords = []
+        for (let i=0;i<newPathMarkers.length;i++){
+            let pathArr = []
+            for (let j=0;j<newPathMarkers[i].length;j++){
+                let node = newPathMarkers[i][j]
+                let tempArr = []
+                if (node in coordsMap){
+                    for (let k=0;k<2;k++){
+                        tempArr.push(coordsMap[node][k])
+                    }
+                    
+                }
+                pathArr.push(tempArr)
+                console.log("pathArr:", pathArr)
+            }
+            newPathCoords.push(pathArr)
+        }
+        console.log("newPathCoords: " , newPathCoords)
+
+        setCurrentPaths(newPathCoords)
 
         currentLabelNodes = [...currentLabelNodes, [current_node[0].label]]
-        console.log(currentLabelNodes)
+        //console.log(currentLabelNodes)
         let allCurrentNodes = []
         currentLabelNodes.map(arr => {
             for (let i=0;i<arr.length;i++){
                 allCurrentNodes.push(arr[i])
             }
         })
-        console.log(allCurrentNodes)
+        //console.log(allCurrentNodes)
+       
         let newMarkers = []
-        let newPathCoords = []
         allNodes.map(node1=>{
             let obj={}
-            let pathArr = []
             for (let j=0;j<allCurrentNodes.length;j++){
                 if (node1.label==allCurrentNodes[j]){
                     obj['label'] = allCurrentNodes[j]
@@ -105,33 +132,17 @@ function Routes(){
                     newMarkers.push(obj)
                 }
             }
-            for (let j=0;j<newPathMarkers.length;j++){
-                if (node1.label==newPathMarkers[j]){
-                    pathArr.push(node1.lat)
-                    pathArr.push(node1.lng)
-
-                }
-            }
-            })
-        console.log(newMarkers)
+        })
+  
+        //console.log(newPathCoords)
+        //console.log(newMarkers)
         setMarkers(newMarkers)
-        console.log("Polylines:" , [polylines])
-        //setCurrentPaths(node_routes)
-        
-
-        //setCurrentNodes([currentNodes])
-        // Reassign markers from the current node and it's routes
-        
-
-        // from the new set of markers, update the polylines variable
-
-
-        //setCurrentPaths(prevPath => prevPath.filter(path => path.label !== current_node[0]['label']))
+     
     }
 
     return (
         <div>
-            <Button className="show-routes" variant="primary" size="sm" onClick={showRoutes}>Get All Routes</Button>
+            <Button className="show-routes" variant="primary" size="sm" onClick={showRoutes}>Show All Facilities</Button>
          
             {markers.map(marker=>marker.lat!=undefined?
                 <Marker position={[marker.lat, marker.lng]}
@@ -144,11 +155,9 @@ function Routes(){
                 :<></>
             )}
          
-            <Polyline positions={currentPaths} pathOptions={{color: colorVal}}></Polyline>
-
             <div className="dropdown-btn">
                 <label>
-                    Node Labels
+                    Facility Labels
                 <div>
                          <select className="select-menu" defaultValue="0"
                          onChange = {(e)=>showLabelRoute(e.target.value)}>
@@ -157,15 +166,13 @@ function Routes(){
                             
                             
                         })}
-                        </select>
-
-                 
+                        </select>      
                                    
                 </div>
                 
                 </label>
             </div>
-            
+            <Polyline positions={currentPaths} pathOptions={{color: colorVal}}></Polyline>
         </div>
         
     )
@@ -200,5 +207,44 @@ export default Routes;
         fontWeight: "700"
     }
 
-
+[
+    [
+        [
+            37.21573,
+            -80.44873
+        ],
+        [
+            37.21901,
+            -80.44788
+        ]
+    ],
+    [
+        [
+            37.21573,
+            -80.44873
+        ],
+        [
+            37.20437,
+            -80.45304
+        ]
+    ],
+    [
+        [
+            37.21573,
+            -80.44873
+        ],
+        [
+            37.23418,
+            -80.42951
+        ],
+        [
+            37.20807,
+            -80.47948
+        ],
+        [
+            37.21573,
+            -80.44873
+        ]
+    ]
+]
 */
