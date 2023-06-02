@@ -237,37 +237,6 @@ export default LocationMarker;
 
 /*
 
-  <Dropdown className="dropdown-btn">
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Dropdown Button
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu>
-        <Dropdown.Item href="#/action-1">Action 1</Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Action 2</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Action 3</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
-
-{submitMessage==true?<div>Please fill all input label fields!</div>:<></>}
-
-   {isOpen && (
-             <div >
-              <div >
-                This is the content of the pop-up.
-              </div>
-              <button onClick={() => setIsOpen(false)}>
-                Close Pop-up
-              </button>
-             </div>
-            )} 
-
-  
-  
-    useEffect(() => {
-      console.log("Inside UseEffect() ", markers);
-    }, [markers]);
-
     /*
     const deleteMarker = (markerId) => {
       console.log("Inside delete Marker")

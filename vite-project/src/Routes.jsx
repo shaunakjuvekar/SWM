@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./Routes.css";
 import { useState } from 'react';
 import APIService from "./APIService";
-import { Marker, Popup, Polyline } from "react-leaflet";
-import facility_icon from "./assets/manufacturing.png";
+import AppContext from "./AppContext";
+import { Marker, Popup, Polyline, useMapEvents } from "react-leaflet";
+import facility1_icon from "./assets/facility_1.png";
+import facility2_icon from "./assets/facility_2.png";
 import redIcon from "./assets/red_icon.png";
+import house from "./assets/home.png";
 
 import {Icon} from 'leaflet';
 import Button from 'react-bootstrap/Button';
@@ -17,10 +20,12 @@ function Routes(){
     const [menuLabels, setMenuLabels] = useState([])
     const [currentNodes, setCurrentNodes] = useState([])
     const [currentPaths, setCurrentPaths] = useState([])
-    const [colorVal, setColor] = useState('blue')
     const [coordsMap, setMap] = useState({})
 
-    const colorArray = ['red','blue', 'black', 'orange', 'maroon', 'purple'] 
+    const flyCoords = useContext(AppContext);
+
+
+    const colorArray = ['red','blue', 'purple', 'orange', 'maroon', 'black'] 
    
     let filtered_data = []
     let polylines = []
@@ -35,9 +40,23 @@ function Routes(){
         iconSize: [32,32]
       })
 
-      const facilityIcon = new Icon({
+      const facilityIcon_1 = new Icon({
     
-        iconUrl: facility_icon,
+        iconUrl: facility1_icon,
+        iconAnchor: [28,15],
+        iconSize: [32,32]
+      })
+
+      const facilityIcon_2 = new Icon({
+    
+        iconUrl: facility2_icon,
+        iconAnchor: [28,15],
+        iconSize: [32,32]
+      })
+
+      const houseIcon = new Icon({
+    
+        iconUrl: house,
         iconAnchor: [28,15],
         iconSize: [32,32]
       })
@@ -50,18 +69,26 @@ function Routes(){
         const data = await APIService.getRoutes()
         setNodes(data)
         console.log("All Nodes", allNodes)
+        
         let tempDict = {}
         for (let i=0;i<data.length;i++){
             tempDict[data[i].label] = [parseFloat(data[i].lat), parseFloat(data[i].lng)]
         }
+
         console.log("tempDict", tempDict)
         setMap(tempDict)
         filtered_data = data.filter(e=>e.route_costs.length>0)
+       
+        flyCoords.handleFlyLocation([filtered_data[0]['lat'],filtered_data[0]['lng']])
+        
+
+
         setCurrentNodes(filtered_data)
         setMenuLabels(filtered_data)
         //polylines = filtered_data.map(node=>[parseFloat(node.lat), parseFloat(node.lng)])
         setCurrentPaths([])
         //console.log("Polylines:" , [polylines])
+        console.log("Markers: ", filtered_data)
         setMarkers(filtered_data)
     
         }
@@ -69,7 +96,7 @@ function Routes(){
     }
 
     function showLabelRoute(e){
-        setColor(colorArray[Math.floor(Math.random()*colorArray.length)])
+        //setColor(colorArray[Math.floor(Math.random()*colorArray.length)])
         
         let current_node = currentNodes.filter(path => path['label']==e)
         let currentLabelNodes = JSON.parse(current_node[0]['routes'])
@@ -133,6 +160,7 @@ function Routes(){
                     obj['label'] = allCurrentNodes[j]
                     obj['lat'] = node1['lat']
                     obj['lng'] = node1['lng']
+                    obj['echelon'] = node1['echelon']
                     newMarkers.push(obj)
                 }
             }
@@ -149,13 +177,25 @@ function Routes(){
             <Button className="show-routes" variant="primary" size="sm" onClick={showRoutes}>Show All Facilities</Button>
          
             {markers.map(marker=>marker.lat!=undefined?
+                marker['echelon']=='2'?
                 <Marker position={[marker.lat, marker.lng]}
-                icon={facilityIcon} draggable={true}>
+               draggable={true}
+               icon = {facilityIcon_1}>
                     <Popup>{marker.label}</Popup>
-                   
-                    
+  
                 </Marker>
-            
+                :marker['echelon']=='3'?
+                <Marker position={[marker.lat, marker.lng]}
+                draggable={true}
+                icon = {facilityIcon_2}>
+                     <Popup>{marker.label}</Popup>
+                 </Marker>
+                 :
+                 <Marker position={[marker.lat, marker.lng]}
+                 draggable={true}
+                 icon = {houseIcon}>
+                      <Popup>{marker.label}</Popup>
+                  </Marker>
                 :<></>
             )}
          
@@ -191,6 +231,8 @@ export default Routes;
 
 
 /*
+
+icon = {marker['echelon']=='1'?{facilityIcon}:{houseIcon}}
 
   <Polyline positions={currentPaths} pathOptions={{color: colorVal}}></Polyline> 
 
