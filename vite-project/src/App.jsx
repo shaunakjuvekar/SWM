@@ -6,13 +6,11 @@ import AppContext from './AppContext';
 import { useState } from 'react';
 
 
-
-
-
 function App() {
  
   const [echelonValue, updateEchelon] = useState(1);
-  const [markerArray, setMarkerArray] = useState([])
+  const [markerArray, setMarkerArray] = useState([]);
+  const [flyLocation, setFlyLocation] = useState([]);
 
   const changeEchelon = () => {
     updateEchelon(echelonValue+1);
@@ -31,6 +29,11 @@ function App() {
     body = []
   }
 
+  const handleFlyLocation = (e) => {
+    console.log(e)
+    setFlyLocation(e)
+  }
+
   const globalObject = {
     echelonKey : echelonValue,
     updateEchelon,
@@ -38,7 +41,9 @@ function App() {
     markerArrayKey : markerArray,
     setMarkerArray,
     updateArray,
-    calculateRoutes
+    calculateRoutes,
+    flyLocation,
+    handleFlyLocation
 
   };
 

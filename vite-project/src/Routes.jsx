@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
 import "./Routes.css";
 import { useState } from 'react';
 import APIService from "./APIService";
-import { Marker, Popup, Polyline } from "react-leaflet";
+import AppContext from "./AppContext";
+import { Marker, Popup, Polyline, useMapEvents } from "react-leaflet";
 import facility1_icon from "./assets/facility_1.png";
 import facility2_icon from "./assets/facility_2.png";
 import redIcon from "./assets/red_icon.png";
@@ -20,6 +21,9 @@ function Routes(){
     const [currentNodes, setCurrentNodes] = useState([])
     const [currentPaths, setCurrentPaths] = useState([])
     const [coordsMap, setMap] = useState({})
+
+    const flyCoords = useContext(AppContext);
+
 
     const colorArray = ['red','blue', 'purple', 'orange', 'maroon', 'black'] 
    
@@ -65,13 +69,20 @@ function Routes(){
         const data = await APIService.getRoutes()
         setNodes(data)
         console.log("All Nodes", allNodes)
+        
         let tempDict = {}
         for (let i=0;i<data.length;i++){
             tempDict[data[i].label] = [parseFloat(data[i].lat), parseFloat(data[i].lng)]
         }
+
         console.log("tempDict", tempDict)
         setMap(tempDict)
         filtered_data = data.filter(e=>e.route_costs.length>0)
+       
+        flyCoords.handleFlyLocation([filtered_data[0]['lat'],filtered_data[0]['lng']])
+        
+
+
         setCurrentNodes(filtered_data)
         setMenuLabels(filtered_data)
         //polylines = filtered_data.map(node=>[parseFloat(node.lat), parseFloat(node.lng)])
