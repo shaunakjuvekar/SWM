@@ -3,7 +3,9 @@ import "./Routes.css";
 import { useState } from 'react';
 import APIService from "./APIService";
 import { Marker, Popup, Polyline } from "react-leaflet";
+import facility_icon from "./assets/manufacturing.png";
 import redIcon from "./assets/red_icon.png";
+
 import {Icon} from 'leaflet';
 import Button from 'react-bootstrap/Button';
 
@@ -18,7 +20,7 @@ function Routes(){
     const [colorVal, setColor] = useState('blue')
     const [coordsMap, setMap] = useState({})
 
-    const colorArray = ['black'] //'red','orange', 'blue', 'black', 'maroon', 'blue', 'purple'
+    const colorArray = ['red','blue', 'black', 'orange', 'maroon', 'purple'] 
    
     let filtered_data = []
     let polylines = []
@@ -32,6 +34,14 @@ function Routes(){
         iconAnchor: [28,15],
         iconSize: [32,32]
       })
+
+      const facilityIcon = new Icon({
+    
+        iconUrl: facility_icon,
+        iconAnchor: [28,15],
+        iconSize: [32,32]
+      })
+
 
 
     function showRoutes(){
@@ -49,13 +59,10 @@ function Routes(){
         filtered_data = data.filter(e=>e.route_costs.length>0)
         setCurrentNodes(filtered_data)
         setMenuLabels(filtered_data)
-        polylines = filtered_data.map(node=>[parseFloat(node.lat), parseFloat(node.lng)])
-        //setCurrentPaths([polylines])
+        //polylines = filtered_data.map(node=>[parseFloat(node.lat), parseFloat(node.lng)])
+        setCurrentPaths([])
         //console.log("Polylines:" , [polylines])
         setMarkers(filtered_data)
-        //setColor(colorArray[Math.floor(Math.random()*colorArray.length)])
-        
-
     
         }
         let d = routeData();
@@ -64,10 +71,7 @@ function Routes(){
     function showLabelRoute(e){
         setColor(colorArray[Math.floor(Math.random()*colorArray.length)])
         
-        console.log(e)
-        console.log(currentNodes)
         let current_node = currentNodes.filter(path => path['label']==e)
-        console.log(current_node)
         let currentLabelNodes = JSON.parse(current_node[0]['routes'])
         let newPathMarkers = []
         for (let i=0;i<currentLabelNodes.length;i++){
@@ -87,7 +91,7 @@ function Routes(){
             }
             newPathMarkers.push(tempArr)
         }
-        console.log("NewPathMarkers: ", newPathMarkers)
+        //console.log("NewPathMarkers: ", newPathMarkers)
         
         
         let newPathCoords = []
@@ -103,11 +107,11 @@ function Routes(){
                     
                 }
                 pathArr.push(tempArr)
-                console.log("pathArr:", pathArr)
+              
             }
             newPathCoords.push(pathArr)
         }
-        console.log("newPathCoords: " , newPathCoords)
+        //console.log("newPathCoords: " , newPathCoords)
 
         setCurrentPaths(newPathCoords)
 
@@ -146,7 +150,7 @@ function Routes(){
          
             {markers.map(marker=>marker.lat!=undefined?
                 <Marker position={[marker.lat, marker.lng]}
-                icon={markerIcon} draggable={true}>
+                icon={facilityIcon} draggable={true}>
                     <Popup>{marker.label}</Popup>
                    
                     
@@ -172,7 +176,10 @@ function Routes(){
                 
                 </label>
             </div>
-            <Polyline positions={currentPaths} pathOptions={{color: colorVal}}></Polyline>
+            {currentPaths.map((polyline,index)=>polyline!=undefined?
+                <Polyline positions={polyline} pathOptions={{color: colorArray[index%colorArray.length]}}></Polyline>
+            :<></>)}
+            
         </div>
         
     )
@@ -184,6 +191,8 @@ export default Routes;
 
 
 /*
+
+  <Polyline positions={currentPaths} pathOptions={{color: colorVal}}></Polyline> 
 
   const polyline = [
     [37.26179, -80.4034],
@@ -245,6 +254,19 @@ export default Routes;
             37.21573,
             -80.44873
         ]
+    ]
+]
+
+$$$$$$$$$$$$$$$$$$$$$$$$
+
+[
+    [
+        37.24757,
+        -80.41028
+    ],
+    [
+        37.23076,
+        -80.39036
     ]
 ]
 */
