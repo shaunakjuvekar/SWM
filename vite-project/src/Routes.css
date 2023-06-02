@@ -1,6 +1,6 @@
 .show-routes{
     position: absolute;
-    top: 60px;
+    top: 30px;
     right: 30px;
     padding: 15px;
     z-index: 400;
@@ -9,3 +9,47 @@
     color: white;
     font-weight: 700;
 }
+
+
+
+.label-btn{
+    position: relative;
+    top: 60px;
+    right: 30px;
+    padding: 15px;
+    z-index: 400;
+    border-radius: 10px;
+    background-color: rgb(199, 144, 25);
+    color: white;
+    font-weight: 700;
+}
+
+.label-select{
+    position: absolute;
+    top: 100px;
+    right: 30px;
+    padding: 15px;
+    z-index: 400;
+    border-radius: 10px;
+    background-color: rgb(223, 196, 25);
+    color: white;
+    font-weight: 700;
+}
+
+.select-menu{
+    border-radius: 20px;
+    padding: 3px;
+    margin-top: 3px;
+    color: black;
+  }
+
+.dropdown-btn{
+    background-color: rgb(238, 165, 46);
+    color: black;
+}
+    
+.option-menu.modal-btn:hover{
+background-color:#4a4f5d;
+transition: 0.3s;
+}
+  
