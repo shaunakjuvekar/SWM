@@ -46,7 +46,7 @@ function MyMap(){
   
     useEffect(() => {
       if (position) {
-        map.flyTo(position, 13, {duration: 3});
+        map.flyTo(position, 13, {duration: 2});
       }
     }, [position, map]);
   

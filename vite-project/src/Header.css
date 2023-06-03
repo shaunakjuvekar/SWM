@@ -1,0 +1,58 @@
+
+.header{
+    background-color: maroon;
+    color: white;
+    text-align: left;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.main-header{
+    font-size: larger;
+
+}
+
+img{
+    padding-top: 15px;
+    float: right;
+}
+
+.nav-link{
+    padding-left: 40px;
+    margin-left: 20px;
+    color: rgb(223, 206, 78);
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    
+}
+
+.nav-link:link { text-decoration: none; }
+
+
+.nav-link:visited { text-decoration: none; }
+
+
+.nav-link:hover { text-decoration: none; }
+
+
+.nav-link:active { text-decoration: none; }
+
+.home-container{
+    margin: 0 40px 0 40px;
+    color: black
+}
+
+h4{
+    text-align: left;
+    font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+
+h2{
+    font-family:Verdana, Geneva, Tahoma, sans-serif
+}
+
+p{
+    text-align: left;
+    font-size: smaller;
+    font-family:'Times New Roman', Times, serif;
+    line-height: 0.3in;
+}
