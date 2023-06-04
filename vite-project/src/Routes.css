@@ -1,4 +1,4 @@
-.show-routes{
+.show-facilities{
     position: absolute;
     top: 30px;
     right: 30px;
@@ -9,6 +9,19 @@
     color: white;
     font-weight: 700;
 }
+
+.show-routes{
+    position: absolute;
+    top: 100px;
+    right: 30px;
+    padding: 15px;
+    z-index: 400;
+    border-radius: 10px;
+    background-color: rgb(23, 108, 56);
+    color: white;
+    font-weight: 700;
+}
+
 
 
 

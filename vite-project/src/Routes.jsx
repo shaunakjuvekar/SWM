@@ -22,16 +22,18 @@ function Routes(){
     const [currentPaths, setCurrentPaths] = useState([])
     const [coordsMap, setMap] = useState({})
 
+    //console.log(currentPaths)
+    //console.log(markers)
+    
+
     const flyCoords = useContext(AppContext);
 
 
-    const colorArray = ['red','blue', 'purple', 'orange', 'maroon', 'black'] 
+    const colorArray = ['fuchsia','brown', 'red','blue', 'purple', 'orange', 'maroon', 'black', 'DarkSlateGray','DarkTurquoise','SlateBlue','LimeGreen','gray' ] 
    
     let filtered_data = []
     let polylines = []
     
-    console.log(markers)
-    console.log("Polylines: ", currentPaths)
 
     const markerIcon = new Icon({
     
@@ -63,7 +65,7 @@ function Routes(){
 
 
 
-    function showRoutes(){
+    function showFacilities(){
         
         let routeData = async () => {
         const data = await APIService.getRoutes()
@@ -75,7 +77,7 @@ function Routes(){
             tempDict[data[i].label] = [parseFloat(data[i].lat), parseFloat(data[i].lng)]
         }
 
-        console.log("tempDict", tempDict)
+        //console.log("tempDict", tempDict)
         setMap(tempDict)
         filtered_data = data.filter(e=>e.route_costs.length>0)
        
@@ -88,7 +90,7 @@ function Routes(){
         //polylines = filtered_data.map(node=>[parseFloat(node.lat), parseFloat(node.lng)])
         setCurrentPaths([])
         //console.log("Polylines:" , [polylines])
-        console.log("Markers: ", filtered_data)
+        //console.log("Markers: ", filtered_data)
         setMarkers(filtered_data)
     
         }
@@ -97,7 +99,6 @@ function Routes(){
 
     function showLabelRoute(e){
         //setColor(colorArray[Math.floor(Math.random()*colorArray.length)])
-        
         let current_node = currentNodes.filter(path => path['label']==e)
         let currentLabelNodes = JSON.parse(current_node[0]['routes'])
         let newPathMarkers = []
@@ -119,8 +120,7 @@ function Routes(){
             newPathMarkers.push(tempArr)
         }
         //console.log("NewPathMarkers: ", newPathMarkers)
-        
-        
+
         let newPathCoords = []
         for (let i=0;i<newPathMarkers.length;i++){
             let pathArr = []
@@ -151,7 +151,6 @@ function Routes(){
             }
         })
         //console.log(allCurrentNodes)
-       
         let newMarkers = []
         allNodes.map(node1=>{
             let obj={}
@@ -165,16 +164,96 @@ function Routes(){
                 }
             }
         })
-  
-        //console.log(newPathCoords)
-        //console.log(newMarkers)
         setMarkers(newMarkers)
-     
+    }
+
+    function showAllRoutes(){
+
+        let allMarkers = []
+        let allPaths = []
+        //console.log(currentNodes)
+        for (let i=0;i<currentNodes.length;i++){
+            let current_node = currentNodes[i]
+            let routeNodes = JSON.parse(current_node['routes'])
+           
+            if (!allMarkers.includes(current_node.label)){
+                allMarkers.push(current_node.label)
+            }
+            let newPathMarkers = []
+            for (let j=0;j<routeNodes.length;j++){
+                
+                let tempArr = []
+                let addEndRoute = false
+                if (routeNodes[j].length>1){
+                    //console.log("add at end")
+                    addEndRoute = true
+                }
+                tempArr.push(current_node.label)
+                for (let k=0;k<routeNodes[j].length;k++){
+                    tempArr.push(routeNodes[j][k])
+                    if (!allMarkers.includes(routeNodes[j][k])){
+                        allMarkers.push(routeNodes[j][k])
+                    }
+                }
+                if (addEndRoute){
+                    tempArr.push(current_node.label)
+                }
+                newPathMarkers.push(tempArr)
+            }
+            //console.log("NewPathMarkers: ", newPathMarkers)
+
+            let newPathCoords = []
+            for (let i=0;i<newPathMarkers.length;i++){
+                let pathArr = []
+                for (let j=0;j<newPathMarkers[i].length;j++){
+                    let node = newPathMarkers[i][j]
+                    let tempArr = []
+                    if (node in coordsMap){
+                        for (let k=0;k<2;k++){
+                            tempArr.push(coordsMap[node][k])
+                        }
+                        
+                    }
+                    pathArr.push(tempArr)
+                  
+                }
+                newPathCoords.push(pathArr)
+            }
+            //console.log("newPathCoords: " , newPathCoords)
+            
+            routeNodes = [...routeNodes, [current_node.label]]
+            //console.log(currentLabelNodes)
+            let allCurrentNodes = []
+            routeNodes.map(arr => {
+                for (let i=0;i<arr.length;i++){
+                    allCurrentNodes.push(arr[i])
+                }
+            })
+            //console.log(allCurrentNodes)
+        
+            allPaths.push(newPathCoords)
+        }
+        let newMarkers = []
+        allNodes.map(node1=>{
+            let obj={}
+            for (let j=0;j<allMarkers.length;j++){
+                if (node1.label==allMarkers[j]){
+                    obj['label'] = allMarkers[j]
+                    obj['lat'] = node1['lat']
+                    obj['lng'] = node1['lng']
+                    obj['echelon'] = node1['echelon']
+                    newMarkers.push(obj)
+                }
+            }
+        })
+        setCurrentPaths(allPaths)
+        setMarkers(newMarkers)
     }
 
     return (
         <div>
-            <Button className="show-routes" variant="primary" size="sm" onClick={showRoutes}>Show All Facilities</Button>
+            <Button className="show-facilities" variant="primary" size="sm" onClick={showFacilities}>Show All Facilities</Button>
+            <Button className="show-routes" variant="primary" size="sm" onClick={showAllRoutes}>Show All Routes</Button>
          
             {markers.map(marker=>marker.lat!=undefined?
                 marker['echelon']=='2'?
