@@ -27,12 +27,15 @@ function LocationMarker(props){
     
     //const initial_coordinates = { lat: 37.24231, lng: -80.43173}
     const [markers, setMarkers] = useState([{id: uuidv4()}]);
-    const [costs, setCosts] = useState([0])
+    const [sizes, setSizes] = useState([0])
+    const [locationCosts, setLocationCosts] = useState([0])
+    const [containerCosts, setContainerCosts] = useState([0])
     const [labels, setLabels] = useState([''])
     const [node_numbers, setNodes] = useState([0])
     const [node_index, setIndex] = useState(0)
     const [labelCountMatch, setLabelCountMatch] = useState(false);
     const [costInputState, setCostState] = useState(false)
+    
     const [capacity, setCapacity] = useState(100);
     const [routeButton, setRouteButton] = useState(false)
     const [viewRoutes, setViewRoutes] = useState(false)
@@ -76,7 +79,7 @@ function LocationMarker(props){
     
       if (labels.length!=markers.length){
         //console.log(labels)
-        //console.log(markers)
+        
         setLabelCountMatch(true)
       }
       else{
@@ -88,16 +91,20 @@ function LocationMarker(props){
         for (let i=0;i<markers.length;i++){
           let obj = markers[i]         
           
-          if (costs[i]==undefined || costs[i]==''){
-            obj['cost'] = 0
+          if (sizes[i]==undefined || sizes[i]==''){
+            obj['size'] = 0
+            obj['location_cost'] = 0
+            obj['container_cost'] = 0
           }
           else{
-            obj['cost'] = parseInt(costs[i])
+            obj['size'] = parseInt(sizes[i])
+            obj['location_cost'] = parseInt(locationCosts[i])
+            obj['container_cost'] = parseInt(containerCosts[i])
           }
           obj['node_label'] = labels[i]??''
           obj['echelon'] = echelon.echelonKey
           obj['index'] = node_numbers[i]
-          obj['capacity'] = parseInt(capacity)
+          //obj['capacity'] = parseInt(capacity)
           final_markers.push(obj)     
           
         }
@@ -107,7 +114,9 @@ function LocationMarker(props){
         echelon.changeEchelon()
         props.onSubmit(final_markers)
         setMarkers([{id: uuidv4()}])
-        setCosts([0])
+        setSizes([0])
+        setLocationCosts([0])
+        setContainerCosts([0])
         setLabels([''])
              
       }
@@ -117,9 +126,13 @@ function LocationMarker(props){
     const formHandler = (event) => {
         console.log("markers inside form Handler: " , markers)
         event.preventDefault();
-        let cost = event.target.elements.cost.value
+        let size = event.target.elements.size.value
+        let container_cost = event.target.elements.container_cost.value
+        let location_cost = event.target.elements.location_cost.value
         let label = event.target.elements.node_label.value
-        setCosts((prevValue)=>[...prevValue, cost])
+        setSizes((prevValue)=>[...prevValue, size])
+        setLocationCosts((prevValue)=>[...prevValue, container_cost])
+        setContainerCosts((prevValue)=>[...prevValue, location_cost])
         setLabels((prevVal) => [...prevVal, label])
         //console.log(labels)
         map.closePopup();
@@ -130,7 +143,9 @@ function LocationMarker(props){
       let indexToRemove = markers.findIndex(marker => marker.id == markerId)
       
       setLabels(prevLabels => prevLabels.filter((elem, index) => index !== indexToRemove))
-      setCosts(prevCosts => prevCosts.filter((elem, index) => index !== indexToRemove))
+      setSizes(prevCosts => prevCosts.filter((elem, index) => index !== indexToRemove))
+      setLocationCosts(prevCosts => prevCosts.filter((elem, index) => index !== indexToRemove))
+      setContainerCosts(prevCosts => prevCosts.filter((elem, index) => index !== indexToRemove))
       setMarkers(prevMarkers => prevMarkers.filter(marker => marker.id !== markerId));
       
       
@@ -189,7 +204,9 @@ return (
             </div>
             
             <form onSubmit={formHandler} >
-              <input id='cost' placeholder=' Enter cost' type='text' 
+              <div className="input-field-div">
+              Size:&nbsp;&nbsp;
+              <input id='size' placeholder=' Enter value' type='text' 
                   onChange={(e) => {
                   const value = e.target.value;
                   //console.log(isNaN(+value))
@@ -197,7 +214,36 @@ return (
                   
               }}
               ></input>
-              <input id='node_label' placeholder=' Enter node label' type='text' required></input>
+              </div>
+            <div className="input-field-div">
+            Container Cost: &nbsp;&nbsp;
+              <input id='container_cost' placeholder=' Enter value' type='text' 
+                  onChange={(e) => {
+                  const value = e.target.value;
+                  //console.log(isNaN(+value))
+                  setCostState(isNaN(+value)); // false if its a number, true if not 
+                  
+              }}
+              ></input>
+            </div>
+            <div className="input-field-div">
+            Location Cost:&nbsp;&nbsp;
+            <input id='location_cost' placeholder=' Enter value' type='text' 
+                  onChange={(e) => {
+                  const value = e.target.value;
+                  //console.log(isNaN(+value))
+                  setCostState(isNaN(+value)); // false if its a number, true if not 
+                  
+              }}
+              ></input>
+            </div>
+            <div>
+              </div>  
+              <div className="input-field-div">
+              Node Label:&nbsp;&nbsp;
+              <input id='node_label' placeholder=' Enter value' type='text' required></input>
+              </div>
+            
               <div className="button-div"><button className='form-button' 
               disabled = {costInputState}>Submit</button>{costInputState?<span className="cost-msg">Please enter numerical cost</span>:<span></span>}</div>
               

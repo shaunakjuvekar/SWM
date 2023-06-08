@@ -304,7 +304,7 @@ function Routes(){
          
             <div className="dropdown-btn">
                 <label>
-                    Facility Labels
+                    Facility Level Routes
                 <div>
                          <select className="select-menu" defaultValue="0"
                          onChange = {(e)=>showLabelRoute(e.target.value)}>

@@ -139,13 +139,39 @@
     margin-left: 10px;
   }
   
-  #cost{
+  #size{
     width: 40%;
     margin-right: 10px;
     border: 2px solid black;
     border-radius: 4px;
     padding: 4px;
+    font-size: smaller;
   }
+
+  .input-field-div{
+    font-size: smaller;
+    margin-top: 6px;
+  }
+
+
+  #container_cost{
+    width: 40%;
+    margin-right: 10px;
+    border: 2px solid black;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: smaller;
+  }
+  
+  #location_cost{
+    width: 40%;
+    margin-right: 10px;
+    border: 2px solid black;
+    border-radius: 4px;
+    padding: 4px;
+    font-size: smaller;
+  }
+  
   
   #node_label{
     width: 50%;
@@ -153,6 +179,7 @@
     border: 2px solid black;
     border-radius: 4px;
     padding: 4px;
+    font-size: smaller;
   }
   
   
