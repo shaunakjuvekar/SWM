@@ -1,4 +1,4 @@
-.show-routes{
+.show-facilities{
     position: absolute;
     top: 30px;
     right: 30px;
@@ -10,28 +10,14 @@
     font-weight: 700;
 }
 
-
-
-.label-btn{
-    position: relative;
-    top: 60px;
-    right: 30px;
-    padding: 15px;
-    z-index: 400;
-    border-radius: 10px;
-    background-color: rgb(199, 144, 25);
-    color: white;
-    font-weight: 700;
-}
-
-.label-select{
+.show-routes{
     position: absolute;
     top: 100px;
     right: 30px;
     padding: 15px;
     z-index: 400;
     border-radius: 10px;
-    background-color: rgb(223, 196, 25);
+    background-color: rgb(23, 108, 56);
     color: white;
     font-weight: 700;
 }
@@ -46,7 +32,22 @@
 .dropdown-btn{
     background-color: rgb(238, 165, 46);
     color: black;
+    
+
 }
+
+.echelon-btn{
+    background-color: rgb(38, 72, 207);
+    color: white;
+    position: absolute;
+    top: 170px;
+    right: 30px;
+    z-index: 400;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 5px 5px 5px rgb(35, 124, 157);
+}
+    
     
 .option-menu.modal-btn:hover{
 background-color:#4a4f5d;

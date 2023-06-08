@@ -21,24 +21,20 @@ function Routes(){
     const [currentNodes, setCurrentNodes] = useState([])
     const [currentPaths, setCurrentPaths] = useState([])
     const [coordsMap, setMap] = useState({})
+    const [echelonLevels, setEchelonLevels] = useState([])
+
+    //console.log(currentPaths)
+    //console.log(markers)
+    
 
     const flyCoords = useContext(AppContext);
 
 
-    const colorArray = ['red','blue', 'purple', 'orange', 'maroon', 'black'] 
+    const colorArray = ['blue', 'fuchsia','red', 'purple', 'black', 'orange', 'maroon', 'brown', 'DarkSlateGray','DarkTurquoise','SlateBlue','LimeGreen','gray' ] 
    
     let filtered_data = []
     let polylines = []
-    
-    console.log(markers)
-    console.log("Polylines: ", currentPaths)
-
-    const markerIcon = new Icon({
-    
-        iconUrl: redIcon,
-        iconAnchor: [28,15],
-        iconSize: [32,32]
-      })
+    let echelon_levels = []
 
       const facilityIcon_1 = new Icon({
     
@@ -63,24 +59,40 @@ function Routes(){
 
 
 
-    function showRoutes(){
+    function showFacilities(){
         
         let routeData = async () => {
         const data = await APIService.getRoutes()
         setNodes(data)
-        console.log("All Nodes", allNodes)
+        //console.log("All Nodes", allNodes)
         
         let tempDict = {}
+       
+        let echelonSet = new Set()
         for (let i=0;i<data.length;i++){
             tempDict[data[i].label] = [parseFloat(data[i].lat), parseFloat(data[i].lng)]
+            echelonSet.add(parseInt(data[i]['echelon']))
         }
 
-        console.log("tempDict", tempDict)
+       
+        echelon_levels = [...echelonSet].filter(e=>e!=1)
+
+        setEchelonLevels(echelon_levels)
+       
         setMap(tempDict)
         filtered_data = data.filter(e=>e.route_costs.length>0)
        
         flyCoords.handleFlyLocation([filtered_data[0]['lat'],filtered_data[0]['lng']])
         
+        /*
+        let echelonArray = []
+        for (let i=0;i<data.length;i++){
+            if (data[i]['echelon']!='1'){
+
+            }
+        }
+        */
+
 
 
         setCurrentNodes(filtered_data)
@@ -88,16 +100,97 @@ function Routes(){
         //polylines = filtered_data.map(node=>[parseFloat(node.lat), parseFloat(node.lng)])
         setCurrentPaths([])
         //console.log("Polylines:" , [polylines])
-        console.log("Markers: ", filtered_data)
+        //console.log("Markers: ", filtered_data)
         setMarkers(filtered_data)
     
         }
         let d = routeData();
     }
 
+    function showNodesAndRoutes(currentNodes){
+        let allMarkers = []
+        let allPaths = []
+        for (let i=0;i<currentNodes.length;i++){
+            let current_node = currentNodes[i]
+            let routeNodes = JSON.parse(current_node['routes'])
+           
+            if (!allMarkers.includes(current_node.label)){
+                allMarkers.push(current_node.label)
+            }
+            let newPathMarkers = []
+            for (let j=0;j<routeNodes.length;j++){
+                
+                let tempArr = []
+                let addEndRoute = false
+                if (routeNodes[j].length>1){
+                    //console.log("add at end")
+                    addEndRoute = true
+                }
+                tempArr.push(current_node.label)
+                for (let k=0;k<routeNodes[j].length;k++){
+                    tempArr.push(routeNodes[j][k])
+                    if (!allMarkers.includes(routeNodes[j][k])){
+                        allMarkers.push(routeNodes[j][k])
+                    }
+                }
+                if (addEndRoute){
+                    tempArr.push(current_node.label)
+                }
+                newPathMarkers.push(tempArr)
+            }
+            //console.log("NewPathMarkers: ", newPathMarkers)
+
+            let newPathCoords = []
+            for (let i=0;i<newPathMarkers.length;i++){
+                let pathArr = []
+                for (let j=0;j<newPathMarkers[i].length;j++){
+                    let node = newPathMarkers[i][j]
+                    let tempArr = []
+                    if (node in coordsMap){
+                        for (let k=0;k<2;k++){
+                            tempArr.push(coordsMap[node][k])
+                        }
+                        
+                    }
+                    pathArr.push(tempArr)
+                  
+                }
+                newPathCoords.push(pathArr)
+            }
+            //console.log("newPathCoords: " , newPathCoords)
+            
+            routeNodes = [...routeNodes, [current_node.label]]
+            //console.log(currentLabelNodes)
+            let allCurrentNodes = []
+            routeNodes.map(arr => {
+                for (let i=0;i<arr.length;i++){
+                    allCurrentNodes.push(arr[i])
+                }
+            })
+            //console.log(allCurrentNodes)
+        
+            allPaths.push(newPathCoords)
+        }
+        let newMarkers = []
+        allNodes.map(node1=>{
+            let obj={}
+            for (let j=0;j<allMarkers.length;j++){
+                if (node1.label==allMarkers[j]){
+                    obj['label'] = allMarkers[j]
+                    obj['lat'] = node1['lat']
+                    obj['lng'] = node1['lng']
+                    obj['echelon'] = node1['echelon']
+                    newMarkers.push(obj)
+                }
+            }
+        })
+        setCurrentPaths(allPaths)
+        setMarkers(newMarkers)
+
+    }
+
     function showLabelRoute(e){
         //setColor(colorArray[Math.floor(Math.random()*colorArray.length)])
-        
         let current_node = currentNodes.filter(path => path['label']==e)
         let currentLabelNodes = JSON.parse(current_node[0]['routes'])
         let newPathMarkers = []
@@ -119,8 +212,7 @@ function Routes(){
             newPathMarkers.push(tempArr)
         }
         //console.log("NewPathMarkers: ", newPathMarkers)
-        
-        
+
         let newPathCoords = []
         for (let i=0;i<newPathMarkers.length;i++){
             let pathArr = []
@@ -151,7 +243,6 @@ function Routes(){
             }
         })
         //console.log(allCurrentNodes)
-       
         let newMarkers = []
         allNodes.map(node1=>{
             let obj={}
@@ -165,16 +256,28 @@ function Routes(){
                 }
             }
         })
-  
-        //console.log(newPathCoords)
-        //console.log(newMarkers)
         setMarkers(newMarkers)
-     
+    }
+
+    function showAllRoutes(){       
+        //console.log(currentNodes)
+        showNodesAndRoutes(currentNodes)
+    }
+
+    function showEchelonRoutes(e){
+        //console.log(e)
+        let selectedEchelonNodes = currentNodes.filter(node=>parseInt(node['echelon'])==e)
+        //console.log(selectedEchelonNodes)
+        //setCurrentNodes(selectedEchelonNodes)
+        showNodesAndRoutes(selectedEchelonNodes)
+
+
     }
 
     return (
         <div>
-            <Button className="show-routes" variant="primary" size="sm" onClick={showRoutes}>Show All Facilities</Button>
+            <Button className="show-facilities" variant="primary" size="sm" onClick={showFacilities}>Show All Facilities</Button>
+            <Button className="show-routes" variant="primary" size="sm" onClick={showAllRoutes}>Show All Routes</Button>
          
             {markers.map(marker=>marker.lat!=undefined?
                 marker['echelon']=='2'?
@@ -216,6 +319,27 @@ function Routes(){
                 
                 </label>
             </div>
+
+            <div className="echelon-btn">
+                <label>
+                    Echelon Level Routes
+                <div>
+                         <select className="select-menu" defaultValue="0"
+                         onChange = {(e)=>showEchelonRoutes(e.target.value)}>
+                         {echelonLevels.map(level=>{
+                           
+                            return (<option className='option-menu' value={level}>Level {level}</option>)
+                            
+                        })}
+                        </select>      
+                                   
+                </div>
+                
+                </label>
+            </div>
+
+
+
             {currentPaths.map((polyline,index)=>polyline!=undefined?
                 <Polyline positions={polyline} pathOptions={{color: colorArray[index%colorArray.length]}}></Polyline>
             :<></>)}
@@ -234,8 +358,6 @@ export default Routes;
 
 icon = {marker['echelon']=='1'?{facilityIcon}:{houseIcon}}
 
-  <Polyline positions={currentPaths} pathOptions={{color: colorVal}}></Polyline> 
-
   const polyline = [
     [37.26179, -80.4034],
     [37.25277, -80.43775],
@@ -244,7 +366,7 @@ icon = {marker['echelon']=='1'?{facilityIcon}:{houseIcon}}
   ]
 
 
-   <Button style={labelButtonStyle} variant="primary" size="sm" onClick={showLabelRoute}>{marker.label}</Button>
+   <Button style={ButtonStyle} variant="primary" size="sm" onClick={showLabelRoute}>{marker.label}</Button>
 
      const labelButtonStyle = {
         position: "absolute",
@@ -258,46 +380,6 @@ icon = {marker['echelon']=='1'?{facilityIcon}:{houseIcon}}
         fontWeight: "700"
     }
 
-[
-    [
-        [
-            37.21573,
-            -80.44873
-        ],
-        [
-            37.21901,
-            -80.44788
-        ]
-    ],
-    [
-        [
-            37.21573,
-            -80.44873
-        ],
-        [
-            37.20437,
-            -80.45304
-        ]
-    ],
-    [
-        [
-            37.21573,
-            -80.44873
-        ],
-        [
-            37.23418,
-            -80.42951
-        ],
-        [
-            37.20807,
-            -80.47948
-        ],
-        [
-            37.21573,
-            -80.44873
-        ]
-    ]
-]
 
 $$$$$$$$$$$$$$$$$$$$$$$$
 

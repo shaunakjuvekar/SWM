@@ -18,11 +18,11 @@ function App() {
   }
 
   const updateArray = (newMarkers) => {
-    console.log(newMarkers)
+    //console.log(newMarkers)
     let newArray = markerArray
     newArray.push(newMarkers)
     setMarkerArray(newArray)
-    console.log(markerArray)
+    //console.log(markerArray)
   }
 
   const calculateRoutes = (body) => {
@@ -31,7 +31,7 @@ function App() {
   }
 
   const handleFlyLocation = (e) => {
-    console.log(e)
+    //console.log(e)
     setFlyLocation(e)
   }
 

@@ -3,8 +3,9 @@
     background-color: maroon;
     color: white;
     text-align: left;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 .main-header{
@@ -21,7 +22,7 @@ img{
     padding-left: 40px;
     margin-left: 20px;
     color: rgb(223, 206, 78);
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    
     
 }
 
@@ -37,22 +38,22 @@ img{
 .nav-link:active { text-decoration: none; }
 
 .home-container{
-    margin: 0 40px 0 40px;
+    margin: 0 50px 0 50px;
     color: black
 }
 
-h4{
+h3{
     text-align: left;
-    font-family:Verdana, Geneva, Tahoma, sans-serif
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 h2{
-    font-family:Verdana, Geneva, Tahoma, sans-serif
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
 p{
     text-align: left;
-    font-size: smaller;
-    font-family:'Times New Roman', Times, serif;
+    font-size:0.9em;
+    font-family:Arial, Helvetica, sans-serif;
     line-height: 0.3in;
 }
