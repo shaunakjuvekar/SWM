@@ -160,25 +160,7 @@ return (
   {submitStatus==true?<Button className="calculateButton" variant="primary" size="sm" onClick={calculateRoutes}>Calculate</Button>:<></>}   
 
 
-    <div className="dropdown-btn">
-      <label>
-        Echelon Capacity
-        <div>
-          <select className="select-menu" defaultValue="0"
-          onChange = {e => setCapacity(e.target.value)}>
-        
-            <option className='option-menu' value="100" >100</option>
-
-            <option className='option-menu' value="300">300</option>
-
-            <option className='option-menu' value="500">500</option>
-
-          </select>
-      </div>
-      
-      </label>
-      </div>
-
+   
   {labelCountMatch?
   <Modal className='modal' show={true} onHide={handleClose}>
   <Modal.Header>
@@ -236,6 +218,26 @@ export default LocationMarker;
 
 
 /*
+
+ <div className="dropdown-btn">
+      <label>
+        Echelon Capacity
+        <div>
+          <select className="select-menu" defaultValue="0"
+          onChange = {e => setCapacity(e.target.value)}>
+        
+            <option className='option-menu' value="100" >100</option>
+
+            <option className='option-menu' value="300">300</option>
+
+            <option className='option-menu' value="500">500</option>
+
+          </select>
+      </div>
+      
+      </label>
+      </div>
+
 
     /*
     const deleteMarker = (markerId) => {
