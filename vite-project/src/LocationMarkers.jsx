@@ -27,48 +27,49 @@ function LocationMarker(props){
     
     //const initial_coordinates = { lat: 37.24231, lng: -80.43173}
     const [markers, setMarkers] = useState([{id: uuidv4()}]);
-    const [costs, setCosts] = useState([0])
+    const [locationCosts, setLocationCosts] = useState([0])
     const [labels, setLabels] = useState([''])
     const [node_numbers, setNodes] = useState([0])
     const [node_index, setIndex] = useState(0)
     const [labelCountMatch, setLabelCountMatch] = useState(false);
     const [costInputState, setCostState] = useState(false)
-    const [capacity, setCapacity] = useState(100);
+    const [formValues, setFormValues] = useState({
+      containerSizes:'',
+      containerCosts:'',
+      vehicleCapacity:''
+    })
+    
     const [routeButton, setRouteButton] = useState(false)
     const [viewRoutes, setViewRoutes] = useState(false)
     const [submitStatus, setSubmitStatus] = useState(false)
     
     //debugger;
-    //console.log(capacity)
-    //console.log(labels)
+   
+    //console.log(containerSizes)
+    //console.log(formValues)
     //console.log("Inside Location Marker-> initial markers: ",  markers);
   
     const map = useMapEvents({
-    click(event) {
-
-        //console.log(event.originalEvent.srcElement.textContent)
-       
-        if (event.originalEvent.srcElement.textContent!='Delete'){
-          if (event.originalEvent.srcElement.textContent.search(/^Submit/)==-1){
-            if (event.originalEvent.srcElement.textContent.search(/^Calculate/)==-1)
-              if (event.originalEvent.srcElement.textContent.search(/^Echelon/)==-1 && 
-              event.originalEvent.srcElement.textContent.search(/^[0-9]/)==-1)
-                if (event.originalEvent.srcElement.textContent.search(/^View/)==-1)
-            
-                {
-                  //console.log("Inside If condition")
-                  let { lat,lng } = event.latlng;  
-                  lat = Math.round(lat * 100000) / 100000;
-                  lng = Math.round(lng * 100000) / 100000;
-                  setMarkers((prevValue) => [...prevValue, {...{lat, lng}, id: uuidv4()}])
-                }
-          }
-        }
-        setIndex(node_index+1)
-        setNodes((prevVal) => [...prevVal, node_index+1])
-        //console.log(markers)
-    },
-    });
+      click(event) {
+  
+          //console.log(event.originalEvent.srcElement.textContent)
+          let text = event.originalEvent.srcElement.textContent
+        
+          if (text.search(/ Leaflet /)!=-1)
+            {
+              //console.log("Inside If condition")
+              let { lat,lng } = event.latlng;  
+              lat = Math.round(lat * 100000) / 100000;
+              lng = Math.round(lng * 100000) / 100000;
+              setMarkers((prevValue) => [...prevValue, {...{lat, lng}, id: uuidv4()}])
+            }
+          setIndex(node_index+1)
+          setNodes((prevVal) => [...prevVal, node_index+1])
+          //console.log(markers)
+      },
+      });
+        
+    
 
     function clickHandler(){
 
@@ -76,28 +77,29 @@ function LocationMarker(props){
     
       if (labels.length!=markers.length){
         //console.log(labels)
-        //console.log(markers)
+        
         setLabelCountMatch(true)
       }
       else{
         setSubmitStatus(true)
         setLabelCountMatch(false)
         let final_markers = []
-        //console.log("cost array", costs)
-        //console.log("label array", labels)
+        console.log(formValues)
+        
         for (let i=0;i<markers.length;i++){
           let obj = markers[i]         
+          //console.log(locationCosts)
           
-          if (costs[i]==undefined || costs[i]==''){
-            obj['cost'] = 0
-          }
-          else{
-            obj['cost'] = parseInt(costs[i])
-          }
+          obj['location_cost'] = (locationCosts[i]!=undefined && locationCosts[i]!='')?parseInt(locationCosts[i]):0
           obj['node_label'] = labels[i]??''
           obj['echelon'] = echelon.echelonKey
           obj['index'] = node_numbers[i]
-          obj['capacity'] = parseInt(capacity)
+          obj['facility_costs'] = formValues.containerCosts
+          obj['facility_sizes'] = formValues.containerSizes
+          obj['vehicle_capacity'] = formValues.vehicleCapacity
+
+          //obj['capacity'] = parseInt(capacity)
+          
           final_markers.push(obj)     
           
         }
@@ -107,8 +109,15 @@ function LocationMarker(props){
         echelon.changeEchelon()
         props.onSubmit(final_markers)
         setMarkers([{id: uuidv4()}])
-        setCosts([0])
+        //setSizes('')
+        //setCosts('')
+        setLocationCosts([0])
         setLabels([''])
+        setFormValues({
+          containerSizes:'',
+          containerCosts:'',
+          vehicleCapacity:''
+        })
              
       }
      
@@ -117,9 +126,10 @@ function LocationMarker(props){
     const formHandler = (event) => {
         console.log("markers inside form Handler: " , markers)
         event.preventDefault();
-        let cost = event.target.elements.cost.value
+        let location_cost = event.target.elements.location_cost.value
         let label = event.target.elements.node_label.value
-        setCosts((prevValue)=>[...prevValue, cost])
+        //console.log(location_cost)
+        setLocationCosts((prevValue)=>[...prevValue, location_cost])        
         setLabels((prevVal) => [...prevVal, label])
         //console.log(labels)
         map.closePopup();
@@ -130,7 +140,9 @@ function LocationMarker(props){
       let indexToRemove = markers.findIndex(marker => marker.id == markerId)
       
       setLabels(prevLabels => prevLabels.filter((elem, index) => index !== indexToRemove))
-      setCosts(prevCosts => prevCosts.filter((elem, index) => index !== indexToRemove))
+      //setSizes(prevCosts => prevCosts.filter((elem, index) => index !== indexToRemove))
+      setLocationCosts(prevCosts => prevCosts.filter((elem, index) => index !== indexToRemove))
+      //setCosts(prevCosts => prevCosts.filter((elem, index) => index !== indexToRemove))
       setMarkers(prevMarkers => prevMarkers.filter(marker => marker.id !== markerId));
       
       
@@ -152,6 +164,21 @@ function LocationMarker(props){
       setViewRoutes(true)
 
     }
+    
+    const rightFormHandler = (event) => {
+      event.preventDefault();
+    
+    }
+    
+
+    const handleInputChange = (event) => {
+      const { name, value } = event.target;
+      //console.log(name, value)
+      setFormValues((prevProps) => ({
+        ...prevProps,
+        [name]: value
+      }));
+    };
 
 return (
   <div>
@@ -171,9 +198,32 @@ return (
             Close
           </Button>
   </Modal.Footer>
-  </Modal>:  <Button className="submitButton" variant="primary" size="sm"  //disabled={labels.length!=markers.length} 
+  </Modal>: <div>
+     <Button className="submitButton" variant="primary" size="sm"  //disabled={labels.length!=markers.length} 
   onClick={clickHandler}>Submit: Echelon {echelon.echelonKey}
-  </Button>   
+  </Button>
+      <form onSubmit={rightFormHandler}>
+       
+      {echelon.echelonKey>1?
+        <div className="text-input">
+          {echelon.echelonKey==2?<p>Enter Container Sizes</p>:<p>Enter Facility Sizes</p>}
+            <input name='containerSizes' value={formValues.containerSizes} placeholder=' Enter values' type='text' style={{ width: 150, height: 20 }} 
+            onChange={handleInputChange}></input>
+            {echelon.echelonKey==2?<p>Enter Container Costs</p>:<p>Enter Facility Costs</p>}
+            <input name='containerCosts' value={formValues.containerCosts} placeholder=' Enter values' type='text' style={{ width: 150, height: 20 }} 
+             onChange={handleInputChange}></input>
+            <p>Enter Vehicle Capacity</p>
+            <input name='vehicleCapacity' value={formValues.vehicleCapacity} placeholder=' Enter value' type='text' style={{ width: 150, height: 20 }} 
+             onChange={handleInputChange}></input>
+            <div className="button-div">
+            <button className='text-form-button'>Submit</button> 
+        </div>
+        </div>:<></>}
+       
+      </form>
+   
+  </div>
+  
 }
  
    {markers.map((marker, index) => 
@@ -189,7 +239,10 @@ return (
             </div>
             
             <form onSubmit={formHandler} >
-              <input id='cost' placeholder=' Enter cost' type='text' 
+           
+            <div className="input-field-div">
+            Location Cost:&nbsp;&nbsp;
+            <input id='location_cost' placeholder=' Enter value' type='text' 
                   onChange={(e) => {
                   const value = e.target.value;
                   //console.log(isNaN(+value))
@@ -197,7 +250,14 @@ return (
                   
               }}
               ></input>
-              <input id='node_label' placeholder=' Enter node label' type='text' required></input>
+            </div>
+            <div>
+              </div>  
+              <div className="input-field-div">
+              Node Label:&nbsp;&nbsp;
+              <input id='node_label' placeholder=' Enter value' type='text' required></input>
+              </div>
+            
               <div className="button-div"><button className='form-button' 
               disabled = {costInputState}>Submit</button>{costInputState?<span className="cost-msg">Please enter numerical cost</span>:<span></span>}</div>
               
