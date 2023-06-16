@@ -84,7 +84,7 @@ function LocationMarker(props){
         setSubmitStatus(true)
         setLabelCountMatch(false)
         let final_markers = []
-        console.log(formValues)
+        //console.log(formValues)
         
         for (let i=0;i<markers.length;i++){
           let obj = markers[i]         
@@ -124,7 +124,7 @@ function LocationMarker(props){
     }
 
     const formHandler = (event) => {
-        console.log("markers inside form Handler: " , markers)
+        //console.log("markers inside form Handler: " , markers)
         event.preventDefault();
         let location_cost = event.target.elements.location_cost.value
         let label = event.target.elements.node_label.value
@@ -160,7 +160,7 @@ function LocationMarker(props){
     }
 
     const routeHandler = () => {
-      console.log("View Routes")
+      //console.log("View Routes")
       setViewRoutes(true)
 
     }
@@ -241,7 +241,7 @@ return (
             <form onSubmit={formHandler} >
            
             <div className="input-field-div">
-            Location Cost:&nbsp;&nbsp;
+            {echelon.echelonKey==1?`Demand:\xa0\xa0`:`Location Cost:\xa0\xa0`}
             <input id='location_cost' placeholder=' Enter value' type='text' 
                   onChange={(e) => {
                   const value = e.target.value;
