@@ -16,7 +16,6 @@ import Routes from "./Routes"
 function LocationMarker(props){
     
     const markerIcon = new Icon({
-    
         iconUrl: redIcon,
         iconAnchor: [28,15],
         iconSize: [32,32]
@@ -25,7 +24,6 @@ function LocationMarker(props){
 
     const echelon = useContext(AppContext);
     
-    //const initial_coordinates = { lat: 37.24231, lng: -80.43173}
     const [markers, setMarkers] = useState([{id: uuidv4()}]);
     const [locationCosts, setLocationCosts] = useState([0])
     const [labels, setLabels] = useState([''])
@@ -45,7 +43,6 @@ function LocationMarker(props){
     
     //debugger;
    
-    //console.log(containerSizes)
     //console.log(formValues)
     //console.log("Inside Location Marker-> initial markers: ",  markers);
   
@@ -55,7 +52,7 @@ function LocationMarker(props){
           //console.log(event.originalEvent.srcElement.textContent)
           let text = event.originalEvent.srcElement.textContent
         
-          if (text.search(/ Leaflet /)!=-1)
+          if (text.search(/ Leaflet /)!=-1 || (text.search(/ OpenStreetMap /)!=-1)) 
             {
               //console.log("Inside If condition")
               let { lat,lng } = event.latlng;  
@@ -65,19 +62,16 @@ function LocationMarker(props){
             }
           setIndex(node_index+1)
           setNodes((prevVal) => [...prevVal, node_index+1])
-          //console.log(markers)
+          
       },
       });
         
-    
-
     function clickHandler(){
 
       //console.log(labelCountMatch)
-    
       if (labels.length!=markers.length){
         //console.log(labels)
-        
+        console.log(labels, markers)
         setLabelCountMatch(true)
       }
       else{
@@ -97,8 +91,6 @@ function LocationMarker(props){
           obj['facility_costs'] = formValues.containerCosts
           obj['facility_sizes'] = formValues.containerSizes
           obj['vehicle_capacity'] = formValues.vehicleCapacity
-
-          //obj['capacity'] = parseInt(capacity)
           
           final_markers.push(obj)     
           
@@ -109,8 +101,6 @@ function LocationMarker(props){
         echelon.changeEchelon()
         props.onSubmit(final_markers)
         setMarkers([{id: uuidv4()}])
-        //setSizes('')
-        //setCosts('')
         setLocationCosts([0])
         setLabels([''])
         setFormValues({
@@ -136,20 +126,16 @@ function LocationMarker(props){
     }
 
     const deleteMarker = (markerId) => {
-      //setDeleteFlag(true)
       let indexToRemove = markers.findIndex(marker => marker.id == markerId)
       
       setLabels(prevLabels => prevLabels.filter((elem, index) => index !== indexToRemove))
-      //setSizes(prevCosts => prevCosts.filter((elem, index) => index !== indexToRemove))
       setLocationCosts(prevCosts => prevCosts.filter((elem, index) => index !== indexToRemove))
-      //setCosts(prevCosts => prevCosts.filter((elem, index) => index !== indexToRemove))
       setMarkers(prevMarkers => prevMarkers.filter(marker => marker.id !== markerId));
       
       
     };
 
     const calculateRoutes = () => {
-      //console.log(echelon.markerArrayKey)
       echelon.calculateRoutes(echelon.markerArrayKey)
       setRouteButton(true)
       
@@ -160,17 +146,13 @@ function LocationMarker(props){
     }
 
     const routeHandler = () => {
-      //console.log("View Routes")
       setViewRoutes(true)
-
     }
     
     const rightFormHandler = (event) => {
       event.preventDefault();
-    
     }
-    
-
+  
     const handleInputChange = (event) => {
       const { name, value } = event.target;
       //console.log(name, value)

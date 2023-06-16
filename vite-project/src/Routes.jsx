@@ -6,28 +6,24 @@ import AppContext from "./AppContext";
 import { Marker, Popup, Polyline, useMapEvents } from "react-leaflet";
 import facility1_icon from "./assets/facility_1.png";
 import facility2_icon from "./assets/facility_2.png";
-//import redIcon from "./assets/red_icon.png";
 import house from "./assets/home.png";
 
 import {Icon} from 'leaflet';
 import Button from 'react-bootstrap/Button';
-import { ColorRing } from  'react-loader-spinner'
+//import { ColorRing } from  'react-loader-spinner'
 
 function Routes(){
 
       
     const [markers, setMarkers] = useState([])
-    //const [allNodes, setNodes] = useState([])
+   
     const [menuLabels, setMenuLabels] = useState([])
     const [currentNodes, setCurrentNodes] = useState([])
     const [currentPaths, setCurrentPaths] = useState([])
-    //const [coordsMap, setMap] = useState({})
     const [echelonLevels, setEchelonLevels] = useState([])
    
-    //console.log(currentPaths)
     //console.log(markers)
     
-
     const flyCoords = useContext(AppContext);
     const coordsMap = flyCoords.nodeCoordsMapKey
     const allNodes = Object.keys(coordsMap)
@@ -35,14 +31,13 @@ function Routes(){
     const colorArray = ['blue', 'fuchsia','red', 'purple', 'black', 'orange', 'maroon', 'brown', 'DarkSlateGray','DarkTurquoise','SlateBlue','LimeGreen','gray' ] 
    
     let filtered_data = []
-    let polylines = []
     let echelon_levels = []
 
       const facilityIcon_1 = new Icon({
     
         iconUrl: facility1_icon,
         iconAnchor: [28,15],
-        iconSize: [36,36]
+        iconSize: [28,28]
       })
 
       const facilityIcon_2 = new Icon({
@@ -65,24 +60,18 @@ function Routes(){
         
         let routeData = async () => {
         const data = await APIService.getRoutes()
-        await new Promise(r => setTimeout(r, 1000));
-        //setNodes(data)
+        await new Promise(r => setTimeout(r, 500));
         console.log("data: ", data)
         
-        //let tempDict = {}
-       
         let echelonSet = new Set()
         for (let i=0;i<data.length;i++){
-            //tempDict[data[i].label] = [parseFloat(data[i].lat), parseFloat(data[i].lng)]
             echelonSet.add(parseInt(data[i]['echelon']))
         }
 
-        //setMap(flyCoords.nodeCoordsMapKey)
         echelon_levels = [...echelonSet].filter(e=>e!=1)
 
         setEchelonLevels(echelon_levels)
        
-        //setMap(tempDict)
         filtered_data = data.filter(e=>e.route_costs.length>0)
        
         flyCoords.handleFlyLocation([filtered_data[0]['lat'],filtered_data[0]['lng']])
@@ -92,7 +81,6 @@ function Routes(){
         //polylines = filtered_data.map(node=>[parseFloat(node.lat), parseFloat(node.lng)])
         setCurrentPaths([])
         //console.log("Polylines:" , [polylines])
-        //console.log("Markers: ", filtered_data)
         setMarkers(filtered_data)
     
         }
@@ -165,7 +153,6 @@ function Routes(){
                 }
             })
             //console.log(allCurrentNodes)
-        
             allPaths.push(newPathCoords)
         }
         let newMarkers = []
@@ -185,11 +172,9 @@ function Routes(){
         //console.log(allPaths)
         setCurrentPaths(allPaths)
         setMarkers(newMarkers)
-
     }
 
     function showLabelRoute(e){
-        //setColor(colorArray[Math.floor(Math.random()*colorArray.length)])
         let current_node = currentNodes.filter(path => path['label']==e)
         let currentLabelNodes = JSON.parse(current_node[0]['routes'])
         let newPathMarkers = []
@@ -266,30 +251,13 @@ function Routes(){
     function showEchelonRoutes(e){
         //console.log(e)
         let selectedEchelonNodes = currentNodes.filter(node=>parseInt(node['echelon'])==e)
-        //console.log(selectedEchelonNodes)
-        //setCurrentNodes(selectedEchelonNodes)
         showNodesAndRoutes(selectedEchelonNodes)
-
 
     }
 
     return (
         <div>
-            <ColorRing
-className = "loader"
-  visible={true}
-  height="80"
-  width="80"
-  ariaLabel="blocks-loading"
-  wrapperStyle={{
-    right: '200',
-    top: '15',
-    zIndex: '400',
-    position: 'absolute'
-  }}
-  wrapperClass="blocks-wrapper"
-  colors={['green', 'blue', 'black', 'yellow', 'red']}
-/>
+          
             <Button className="show-facilities" variant="primary" size="sm" onClick={showFacilities}>Show All Facilities</Button>
             <Button className="show-routes" variant="primary" size="sm" onClick={showAllRoutes}>Show All Routes</Button>
          
@@ -319,17 +287,16 @@ className = "loader"
             <div className="dropdown-btn">
                 <label>
                     Facility Level Routes
-                <div>
-                         <select className="select-menu" defaultValue="0"
-                         onChange = {(e)=>showLabelRoute(e.target.value)}>
-                         {menuLabels.map(node=>{
-                            return (<option className='option-menu' value={node.label}>{node.label}</option>)
-                            
-                            
-                        })}
-                        </select>      
-                                   
-                </div>
+                    <div>
+                            <select className="select-menu" defaultValue="0"
+                            onChange = {(e)=>showLabelRoute(e.target.value)}>
+                            {menuLabels.map(node=>{
+                                return (<option className='option-menu' value={node.label}>{node.label}</option>)      
+                                
+                            })}
+                            </select>      
+                                    
+                    </div>
                 
                 </label>
             </div>
@@ -340,8 +307,7 @@ className = "loader"
                 <div>
                          <select className="select-menu" defaultValue="0"
                          onChange = {(e)=>showEchelonRoutes(e.target.value)}>
-                         {echelonLevels.map(level=>{
-                           
+                         {echelonLevels.map(level=>{       
                             return (<option className='option-menu' value={level}>Level {level}</option>)
                             
                         })}
@@ -351,9 +317,6 @@ className = "loader"
                 
                 </label>
             </div>
-
-
-
             {currentPaths.map((polyline,index)=>polyline!=undefined?
                 <Polyline positions={polyline} pathOptions={{color: colorArray[index%colorArray.length]}}></Polyline>
             :<></>)}
@@ -361,7 +324,6 @@ className = "loader"
         </div>
         
     )
-
 }
 
 export default Routes;
@@ -370,15 +332,23 @@ export default Routes;
 
 /*
 
+  <ColorRing
+className = "loader"
+  visible={true}
+  height="80"
+  width="80"
+  ariaLabel="blocks-loading"
+  wrapperStyle={{
+    right: '200',
+    top: '15',
+    zIndex: '400',
+    position: 'absolute'
+  }}
+  wrapperClass="blocks-wrapper"
+  colors={['green', 'blue', 'black', 'yellow', 'red']}
+/>
+
 icon = {marker['echelon']=='1'?{facilityIcon}:{houseIcon}}
-
-  const polyline = [
-    [37.26179, -80.4034],
-    [37.25277, -80.43775],
-    [37.21887, -80.43775],
-    [37.19863, -80.39327]
-  ]
-
 
    <Button style={ButtonStyle} variant="primary" size="sm" onClick={showLabelRoute}>{marker.label}</Button>
 

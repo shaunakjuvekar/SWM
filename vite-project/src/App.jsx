@@ -1,11 +1,8 @@
 import './App.css';
-import MyMap from "./MyMap";
 import Header from "./Header";
 import APIService from "./APIService";
 import AppContext from './AppContext';
 import { useState } from 'react';
-
-
 
 function App() {
  
@@ -61,10 +58,8 @@ function App() {
   return (
     
       <AppContext.Provider value={globalObject}>
-        <Header />
-       
+        <Header />   
         </AppContext.Provider>
-    
     
   )
   
