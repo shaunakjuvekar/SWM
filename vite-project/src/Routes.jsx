@@ -6,29 +6,31 @@ import AppContext from "./AppContext";
 import { Marker, Popup, Polyline, useMapEvents } from "react-leaflet";
 import facility1_icon from "./assets/facility_1.png";
 import facility2_icon from "./assets/facility_2.png";
-import redIcon from "./assets/red_icon.png";
+//import redIcon from "./assets/red_icon.png";
 import house from "./assets/home.png";
 
 import {Icon} from 'leaflet';
 import Button from 'react-bootstrap/Button';
+import { ColorRing } from  'react-loader-spinner'
 
 function Routes(){
 
       
     const [markers, setMarkers] = useState([])
-    const [allNodes, setNodes] = useState([])
+    //const [allNodes, setNodes] = useState([])
     const [menuLabels, setMenuLabels] = useState([])
     const [currentNodes, setCurrentNodes] = useState([])
     const [currentPaths, setCurrentPaths] = useState([])
-    const [coordsMap, setMap] = useState({})
+    //const [coordsMap, setMap] = useState({})
     const [echelonLevels, setEchelonLevels] = useState([])
-
+   
     //console.log(currentPaths)
     //console.log(markers)
     
 
     const flyCoords = useContext(AppContext);
-
+    const coordsMap = flyCoords.nodeCoordsMapKey
+    const allNodes = Object.keys(coordsMap)
 
     const colorArray = ['blue', 'fuchsia','red', 'purple', 'black', 'orange', 'maroon', 'brown', 'DarkSlateGray','DarkTurquoise','SlateBlue','LimeGreen','gray' ] 
    
@@ -40,21 +42,21 @@ function Routes(){
     
         iconUrl: facility1_icon,
         iconAnchor: [28,15],
-        iconSize: [32,32]
+        iconSize: [36,36]
       })
 
       const facilityIcon_2 = new Icon({
     
         iconUrl: facility2_icon,
         iconAnchor: [28,15],
-        iconSize: [32,32]
+        iconSize: [42,42]
       })
 
       const houseIcon = new Icon({
     
         iconUrl: house,
         iconAnchor: [28,15],
-        iconSize: [32,32]
+        iconSize: [28,28]
       })
 
 
@@ -63,38 +65,28 @@ function Routes(){
         
         let routeData = async () => {
         const data = await APIService.getRoutes()
-        setNodes(data)
-        //console.log("All Nodes", allNodes)
+        await new Promise(r => setTimeout(r, 1000));
+        //setNodes(data)
+        console.log("data: ", data)
         
-        let tempDict = {}
+        //let tempDict = {}
        
         let echelonSet = new Set()
         for (let i=0;i<data.length;i++){
-            tempDict[data[i].label] = [parseFloat(data[i].lat), parseFloat(data[i].lng)]
+            //tempDict[data[i].label] = [parseFloat(data[i].lat), parseFloat(data[i].lng)]
             echelonSet.add(parseInt(data[i]['echelon']))
         }
 
-       
+        //setMap(flyCoords.nodeCoordsMapKey)
         echelon_levels = [...echelonSet].filter(e=>e!=1)
 
         setEchelonLevels(echelon_levels)
        
-        setMap(tempDict)
+        //setMap(tempDict)
         filtered_data = data.filter(e=>e.route_costs.length>0)
        
         flyCoords.handleFlyLocation([filtered_data[0]['lat'],filtered_data[0]['lng']])
         
-        /*
-        let echelonArray = []
-        for (let i=0;i<data.length;i++){
-            if (data[i]['echelon']!='1'){
-
-            }
-        }
-        */
-
-
-
         setCurrentNodes(filtered_data)
         setMenuLabels(filtered_data)
         //polylines = filtered_data.map(node=>[parseFloat(node.lat), parseFloat(node.lng)])
@@ -110,8 +102,12 @@ function Routes(){
     function showNodesAndRoutes(currentNodes){
         let allMarkers = []
         let allPaths = []
+        console.log(currentNodes)
         for (let i=0;i<currentNodes.length;i++){
             let current_node = currentNodes[i]
+          
+            current_node['routes'] = current_node['routes'].replace(/'/g,"\"")
+            //console.log(current_node['routes'])
             let routeNodes = JSON.parse(current_node['routes'])
            
             if (!allMarkers.includes(current_node.label)){
@@ -146,6 +142,7 @@ function Routes(){
                 for (let j=0;j<newPathMarkers[i].length;j++){
                     let node = newPathMarkers[i][j]
                     let tempArr = []
+                    //console.log("Coords Map: " , coordsMap)
                     if (node in coordsMap){
                         for (let k=0;k<2;k++){
                             tempArr.push(coordsMap[node][k])
@@ -172,18 +169,20 @@ function Routes(){
             allPaths.push(newPathCoords)
         }
         let newMarkers = []
+        //console.log("allMarkers:" , allMarkers)
         allNodes.map(node1=>{
             let obj={}
             for (let j=0;j<allMarkers.length;j++){
-                if (node1.label==allMarkers[j]){
+                if (node1==allMarkers[j]){
                     obj['label'] = allMarkers[j]
-                    obj['lat'] = node1['lat']
-                    obj['lng'] = node1['lng']
-                    obj['echelon'] = node1['echelon']
+                    obj['lat'] = coordsMap[node1][0]
+                    obj['lng'] = coordsMap[node1][1]
+                    obj['echelon'] = coordsMap[node1][2]
                     newMarkers.push(obj)
                 }
             }
         })
+        //console.log(allPaths)
         setCurrentPaths(allPaths)
         setMarkers(newMarkers)
 
@@ -247,11 +246,11 @@ function Routes(){
         allNodes.map(node1=>{
             let obj={}
             for (let j=0;j<allCurrentNodes.length;j++){
-                if (node1.label==allCurrentNodes[j]){
+                if (node1==allCurrentNodes[j]){
                     obj['label'] = allCurrentNodes[j]
-                    obj['lat'] = node1['lat']
-                    obj['lng'] = node1['lng']
-                    obj['echelon'] = node1['echelon']
+                    obj['lat'] = coordsMap[node1][0]
+                    obj['lng'] = coordsMap[node1][1]
+                    obj['echelon'] = coordsMap[node1][2]
                     newMarkers.push(obj)
                 }
             }
@@ -276,6 +275,21 @@ function Routes(){
 
     return (
         <div>
+            <ColorRing
+className = "loader"
+  visible={true}
+  height="80"
+  width="80"
+  ariaLabel="blocks-loading"
+  wrapperStyle={{
+    right: '200',
+    top: '15',
+    zIndex: '400',
+    position: 'absolute'
+  }}
+  wrapperClass="blocks-wrapper"
+  colors={['green', 'blue', 'black', 'yellow', 'red']}
+/>
             <Button className="show-facilities" variant="primary" size="sm" onClick={showFacilities}>Show All Facilities</Button>
             <Button className="show-routes" variant="primary" size="sm" onClick={showAllRoutes}>Show All Routes</Button>
          
