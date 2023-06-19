@@ -9,7 +9,8 @@ function App() {
   const [echelonValue, updateEchelon] = useState(1);
   const [markerArray, setMarkerArray] = useState([]);
   const [flyLocation, setFlyLocation] = useState([]);
-  const [nodeCoordsMap, setMap] = useState({})
+  const [nodeCoordsMap, setMap] = useState({});
+  const [summaryTable, setTableState] = useState(false);
 
   const changeEchelon = () => {
     updateEchelon(echelonValue+1);
@@ -33,6 +34,7 @@ function App() {
     }
     setMap(tempMap)
     APIService.sendCompleteData(body)
+    setTableState(true)
     body = []
   }
 
@@ -51,24 +53,17 @@ function App() {
     calculateRoutes,
     flyLocation,
     handleFlyLocation,
-    nodeCoordsMapKey : nodeCoordsMap
+    nodeCoordsMapKey : nodeCoordsMap,
+    summaryTableKey : summaryTable
 
   };
 
   return (
-    
       <AppContext.Provider value={globalObject}>
         <Header />   
         </AppContext.Provider>
-    
   )
   
 }
 
 export default App
-
-
-/*
-  <MyMap>
-  </MyMap>
-*/

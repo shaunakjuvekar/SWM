@@ -36,10 +36,10 @@ function MyMap(){
     iconSize: [35,35]
   })
 
-  function onSubmit(body){
-    APIService.InsertArticle(body)
-    body = []
-  }
+  //function onSubmit(body){
+  //  APIService.InsertArticle(body)
+  //  body = []
+  //}
 
   function FlyToMarker({ position }) {
     const map = useMap();
@@ -68,7 +68,7 @@ function MyMap(){
          icon={markerIcon} draggable={true}>
           <Popup>Initial Marker</Popup>
     </Marker>
-  <LocationMarker onSubmit={onSubmit}/>
+  <LocationMarker />
 
   {fly_coords_string.length!=0  && <FlyToMarker position={fly_coords} />}
   
@@ -81,6 +81,8 @@ export default MyMap;
 
 
 /*
+
+onSubmit={onSubmit}
 
 
   const markers = [
