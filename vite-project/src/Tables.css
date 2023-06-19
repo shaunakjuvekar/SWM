@@ -1,0 +1,27 @@
+h3{
+    color: black;
+}
+
+.submitButton{
+    
+    top: 70px;
+    right: 30px;
+    padding: 13px;
+    border-radius: 10px;
+    background-color: rgb(56, 56, 214);
+    color: white;
+    font-weight: 700;
+}
+
+.table-container{
+    margin-left: 20px;
+}
+
+
+table, td, tr, th{
+    color: black;
+    border: 1px solid;
+    border-collapse:collapse;
+    font-size: small;
+    padding: 5px;
+}

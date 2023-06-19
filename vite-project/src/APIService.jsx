@@ -1,7 +1,4 @@
 
-
-
-
 export default class APIService{
     // Insert an article
     static InsertArticle(body){
@@ -37,10 +34,19 @@ export default class APIService{
     })
     .then(response => response.json())
     .catch(error => console.log(error))
-    
-   
     }
 
 
+    static getTableOne(){
+        console.log("getTableOne() called")
+        return fetch(`http://localhost:5002/send_table`,{
+            'method':'GET',
+             headers : {
+                'Content-Type':'application/json'
+      },
+    })
+    .then(response => response.text())
+    .catch(error => console.log(error))
+    }
 
 }

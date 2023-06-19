@@ -99,7 +99,7 @@ function LocationMarker(props){
         console.log("Inside Click handler -> Final markers: ", final_markers)
         echelon.updateArray(final_markers)
         echelon.changeEchelon()
-        props.onSubmit(final_markers)
+        //props.onSubmit(final_markers)
         setMarkers([{id: uuidv4()}])
         setLocationCosts([0])
         setLabels([''])
