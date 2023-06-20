@@ -1,0 +1,1 @@
+[{"lat": "37.24176", "lng": "-80.4256", "label": "dd", "echelon": "2", "routes": "[['a', 'b', 'c']]", "route_costs": "[42.87910071000533]"}, {"lat": "37.21264", "lng": "-80.40604", "label": "ee", "echelon": "2", "routes": "", "route_costs": ""}, {"lat": "37.2285", "lng": "-80.40655", "label": "ggg", "echelon": "3", "routes": "[['dd']]", "route_costs": "[29.498151772493607]"}]
