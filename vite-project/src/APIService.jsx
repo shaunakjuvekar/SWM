@@ -39,7 +39,7 @@ export default class APIService{
 
     static getTableOne(){
         console.log("getTableOne() called")
-        return fetch(`http://localhost:5002/send_table`,{
+        return fetch(`http://localhost:5002/get_table`,{
             'method':'GET',
              headers : {
                 'Content-Type':'application/json'
