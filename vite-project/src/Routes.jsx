@@ -3,10 +3,11 @@ import "./Routes.css";
 import { useState } from 'react';
 import APIService from "./APIService";
 import AppContext from "./AppContext";
-import { Marker, Popup, Polyline, useMapEvents } from "react-leaflet";
+import { Marker, Popup, Polyline, useMapEvents, useMap } from "react-leaflet";
 import facility1_icon from "./assets/facility_1.png";
 import facility2_icon from "./assets/facility_2.png";
 import house from "./assets/home.png";
+
 
 import {Icon} from 'leaflet';
 import Button from 'react-bootstrap/Button';
@@ -244,14 +245,17 @@ function Routes(){
     }
 
     function showAllRoutes(){       
-        //console.log(currentNodes)
         showNodesAndRoutes(currentNodes)
     }
 
     function showEchelonRoutes(e){
-        //console.log(e)
         let selectedEchelonNodes = currentNodes.filter(node=>parseInt(node['echelon'])==e)
         showNodesAndRoutes(selectedEchelonNodes)
+    }
+
+    function togglePopups(){
+        const map = useMap();
+        console.log(map)
 
     }
 
@@ -260,7 +264,8 @@ function Routes(){
           
             <Button className="show-facilities" variant="primary" size="sm" onClick={showFacilities}>Show All Facilities</Button>
             <Button className="show-routes" variant="primary" size="sm" onClick={showAllRoutes}>Show All Routes</Button>
-         
+            <Button className="toggle-popups" variant="primary" size="sm" onClick={togglePopups}>Toggle Popups</Button>
+
             {markers.map(marker=>marker.lat!=undefined?
                 marker['echelon']=='2'?
                 <Marker position={[marker.lat, marker.lng]}

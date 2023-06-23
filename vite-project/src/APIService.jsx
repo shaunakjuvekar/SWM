@@ -39,13 +39,13 @@ export default class APIService{
 
     static getTableOne(){
         console.log("getTableOne() called")
-        return fetch(`http://localhost:5002/get_table`,{
+        return fetch(`http://localhost:5002/get_route_tables`,{
             'method':'GET',
              headers : {
                 'Content-Type':'application/json'
       },
     })
-    .then(response => response.text())
+    .then(response => response.json())
     .catch(error => console.log(error))
     }
 
