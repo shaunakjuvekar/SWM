@@ -1,0 +1,77 @@
+h3{
+    color: black;
+}
+
+.submitTableButton{
+    position: absolute;
+    top: 100px;
+    right: 50px;
+    padding: 13px;
+    border-radius: 10px;
+    background-color: rgb(56, 56, 214);
+    color: white;
+    font-weight: 700;
+}
+
+.submitTableButton:hover {
+    background-color:rgb(34, 59, 130);
+    transition: 0.3s;
+  }
+  
+
+.downloadButton1{
+    position: absolute;
+    top: 170px;
+    right: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(204, 117, 30);
+    color: white;
+    font-weight: 700;
+}
+
+.downloadButton1:hover {
+    background-color:rgb(116, 70, 35);
+    transition: 0.3s;
+  }
+  
+
+.downloadButton2{
+    position: absolute;
+    top: 220px;
+    right: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: rgb(48, 155, 80);
+    color: white;
+    font-weight: 700;
+}
+
+.downloadButton2:hover {
+    background-color:rgb(35, 105, 38);
+    transition: 0.3s;
+  }
+  
+
+
+
+.table-container{
+    margin-left: 30px;
+    margin-right: 40px;
+}
+
+.csv-container{
+    display: flex;
+    margin: 30px;
+}
+
+table, td, tr, th{
+    color: black;
+    border:2px solid;
+    border-collapse:collapse;
+    font-size: small;
+    padding: 8px;
+    text-align: left;
+    margin: 50px;
+    font-family: 'Arial';
+}

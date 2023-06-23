@@ -10,6 +10,29 @@
     font-weight: 700;
 }
 
+.show-facilities:hover{
+    background-color: rgb(35, 42, 49);
+    transition: 0.1s;
+  }
+
+
+.toggle-popups{
+    position: absolute;
+    top: 30px;
+    right: 200px;
+    padding: 15px;
+    z-index: 400;
+    border-radius: 10px;
+    background-color: rgb(191, 59, 47);
+    color: white;
+    font-weight: 700;
+}
+
+.toggle-popups:hover{
+    background-color: rgb(142, 38, 38);
+    transition: 0.1s;
+  }
+
 .Loader{
     right: 200px;
     z-index: 400;
@@ -27,6 +50,13 @@
     color: white;
     font-weight: 700;
 }
+
+.show-routes:hover{
+    background-color: rgb(41, 47, 36);
+    transition: 0.1s;
+  }
+
+
 
 .select-menu{
     border-radius: 20px;
