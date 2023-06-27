@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import {Routes, Route} from "react-router-dom";
 import Home from "./Home";
 import MyMap from "./MyMap";
+import Guidelines from "./Guidelines";
 import RouteTable from "./RouteTable";
 import "./Header.css";
 import vt_logo from "./assets/vt-logo2.png"
@@ -18,16 +19,17 @@ function Header() {
           <Container>
             <Navbar.Brand className="main-header">Solid Waste Management System</Navbar.Brand>
             <Nav.Link href="/" className='nav-link'>Home</Nav.Link>
-            <Nav.Link href="/map" className='nav-link'>Enter Map</Nav.Link>
+            <Nav.Link href="/guidelines" className='nav-link'>Guidelines</Nav.Link>
+            <Nav.Link href="/map" className='nav-link'>Map</Nav.Link>
             <Nav.Link href="/route_tables" className='nav-link'>Route Tables</Nav.Link>
             <img style={{ width: 150, height: 40 }} src={vt_logo} alt='VT Logo'></img>
           </Container>
       </Navbar>
      <Routes>
-     <Route path='/' element={<Home />}></Route>
-      <Route path='/map' element={<MyMap />}></Route>
-
-      <Route path='/route_tables' element={<RouteTable />}></Route>
+        <Route path='/' element={<Home />}></Route>
+        <Route path='/guidelines' element={<Guidelines />}></Route>
+        <Route path='/map' element={<MyMap />}></Route>
+        <Route path='/route_tables' element={<RouteTable />}></Route>
       
       </Routes>
     </>

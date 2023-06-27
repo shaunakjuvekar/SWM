@@ -25,20 +25,21 @@ img{
     
 }
 
-.nav-link:link { text-decoration: none; }
+.nav-link:hover {  color: rgb(183, 169, 66); transition: 0.3s;}
 
+.nav-link:link { text-decoration: none; }
 
 .nav-link:visited { text-decoration: none; }
 
-
 .nav-link:hover { text-decoration: none; }
-
 
 .nav-link:active { text-decoration: none; }
 
 .home-container{
     margin: 0 50px 0 50px;
-    color: black
+    padding: 0 20px 0 20px;
+    color: black;
+    background-color: rgb(238, 226, 210);
 }
 
 h3{
