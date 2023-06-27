@@ -1,0 +1,30 @@
+h2{
+    color: black;
+}
+
+.grid-container{
+    margin: 50px;
+    background-color: rgb(238, 226, 210);
+    padding: 10px;
+    font-family: "Canterell",sans-serif;
+    
+}
+
+p{
+    color: black;
+    font-size: 17px;
+    font-family: "Canterell",sans-serif;
+}
+
+ol {
+    list-style-position: inside;
+    color: black;
+}
+
+li{
+    text-align: left;
+    font-size: 17px;
+    font-family: "Canterell",sans-serif;
+    
+}
+

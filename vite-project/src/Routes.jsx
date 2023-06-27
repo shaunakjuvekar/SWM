@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import "./Routes.css";
 import { useState } from 'react';
 import APIService from "./APIService";
@@ -7,6 +7,7 @@ import { Marker, Popup, Polyline, useMapEvents, useMap } from "react-leaflet";
 import facility1_icon from "./assets/facility_1.png";
 import facility2_icon from "./assets/facility_2.png";
 import house from "./assets/home.png";
+import L from 'leaflet';
 
 
 import {Icon} from 'leaflet';
@@ -22,6 +23,7 @@ function Routes(){
     const [currentNodes, setCurrentNodes] = useState([])
     const [currentPaths, setCurrentPaths] = useState([])
     const [echelonLevels, setEchelonLevels] = useState([])
+    const [popupState, setPopupState] = useState(false)
    
     //console.log(markers)
     
@@ -34,26 +36,47 @@ function Routes(){
     let filtered_data = []
     let echelon_levels = []
 
-      const facilityIcon_1 = new Icon({
-    
-        iconUrl: facility1_icon,
-        iconAnchor: [28,15],
-        iconSize: [28,28]
-      })
+    const facilityIcon_1 = new Icon({
 
-      const facilityIcon_2 = new Icon({
-    
-        iconUrl: facility2_icon,
-        iconAnchor: [28,15],
-        iconSize: [42,42]
-      })
+    iconUrl: facility1_icon,
+    iconAnchor: [28,15],
+    iconSize: [28,28]
+    })
 
-      const houseIcon = new Icon({
-    
-        iconUrl: house,
-        iconAnchor: [28,15],
-        iconSize: [28,28]
-      })
+    const facilityIcon_2 = new Icon({
+
+    iconUrl: facility2_icon,
+    iconAnchor: [28,15],
+    iconSize: [42,42]
+    })
+
+    const houseIcon = new Icon({
+
+    iconUrl: house,
+    iconAnchor: [28,15],
+    iconSize: [28,28]
+    })
+
+    const map = useMap();
+    useEffect(() => {
+    //console.log("PopupLayer triggered")
+    if (popupState){
+        markers.map(marker=>{
+            var popup = L.popup()
+                        .setLatLng([marker.lat, marker.lng])
+                        .setContent(marker.label)
+                        .addTo(map);
+        })
+    }
+    else{
+        markers.map(marker=>{
+            var popup = L.popup()
+                        .setLatLng([marker.lat, marker.lng])
+                        .setContent(marker.label)
+                        .remove(map);
+        })
+    }
+    }, [popupState])
 
 
 
@@ -91,7 +114,6 @@ function Routes(){
     function showNodesAndRoutes(currentNodes){
         let allMarkers = []
         let allPaths = []
-        console.log(currentNodes)
         for (let i=0;i<currentNodes.length;i++){
             let current_node = currentNodes[i]
           
@@ -253,38 +275,34 @@ function Routes(){
         showNodesAndRoutes(selectedEchelonNodes)
     }
 
-    function togglePopups(){
-        const map = useMap();
-        console.log(map)
-
-    }
-
     return (
         <div>
           
-            <Button className="show-facilities" variant="primary" size="sm" onClick={showFacilities}>Show All Facilities</Button>
-            <Button className="show-routes" variant="primary" size="sm" onClick={showAllRoutes}>Show All Routes</Button>
-            <Button className="toggle-popups" variant="primary" size="sm" onClick={togglePopups}>Toggle Popups</Button>
+            <Button className="show-facilities" onClick={showFacilities}>Show All Facilities</Button>
+            <Button className="show-routes" onClick={showAllRoutes}>Show All Routes</Button>
+            <Button className="toggle-popups" onClick={() => setPopupState((prevState) => !prevState)}>Toggle Popups</Button>
+
+            
 
             {markers.map(marker=>marker.lat!=undefined?
                 marker['echelon']=='2'?
                 <Marker position={[marker.lat, marker.lng]}
                draggable={true}
                icon = {facilityIcon_1}>
-                    <Popup>{marker.label}</Popup>
+                    <Popup >{marker.label}</Popup>
   
                 </Marker>
                 :marker['echelon']=='3'?
                 <Marker position={[marker.lat, marker.lng]}
                 draggable={true}
                 icon = {facilityIcon_2}>
-                     <Popup>{marker.label}</Popup>
+                     <Popup >{marker.label}</Popup>
                  </Marker>
                  :
                  <Marker position={[marker.lat, marker.lng]}
                  draggable={true}
                  icon = {houseIcon}>
-                      <Popup>{marker.label}</Popup>
+                      <Popup >{marker.label}</Popup>
                   </Marker>
                 :<></>
             )}
@@ -336,6 +354,9 @@ export default Routes;
 
 
 /*
+
+
+{popupState?<PopupLayer></PopupLayer>:<></>}
 
   <ColorRing
 className = "loader"

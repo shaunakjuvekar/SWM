@@ -1,6 +1,3 @@
-h3{
-    color: black;
-}
 
 .submitTableButton{
     position: absolute;
@@ -62,7 +59,8 @@ h3{
 
 .csv-container{
     display: flex;
-    margin: 30px;
+    margin: 30px 200px 30px 30px;
+    background-color: rgb(238, 226, 210);
 }
 
 table, td, tr, th{
