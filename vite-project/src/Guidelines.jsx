@@ -6,6 +6,7 @@ function Guidelines(){
 
 
     return (
+        <div className="guide">
         <div className="grid-container">
             <h2>
                 Guidelines
@@ -47,6 +48,7 @@ We’ve outlined below the steps to be followed for using the system :-
                 </ul>	
                 <li>For a table representation of the routes, the user can click on the ‘Route Tables’ link on the navigation bar. After clicking on the Show Tables button, two tables will be displayed on the page, one table each per echelon level. In addition, user can click on the download buttons to download the respective CSV route file on their local machine.</li>
         </ol>
+    </div>
     </div>
 
     )
