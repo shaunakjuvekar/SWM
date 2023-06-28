@@ -17,12 +17,12 @@ function Header() {
       <>
         <Navbar bg="primary" variant="dark" className="header">
           <Container>
-            <Navbar.Brand className="main-header">Solid Waste Management System</Navbar.Brand>
+            <Navbar.Brand className="main-header">SWEEP</Navbar.Brand>
             <Nav.Link href="/" className='nav-link'>Home</Nav.Link>
             <Nav.Link href="/guidelines" className='nav-link'>Guidelines</Nav.Link>
             <Nav.Link href="/map" className='nav-link'>Map</Nav.Link>
             <Nav.Link href="/route_tables" className='nav-link'>Route Tables</Nav.Link>
-            <img style={{ width: 150, height: 40 }} src={vt_logo} alt='VT Logo'></img>
+            <img className='logo' style={{ width: 150, height: 40 }} src={vt_logo} alt='VT Logo'></img>
           </Container>
       </Navbar>
      <Routes>

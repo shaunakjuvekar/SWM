@@ -1,0 +1,32 @@
+@font-face {
+    font-family: Montserrat;
+    src: url(./assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf);
+  }
+
+.home-container{
+    margin: 0 30px 0 30px;
+    padding: 0 10px 0 10px;
+    color: black;
+        
+}
+
+.column{
+    width: 30%;
+    float: left;
+    padding: 0 15px 0 15px;
+    margin-left: 10px;
+    
+}
+
+
+p{
+    text-align: left;
+    font-size:0.9em;
+    font-family: Montserrat;
+    font-weight: 550;
+    line-height: 0.3in;
+}
+
+.profile-team{
+    text-align: center;
+}
