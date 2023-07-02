@@ -41,44 +41,53 @@ def send_data():
             route_data = json.load(data)
         print("get_data called")
         return route_data
-    except:
+    except Exception as err:
+        print(err)
         return {"failure":'0'}
     finally:
         print("IN final block of get_data")
         #Can delete delete data_file.json in future
 
-@app.route("/get_table", methods=["GET"], strict_slashes=False)
+@app.route("/get_route_tables", methods=["GET"], strict_slashes=False)
 @cross_origin(support_credentials=True)
-def send_table():
-    print("send_table called")
+def send_route_tables():
+    print("get_route_tables called")
 
-    file = open('output_final.csv', 'r')
-    table_data = file.read()
-    print(table_data)
+    file_1 = open('output_final1.csv', 'r')
+    file_2 = open('output_final2.csv', 'r')
     try:
-        print("Sending table data")
-        data = json.load(table_data)
-        return data
+        print("Sending route table data")
+        data1 = file_1.read()
+        data2 = file_2.read()
+        return [data1, data2]
     
-    except:
-        print("Error!!!!!!!!: ", table_data)
-        print("-----------")
-        return table_data
+    except Exception as err:
+        print("Error!!", err)
+        return {"errorcode":1}
     finally:
-        print("IN final block of table_data")
+        print("IN final block of get_route_tables")
+        #Can delete delete data_file.json in future
+
+@app.route("/get_summary_tables", methods=["GET"], strict_slashes=False)
+@cross_origin(support_credentials=True)
+def send_summary_tables():
+    print("get_summary_tables called")
+
+    file_1 = open('echelon_output.csv', 'r')
+    file_2 = open('facility_output.csv', 'r')
+    try:
+        print("Sending summary table data")
+        data1 = file_1.read()
+        data2 = file_2.read()
+        return [data1, data2]
+    
+    except Exception as err:
+        print("Error!!", err)
+        return {"errorcode":1}
+    finally:
+        print("IN final block of get_summary_tables")
         #Can delete delete data_file.json in future
     
 
 if __name__=='__main__':
     app.run(debug=True, port=5002, use_reloader=False)
-
-
-
-'''
-data =  open("./summary_table_1.csv", 'r')
-        print(data)
-            #table_data = json.load(data)
-        return data
-
-
-'''

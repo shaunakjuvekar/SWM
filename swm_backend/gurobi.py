@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Fri May 19 11:50:04 2023
-
 @author: kakshat
 """
 
@@ -109,50 +108,72 @@ def MELRP_dim(data_f):
     K=[j for j in range(k_0)]
     
     
-    
-    V = [350, 800]#, 3000] ############Remove Once Input is set
-    Capacity={(0,0,0): 500, (1,0,0): 900, 
-              (0,0,1): 1800, (1,0,1): 2400}#
-             #(0,0,2): sum(D.values())+10}          ############Remove Once Input is set
-    X_c={(0, 0): 1000, (1, 0): 1300, (0, 1): 1500, (1, 1): 1800}            ############Remove Once Input is set
-    
     ##Check for number of sizes at each echelon after determination of echelons
     
     #Determination of number of echelons
     Fac_levels, Levels=num_unique([i["echelon"] for i in data_f])
     T=[j for j in range(Fac_levels)]
     
-    n_0 = [1] ##customer size
-    n_0.extend([2]*(Fac_levels)) ###default number of facility  sizes #####Remove once input is set#############
-    
-    
     I_0={}
     for i in range(Fac_levels+1):
         I_0[i]=len([j for j in data_f if j["echelon"]==Levels[i]])
+    
+    h_c={}
+    D={}
+    V=[]
+    M={}
+    X_c={}
+    n_0=[1]
+    for i,e in enumerate(data_f): 
+            if int(e["echelon"])==1:
+                D[i,0]=float(e["location_cost"])
+                
+            else:
+                h_c[i-sum(I_0[t] for t in range(int(e["echelon"])-1)), int(e["echelon"])-2]=float(e["location_cost"])
+                if int(e["index"])==1:
+                    fac_cost_str=e["facility_costs"].split(',')
+                    fac_size_str=e["facility_sizes"].split(',')
+                    
+                    if e["vehicle_capacity"]=='':
+                        if int(e["echelon"])==2:
+                            V.extend([3*max(D[j,0] for j in range(I_0[0]))])
+                        else:
+                            V.extend([3*max(M[n1,k,int(e["echelon"])-3] for n1 in range(n_0[-2]) for k in K)])
+                    else:
+                        V.extend([e["vehicle_capacity"]])
+                    
+                    
+                    
+                    if len(fac_size_str)==1 and fac_size_str[0]=='':
+                        n_0.extend([1])
+                        M.update({(n,k,int(e["echelon"])-2): 4.5*V[int(e["echelon"])-2] 
+                                  for n in range(n_0[-1]) for k in K})
+                        X_c.update({(n,int(e["echelon"])-2): 700+ 600*int(e["echelon"])-2 + 100*(n+1) 
+                                  for n in range(n_0[-1])})
+
+                    else:
+                        n_0.extend([len(fac_size_str)])
+                        for n in range(n_0[-1]):
+                            X_c[n,int(e["echelon"])-2]=float(fac_cost_str[n])
+                            for k in K:
+                                M[n,k,int(e["echelon"])-2]=float(fac_size_str[n])
+                                
+                    
+                    
+    
         
     for t in T:
         if t==0:
             comb_g=[(i,t) for i in range(I_0[t+1])]
             comb_N=[(i,n,k,t) for i in range(I_0[t+1]) for n in range(n_0[t+1]) for k in range(k_0)]
             comb_h=[(u,v,k,t) for u in range(I_0[t]+I_0[t+1]) for v in range(I_0[t]+I_0[t+1]) for k in range(k_0) if u!=v]
-            M = {(n,k,t): Capacity[n,k,t]
-                 for n in range(n_0[t+1]) for k in range(k_0)} 
+            
             
         else:
             comb_g.extend((i,t) for i in range(I_0[t+1]))
             comb_N.extend((i,n,k,t) for i in range(I_0[t+1]) for n in range(n_0[t+1]) for k in range(k_0))
             comb_h.extend((u,v,k,t) for u in range(I_0[t]+I_0[t+1]) for v in range(I_0[t]+I_0[t+1]) for k in range(k_0) if u!=v)
-            M.update({(n,k,t): Capacity[n,k,t]
-                 for n in range(n_0[t+1]) for k in range(k_0)})
-            
-    h_c={}
-    D={}
-    for i,e in enumerate(data_f): 
-        if int(e["echelon"])==1:
-            D[i,0]=float(e["location_cost"])
-            
-        else:
-            h_c[i-sum(I_0[t] for t in range(int(e["echelon"])-1)), int(e["echelon"])-2]=float(e["location_cost"])
+        
             
     c={}
     for e in range(Fac_levels):
@@ -205,6 +226,8 @@ def main():
         data_f.extend(data_k[t])    
     
     t_0, I_0, comb_h, comb_N, comb_g, D, h_c, c, X_c, V, M, T, K, n_0=MELRP_dim(data_f)
+    
+    print(D)
     
     ####################Remove once input is set########################################
     #D={(0, 0): 197, (1, 0): 171, (2, 0): 196, (3, 0): 150, (4, 0): 154, (5, 0): 190, (6, 0): 171, (7, 0): 178, (8, 0): 160, (9, 0): 197, (10, 0): 180, (11, 0): 193, (12, 0): 169, (13, 0): 181, (14, 0): 152, (15, 0): 159, (16, 0): 190, (17, 0): 171, (18, 0): 150, (19, 0): 182}
@@ -306,47 +329,159 @@ def main():
     
     m.optimize()
     
-    h_bar={}
-    for (u,v,k,t) in comb_h:
-        h_bar[u,v,k,t]=h[u,v,k,t].X
-    x_bar={}
-    for (i,n,k,t) in comb_N:
-        x_bar[i,n,k,t]=x[i,n,k,t].X
-        
-    res = [i for i in data_f if not (int(i['echelon'])==1)]
-    proc_list=[(i,n,t) for (i,n,k,t) in comb_N if round(x_bar[i,n,k,t])==1]
+    if m.status==2:
     
-    for i in res:
-        if (int(i["index"])-1, int(i["echelon"])-2) in [(i,t) for (i,n,t) in proc_list]:
-            capc=[n for (j,n,t) in proc_list if j==int(i["index"])-1 and t==int(i["echelon"])-2][0]
-            i["routes"], i["route_costs"] = post_proc(int(i["index"])-1+I_0[int(i["echelon"])-2], capc, int(i["echelon"])-2, x_bar, h_bar, I_0, data_f, c)
-            i["Capacity"]=str(M[n,k,t])
-            i["Capacity costs"]=str(X_c[n,t])
-        else:
-            i["routes"], i["route_costs"], i["Capacity"], i["Capacity costs"]='', '', '', ''
+        g_bar={}
+        for (i,t) in comb_g:
+            g_bar[i,t]=g[i,t].X
+        
+        h_bar={}
+        for (u,v,k,t) in comb_h:
+            h_bar[u,v,k,t]=h[u,v,k,t].X
+        x_bar={}
+        for (i,n,k,t) in comb_N:
+            x_bar[i,n,k,t]=x[i,n,k,t].X
+        
+        ###############Comprehensive Output################################    
+        
+        res = [i for i in data_f if not (int(i['echelon'])==1)]
+        proc_list=[(i,n,t) for (i,n,k,t) in comb_N if round(x_bar[i,n,k,t])==1]
+        
+        facility_output=[]
+        for i in res:
+            if (int(i["index"])-1, int(i["echelon"])-2) in [(i,t) for (i,n,t) in proc_list]:
+                capc=[n for (j,n,t) in proc_list if j==int(i["index"])-1 and t==int(i["echelon"])-2][0]
+                i["routes"], i["route_costs"] = post_proc(int(i["index"])-1+I_0[int(i["echelon"])-2], capc, int(i["echelon"])-2, x_bar, h_bar, I_0, data_f, c)
+                i["Capacity"]=str(M[capc,0,int(i["echelon"])-2])
+                i["Capacity costs"]=str(X_c[capc,int(i["echelon"])-2])
+                
+                route_c=sum(i["route_costs"][j] for j in range(len(i["route_costs"])))
+                
+                facility_output.append({
+                ("Echelon"): i["echelon"],("Facility name"): i["node_label"],
+                ("Size (Tonnes)"): str(M[capc,0,int(i["echelon"])-2]),
+                ("# of Vehicles"): str(len(i["routes"])),
+                ("Land Cost($)"): str(round(h_c[int(i["index"])-1,int(i["echelon"])-2], 2)),
+                ("Size Configuration Cost($)"): str(X_c[capc,int(i["echelon"])-2]),
+                ("Total Routing cost($)"): str(round(route_c,2)),
+                ("Total Cost($)"): str(round(h_c[int(i["index"])-1,int(i["echelon"])-2],2)+X_c[capc,int(i["echelon"])-2]+round(route_c,2))
+                }
+                )
+                
+            else:
+                i["routes"], i["route_costs"], i["Capacity"], i["Capacity costs"]='', '', '', ''
+                
+        
             
+                ############Writing to CSV###############
+        data_file = open('sample_output.csv', 'w', newline='')
+    
+        # create the csv writer object
+        csv_writer = csv.writer(data_file)
         
-    data_file = open('sample_output.csv', 'w', newline='')
+        # Counter variable used for writing
+        # headers to the CSV file
+        count = 0
+        
+        for emp in res:
+            if count == 0:
+        
+                # Writing headers of CSV file
+                header = emp.keys()
+                csv_writer.writerow(header)
+                count += 1
+        
+            # Writing data of CSV file
+            csv_writer.writerow(emp.values())
+        
+        data_file.close()
+        
+        facility_file = open('facility_output.csv', 'w', newline='')
+    
+        # create the csv writer object
+        csv_writer = csv.writer(facility_file, delimiter=';')
+        
+        # Counter variable used for writing
+        # headers to the CSV file
+        count = 0
+        
+        for emp in facility_output:
+            if count == 0:
+        
+                # Writing headers of CSV file
+                header = emp.keys()
+                csv_writer.writerow(header)
+                count += 1
+        
+            # Writing data of CSV file
+            csv_writer.writerow(emp.values())
+        
+        facility_file.close()
 
-    # create the csv writer object
-    csv_writer = csv.writer(data_file)
+            
+            #######Writing To JSON#################
+        
+        #with open('data.json', 'w') as f:
+        #    json.dump(res, f)
     
-    # Counter variable used for writing
-    # headers to the CSV file
-    count = 0
+        
+        ##################Summary Output######################
     
-    for emp in res:
-        if count == 0:
+        sample_output=[]
+        total_c=0
+        for c1 in T:
+            facilities=[(i) for (i,n,t) in proc_list if t==c1]
+            for j in facilities:
+                facilities_label=[i["node_label"] for i in data_f if int(i["echelon"])==c1+2 and int(i["index"])==j+1]
+            facis=sum(x_bar[i,n,k,c1] for i in range(I_0[c1+1]) for n in range(n_0[c1+1]) for k in K)
+            vehicles=sum(h_bar[i,v,k,c1] for i in range(I_0[c1], I_0[c1]+I_0[c1+1]) for v in range(I_0[c1]) for k in K)
+            cost_build=sum(g_bar[i,t]*h_c[i,t] for (i,t) in comb_g if t==c1)
+            size_cost=sum(x_bar[i,n,k,t]*X_c[n,t] for (i,n,k,t) in comb_N if t==c1)
+            route_cost=sum(c[u,v,t]*h_bar[u,v,k,t] for (u,v,k,t) in comb_h if t==c1)
+            total_c+=cost_build+size_cost+route_cost
+            sample_output.append({("Echelon"): str(c1+2),
+            #("Facilities locations"): facilities_label,
+            ("# of Facilities"): str(facis),
+            ("# of Vehicles"): str(vehicles),
+            #("Building Cost"): str(cost_build),
+            #("Size Configuration Costs"): str(size_cost),
+            #("Routing Costs"): str(route_cost)},
+            ("Total_Cost($)"): str(round(cost_build+size_cost+route_cost,2))
+            })
+            
+            
+            ##Echelon, # of Facilities, # of Vehicles, Total cost##### with grand total
+        
+            ############Writing to CSV###############
+        
+        echelon_file = open('echelon_output.csv', 'w', newline='')
     
-            # Writing headers of CSV file
-            header = emp.keys()
-            csv_writer.writerow(header)
-            count += 1
-    
-        # Writing data of CSV file
-        csv_writer.writerow(emp.values())
-    
-    data_file.close()
+        # create the csv writer object
+        csv_writer = csv.writer(echelon_file, delimiter=';')
+        
+        # Counter variable used for writing
+        # headers to the CSV file
+        count = 0
+        
+        for emp in sample_output:
+            if count == 0:
+        
+                # Writing headers of CSV file
+                header = emp.keys()
+                csv_writer.writerow(header)
+                count += 1
+        
+            # Writing data of CSV file
+            csv_writer.writerow(emp.values())
+        
+        csv_writer.writerow(['','','GRAND TOTAL($)',str(round(total_c,2))])
+        echelon_file.close()
+        
+            
+    elif m.status==3:
+        print('Model is infeasible')
+    else:
+        print('Model Status', m.status)
 
 
 if __name__ == "__main__":
@@ -356,5 +491,3 @@ if __name__ == "__main__":
     
     #with open('data.json', 'w') as f:
     #    json.dump(res, f)
-
-

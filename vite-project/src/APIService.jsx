@@ -37,8 +37,8 @@ export default class APIService{
     }
 
 
-    static getTableOne(){
-        console.log("getTableOne() called")
+    static getRouteTables(){
+        console.log("getRouteTables() called")
         return fetch(`http://localhost:5002/get_route_tables`,{
             'method':'GET',
              headers : {
@@ -48,5 +48,18 @@ export default class APIService{
     .then(response => response.json())
     .catch(error => console.log(error))
     }
+
+    static getSummaryTables(){
+        console.log("getSummaryTables() called")
+        return fetch(`http://localhost:5002/get_summary_tables`,{
+            'method':'GET',
+             headers : {
+                'Content-Type':'application/json'
+      },
+    })
+    .then(response => response.json())
+    .catch(error => console.log(error))
+    }
+
 
 }
