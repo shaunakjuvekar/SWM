@@ -10,6 +10,10 @@
         
 }
 
+.about-section{
+    margin: 0 55px 0 55px;
+}
+
 .column{
     width: 30%;
     float: left;
@@ -17,6 +21,11 @@
     margin-left: 10px;
     
 }
+
+.img-container{
+    display: flex;
+}
+    
 
 
 p{

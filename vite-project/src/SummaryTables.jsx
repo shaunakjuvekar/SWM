@@ -8,16 +8,16 @@ import { CsvToHtmlTable } from 'react-csv-to-table';
 //import csvFile from "./assets/output_final.csv";
 
 
-function RouteTable() {
+function SummaryTables() {
 
     const [summaryData_1, setData_1] = useState([])
     const [summaryData_2, setData_2] = useState([])
     //console.log(summaryData)
 
-    function showTable(){
-        console.log("In showTable()")
+    function showSummaryTable(){
+        console.log("In showSummaryTable()")
         let tableData = async () => {
-            const table_data = await APIService.getRouteTables()
+            const table_data = await APIService.getSummaryTables()
             await new Promise(r => setTimeout(r, 200));
             setData_1(table_data[0])
             setData_2(table_data[1])
@@ -34,7 +34,7 @@ function RouteTable() {
     // anchor link
         const element = document.createElement("a");
         element.href = URL.createObjectURL(file);
-        element.download = "Route Summary Table 1" + ".csv";
+        element.download = "Echelon Summary Table 1" + ".csv";
     
     // simulate link click
         document.body.appendChild(element); // Required for this to work in FireFox
@@ -49,7 +49,7 @@ function RouteTable() {
         // anchor link
             const element = document.createElement("a");
             element.href = URL.createObjectURL(file);
-            element.download = "Route Summary Table 2" + ".csv";
+            element.download = "Facility Summary Table 2" + ".csv";
         
         // simulate link click
             document.body.appendChild(element); // Required for this to work in FireFox
@@ -60,30 +60,33 @@ function RouteTable() {
         <div className="table-container">
             <div className='route-about'>
                 <h2 className="summary">
-                    Route Tables:
+                    Summary Tables:
                 </h2>
                 <p>
-                    The route tables below display information related to each facility in an echelon. The vehicle
-                    distribution along with the nodes served and the associated route cost is shown. 
+                    The Echelon Table below summarizes the number of facilities, number of vehicles and total cost 
+                    associated with each echelon. 
+                    <br></br>
+                    The Facility Table summarizes the details associated with each facility in more depth.
                 </p>
 
             </div>
            
-            <Button className='submitTableButton' onClick={showTable}>Show Tables</Button>
+            <Button className='submitTableButton' onClick={showSummaryTable}>Show Tables</Button>
             {summaryData_1.length>0?<div className="csv-container">
                 
-               <span>
-                <h3 className="table-heading">Echelon 2 Route Table</h3>
-                <CsvToHtmlTable
+                
+                <span>
+                    <h3 className="table-heading"> Echelon summary table</h3>
+                    <CsvToHtmlTable
                 data={summaryData_1}
                 csvDelimiter=";"
                 hasHeader = 'true'
                 tableClassName="table table-striped table-hover"
                 />
-               </span>
+                </span>
                    
                 <span>
-                <h3 className="table-heading">Echelon 3 Route Table</h3>
+                <h3 className="table-heading">Facility summary table</h3>
                 <CsvToHtmlTable
                 data={summaryData_2}
                 csvDelimiter=";"
@@ -108,4 +111,4 @@ function RouteTable() {
     
 }
 
-export default RouteTable;
+export default SummaryTables;

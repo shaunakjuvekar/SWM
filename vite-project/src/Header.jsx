@@ -7,6 +7,7 @@ import Home from "./Home";
 import MyMap from "./MyMap";
 import Guidelines from "./Guidelines";
 import RouteTable from "./RouteTable";
+import SummaryTables from "./SummaryTables";
 import "./Header.css";
 import vt_logo from "./assets/vt-logo2.png"
 
@@ -22,6 +23,7 @@ function Header() {
             <Nav.Link href="/guidelines" className='nav-link'>Guidelines</Nav.Link>
             <Nav.Link href="/map" className='nav-link'>Map</Nav.Link>
             <Nav.Link href="/route_tables" className='nav-link'>Route Tables</Nav.Link>
+            <Nav.Link href="/summary_tables" className='nav-link'>Summary Tables</Nav.Link>
             <img className='logo' style={{ width: 150, height: 40 }} src={vt_logo} alt='VT Logo'></img>
           </Container>
       </Navbar>
@@ -30,6 +32,7 @@ function Header() {
         <Route path='/guidelines' element={<Guidelines />}></Route>
         <Route path='/map' element={<MyMap />}></Route>
         <Route path='/route_tables' element={<RouteTable />}></Route>
+        <Route path='/summary_tables' element={<SummaryTables />}></Route>
       
       </Routes>
     </>
