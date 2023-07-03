@@ -19,12 +19,13 @@ function Home(){
         marginTop: 8
     }
 
+   
 
     return (
 
         <div className="home-container">
             <div className="about-section">
-            <h2 style={{paddingTop: 20, paddingBottom: 15}}>About SWEEP</h2>
+            <h2 className = 'heading-style'>About SWEEP</h2>
             
             <div className="img-container">
                 <span>

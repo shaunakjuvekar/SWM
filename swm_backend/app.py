@@ -19,8 +19,8 @@ def receive_data():
     
     try:
         with open("route_data.py", "w") as json_file:
-            json.dump(locations, json_file)
-            
+           json.dump(locations, json_file)
+        print("test")    
             
     except:
         print("Error while writing to file")

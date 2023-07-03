@@ -359,10 +359,10 @@ def main():
                 
                 facility_output.append({
                 ("Echelon"): i["echelon"],("Facility name"): i["node_label"],
-                ("Size (Tonnes)"): str(M[capc,0,int(i["echelon"])-2]),
+                ("Size (Kgs)"): str(M[capc,0,int(i["echelon"])-2]),
                 ("# of Vehicles"): str(len(i["routes"])),
                 ("Land Cost($)"): str(round(h_c[int(i["index"])-1,int(i["echelon"])-2], 2)),
-                ("Size Configuration Cost($)"): str(X_c[capc,int(i["echelon"])-2]),
+                ("Facility Cost($)"): str(X_c[capc,int(i["echelon"])-2]),
                 ("Total Routing cost($)"): str(round(route_c,2)),
                 ("Total Cost($)"): str(round(h_c[int(i["index"])-1,int(i["echelon"])-2],2)+X_c[capc,int(i["echelon"])-2]+round(route_c,2))
                 }
@@ -441,8 +441,8 @@ def main():
             total_c+=cost_build+size_cost+route_cost
             sample_output.append({("Echelon"): str(c1+2),
             #("Facilities locations"): facilities_label,
-            ("# of Facilities"): str(facis),
-            ("# of Vehicles"): str(vehicles),
+            ("# of Facilities"): str(int(facis)),
+            ("# of Vehicles"): str(int(vehicles)),
             #("Building Cost"): str(cost_build),
             #("Size Configuration Costs"): str(size_cost),
             #("Routing Costs"): str(route_cost)},
@@ -474,7 +474,7 @@ def main():
             # Writing data of CSV file
             csv_writer.writerow(emp.values())
         
-        csv_writer.writerow(['','','GRAND TOTAL($)',str(round(total_c,2))])
+        csv_writer.writerow(['','','TOTAL($)',str(round(total_c,2))])
         echelon_file.close()
         
             

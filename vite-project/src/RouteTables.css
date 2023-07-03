@@ -1,9 +1,12 @@
 
 .table-heading{
-    color: black;
+    color: rgb(222, 16, 16);
     text-align:center;
 }
-
+.summary{
+    color:  rgb(222, 16, 16);
+    font-weight: 800;
+}
 
 .route-about{
     margin: 30px 200px 0 55px;
@@ -15,13 +18,15 @@
     right: 50px;
     padding: 13px;
     border-radius: 10px;
-    background-color: rgb(56, 56, 214);
-    color: white;
-    font-weight: 700;
+    background-color: rgb(227, 224, 221);
+    
+    color: black;
+    
+    font-weight: 800;
 }
 
 .submitTableButton:hover {
-    background-color:rgb(34, 59, 130);
+    background-color: rgb(166, 155, 144);
     transition: 0.3s;
   }
   
@@ -32,13 +37,15 @@
     right: 50px;
     padding: 10px;
     border-radius: 10px;
-    background-color: rgb(204, 117, 30);
+    /* background-color: rgb(204, 117, 30); */
+    background-color: rgb(26, 69, 171);
+    /* color: white; */
     color: white;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .downloadButton1:hover {
-    background-color:rgb(116, 70, 35);
+    background-color:rgb(34, 59, 130);
     transition: 0.3s;
   }
   
@@ -49,16 +56,21 @@
     right: 50px;
     padding: 10px;
     border-radius: 10px;
-    background-color: rgb(204, 117, 30);
+    /* background-color: rgb(204, 117, 30); */
+    background-color: rgb(26, 69, 171);
     color: white;
-    font-weight: 700;
+    font-weight: 800;
 }
 
 .downloadButton2:hover {
-    background-color:rgb(35, 105, 38);
+    background-color:rgb(34, 59, 130);
     transition: 0.3s;
   }
   
+.table-para{
+    font-weight: 550;
+    font-family: 'Montserrat';
+}
 
 
 
@@ -74,19 +86,21 @@
 
 table, td, tr{
     color: black;
-    border:2px solid;
+    border:2px solid white;
     border-collapse:collapse;
     font-size: small;
     padding: 8px;
     text-align: left;
     margin: 20px 50px 50px 50px;
     font-family: 'Montserrat';
-    background-color:rgb(234, 231, 228);
+    background-color:rgb(227, 224, 221);
 }
 
 th{
-    background-color: rgb(167, 192, 57);
-    border:2px solid;
+    /* background-color: rgb(134, 31, 65); */
+    background-color: rgb(26, 69, 171);
+    border:2px solid white;
+    color: white;
     border-collapse:collapse;
     padding: 8px;
     text-align: left;

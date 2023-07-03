@@ -24,32 +24,25 @@ def main():
             obj['routes'], obj['route_costs'] = routes, route_costs
           
             if echelon=='2' and file1_flag==False:
-                write_file_1.writerow([' -', 'Facility', ' Echelon'])
+                write_file_1.writerow(['Facility', 'Vehicle', 'Customers served in echelon '+str(int(echelon)-1), 'Route Cost($)'])
                 file1_flag = True
             elif echelon=='3' and file2_flag==False:
-                write_file_2.writerow([' -', 'Facility', ' Echelon'])
+                write_file_2.writerow(['Facility', 'Vehicle', 'Facilities served in echelon '+str(int(echelon)-1), 'Route Cost($)'])
                 file2_flag = True
             else:
                 print("This echelon number not handled : ", echelon)
             frontend_data.append(obj)
             if routes and row_number!=0:
                 #print("routes:" , routes)
-                if echelon=='2':
-                    write_file_1.writerow(['Values ', node_label, echelon])
-                    write_file_1.writerow(['Vehicle', 'Node Label(s) served in echelon '+str(int(echelon)-1), 'Route Cost'])
-                elif echelon=='3':
-                    write_file_2.writerow(['Values ', node_label, echelon])
-                    write_file_2.writerow(['Vehicle', 'Node Label(s) served in echelon '+str(int(echelon)-1), 'Route Cost'])
-                else:
-                    print("This echelon number not handled : ", echelon)
+               
                 routes_arr = (ast.literal_eval(routes))
                 costs_arr = (ast.literal_eval(route_costs))
                 for i in range(len(routes_arr)):
                     truncated_cost = round(float(costs_arr[i]), 2)
                     if echelon=='2':
-                        write_file_1.writerow([i+1, routes_arr[i], truncated_cost])
+                        write_file_1.writerow([node_label, i+1, routes_arr[i], truncated_cost])
                     elif echelon=='3':
-                         write_file_2.writerow([i+1, routes_arr[i], truncated_cost])
+                         write_file_2.writerow([node_label, i+1, routes_arr[i], truncated_cost])
                     else:
                         print("This echelon number not handled : ", echelon)    
             
