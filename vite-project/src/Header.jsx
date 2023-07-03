@@ -9,7 +9,8 @@ import Guidelines from "./Guidelines";
 import RouteTable from "./RouteTable";
 import SummaryTables from "./SummaryTables";
 import "./Header.css";
-import vt_logo from "./assets/vt-logo2.png"
+//import vt_logo from "./assets/vt-logo2.png"
+import vt_logo from "./assets/vt-white.png"
 
 
 function Header() {

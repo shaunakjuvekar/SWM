@@ -62,7 +62,7 @@ function RouteTable() {
                 <h2 className="summary">
                     Route Tables:
                 </h2>
-                <p>
+                <p className="table-para">
                     The route tables below display information related to each facility in an echelon. The vehicle
                     distribution along with the nodes served and the associated route cost is shown. 
                 </p>

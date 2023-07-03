@@ -62,7 +62,7 @@ function SummaryTables() {
                 <h2 className="summary">
                     Summary Tables:
                 </h2>
-                <p>
+                <p className="table-para">
                     The Echelon Table below summarizes the number of facilities, number of vehicles and total cost 
                     associated with each echelon. 
                     <br></br>

@@ -48,6 +48,8 @@ We’ve outlined below the steps to be followed for using the system :-
                 </ul>	
                 <li>For a table representation of the routes, the user can click on the <b>Route Tables</b> link on the navigation bar. 
                 After clicking on the <b>Show Tables</b> button, two tables will be displayed on the page, one table each per echelon level. In addition, user can click on the download buttons to download the respective CSV route file on their local machine.</li>
+                <li>For a summary representation, the user can click on the <b>Summary Tables</b> link on the navigation bar. After clicking on the <b>Show Tables</b> button, two tables will be displayed on the page, one echelon level and one facility level summary table. In addition, user can click on the download buttons to download the respective CSV route file on their local machine.
+                </li>
         </ol>
     </div>
     </div>
