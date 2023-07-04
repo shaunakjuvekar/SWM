@@ -86,7 +86,8 @@
 
 table, td, tr{
     color: black;
-    border:2px solid white;
+    /* border:2px solid white; */
+    border: inset 2px;
     border-collapse:collapse;
     font-size: small;
     padding: 8px;
@@ -99,7 +100,8 @@ table, td, tr{
 th{
     /* background-color: rgb(134, 31, 65); */
     background-color: rgb(26, 69, 171);
-    border:2px solid white;
+    /* border:2px solid white; */ 
+    border: inset 2px;
     color: white;
     border-collapse:collapse;
     padding: 8px;
