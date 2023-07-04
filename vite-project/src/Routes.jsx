@@ -31,10 +31,15 @@ function Routes(){
     const coordsMap = flyCoords.nodeCoordsMapKey
     const allNodes = Object.keys(coordsMap)
 
-    const colorArray = ['blue', 'fuchsia','red', 'purple', 'black', 'orange', 'maroon', 'brown', 'DarkSlateGray','DarkTurquoise','SlateBlue','LimeGreen','gray' ] 
+    const colorArray = ['blue', 'brown', 'red', 'purple', 'black', 'orange', 'fuchsia', 'maroon', 'DarkSlateGray','DarkTurquoise','SlateBlue','LimeGreen','gray' ] 
    
     let filtered_data = []
     let echelon_levels = []
+
+    const imgStyles = {
+        height: 20,
+        width: 30
+    }
 
     const facilityIcon_1 = new Icon({
 
@@ -324,6 +329,34 @@ function Routes(){
                 </label>
             </div>
 
+            <div className="legend">
+                <div>
+                LEGEND
+                </div>
+
+                <div>
+                <img src={house} style={{
+                    height: 20,
+                    width: 30,
+                    marginLeft: -13
+                }}></img>
+                 &nbsp;&nbsp;- Echelon 1 node
+                </div>
+
+
+                <div>
+                <img src={facility1_icon} style={imgStyles}></img>
+                &nbsp;&nbsp;- Echelon 2 facility
+                </div>
+                
+               <div>
+               <img src={facility2_icon} style={imgStyles}></img>
+               &nbsp;&nbsp;- Echelon 3 facility
+                </div>
+
+            
+            </div>
+
             <div className="echelon-btn">
                 <label>
                     Echelon Level Routes
@@ -354,9 +387,6 @@ export default Routes;
 
 
 /*
-
-
-{popupState?<PopupLayer></PopupLayer>:<></>}
 
   <ColorRing
 className = "loader"

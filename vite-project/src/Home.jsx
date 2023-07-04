@@ -1,5 +1,5 @@
 import "./Home.css";
-import sarin from "./assets/subhash-sarin.jpg";
+import sarin from "./assets/subhash-sarin-3.jpg";
 import shaun from "./assets/shaunak.jpeg";
 import akshat from "./assets/Akshat.jpeg";
 import garbage_truck_1 from "./assets/garbage-truck-1.jpg"
@@ -44,30 +44,32 @@ function Home(){
 
             <hr style={{height: 3, backgroundColor: 'black', marginTop: 20, marginBottom: 20}}></hr>
             <p>    
-            <b>SWEEP</b> (Solid Waste Echelon Embedded Planner) is a web-based application for designing a Municipal Solid Waste (MSW) 
-            management system. Through SWEEP, a user can choose locations for each node in an <b>echelon</b>, input the land and 
-            size configuration cost of facility/container, and generate a MSW management system based on the input values. 
-            The resulting MSW management system is obtained by solving a “Multi-Echelon Location Routing problem” 
-            using <b>Gurobi</b>, which yields the optimal configuration of the MSW management system.
+
+            <b>SWEEP</b> (Solid Waste Echelon-Embedded Planner) is a web-based tool for designing a Municipal Solid Waste (MSW) 
+            management system. Given potential locations, sizes, and relevant costs for facilities in each <b>echelon</b>, and 
+            capacities of vehicles (collection agents such as trucks, tractors, among others), it enables the user to choose 
+            the <b>number</b>, <b>sizes</b>, and <b>locations</b> of requisite facilities in each echelon, as well as the number of vehicles and 
+            their routes to use for transporting waste among echelons, thereby generating an <b>execution plan</b>. This plan is 
+            obtained by solving an underlying “<b>Multi-Echelon Location Routing problem</b>” using an optimal seeking method. 
             
             </p>
             <br></br>
             <p>
-            The structure of a MSW management system includes multiple <b>echelons</b> that represent different levels of 
-            waste collection in an area. The first echelon is dedicated to the sources of waste, which represents 
-            households, offices, hospitals, restaurants, or other entities that generate waste. The second echelon 
-            includes the possible locations where the <b>containers</b> can be placed that store the waste collected from 
-            sources of waste through <b>collection agents</b> such as trucks, tractors, among others. The cost incurred in 
-            establishing a container involves <b>land cost</b>, and <b>size configuration cost</b> which is based on the capacity of 
-            the container. The locations in echelon third and onwards are labelled as facilities which represent 
-            processing centers, transfer stations, or storage facilities. Similar to the second echelon, the costs 
-            incurred in establishing the facilities include land cost, and size configuration cost.
+
+            The structure of a MSW management system includes multiple <b>echelons</b> that represent different levels
+            of waste collection/processing in an area. The first echelon is dedicated to the sources of waste, 
+            which represent households, offices, hospitals, restaurants, or other entities that generate waste. 
+            The second echelon includes possible locations for the placement of <b>containers</b> to store the waste collected 
+            from their sources by vehicles. The cost incurred in establishing a container involves <b>land cost</b>, and <b>size 
+            configuration cost</b>,  which is based on container capacity. The locations in the third and higher echelons 
+            are labelled as <b>facilities</b>, which represent processing centers, transfer stations, or storage areas. Similar 
+            to the second echelon, the costs incurred in establishing these facilities include land cost and size 
+            configuration cost.
+
 
             </p>
            
             <hr style={{height: 3, backgroundColor: 'black', marginTop: 20}}></hr>
-        
-    
 
             </div>
             
@@ -98,7 +100,7 @@ function Home(){
                     
                     <img src={akshat} alt='profile image' style={{height: 300, width: 300, padding: 10, borderRadius: 30}}></img>
                     <p>  
-                    Akshat is a PhD student in Industrial and Systems engineering department, with specialization in Operations Research. 
+                    Akshat is a PhD student in the Industrial and Systems Engineering department, with specialization in Operations Research. 
                     His research interests lie in vehicle routing problems, facility location, scheduling and other 
                     logistics-based combinatorial problems. Apart from research, he is actively involved in football 
                     and in music as keyboard/piano player. 
