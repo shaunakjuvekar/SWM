@@ -446,7 +446,7 @@ def main():
             #("Building Cost"): str(cost_build),
             #("Size Configuration Costs"): str(size_cost),
             #("Routing Costs"): str(route_cost)},
-            ("Total_Cost($)"): str(round(cost_build+size_cost+route_cost,2))
+            ("Total Cost($)"): str(round(cost_build+size_cost+route_cost,2))
             })
             
             
