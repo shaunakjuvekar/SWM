@@ -1,3 +1,7 @@
+@font-face {
+    font-family: OpenSans;
+    src: url(./assets/fonts/OpenSans-VariableFont_wdth,wght.ttf);
+    }
 
 .table-heading{
     color: rgb(222, 16, 16);
@@ -5,7 +9,7 @@
 }
 .summary{
     color:  rgb(222, 16, 16);
-    font-weight: 800;
+    font-weight: 600;
 }
 
 .route-about{
@@ -16,13 +20,12 @@
     position: absolute;
     top: 120px;
     right: 50px;
-    padding: 13px;
+    padding: 10px;
     border-radius: 10px;
     background-color: rgb(227, 224, 221);
-    
+    font-size: 15px;
     color: black;
     
-    font-weight: 800;
 }
 
 .submitTableButton:hover {
@@ -35,13 +38,13 @@
     position: absolute;
     top: 190px;
     right: 50px;
-    padding: 10px;
+    padding: 8px;
     border-radius: 10px;
     /* background-color: rgb(204, 117, 30); */
     background-color: rgb(26, 69, 171);
-    /* color: white; */
+    font-size: 15px;
     color: white;
-    font-weight: 800;
+    font-weight: 500;
 }
 
 .downloadButton1:hover {
@@ -54,12 +57,12 @@
     position: absolute;
     top: 250px;
     right: 50px;
-    padding: 10px;
+    padding: 8px;
     border-radius: 10px;
-    /* background-color: rgb(204, 117, 30); */
+    font-size: 15px;
     background-color: rgb(26, 69, 171);
     color: white;
-    font-weight: 800;
+    font-weight: 500;
 }
 
 .downloadButton2:hover {
@@ -72,27 +75,28 @@
     /* font-family: 'Montserrat'; */
 }
 
-
-
 .table-container{
-    margin-left: 30px;
-    margin-right: 40px;
+    margin-left: 50px;
+    margin-right: 50px;
 }
 
 .csv-container{
-    display: flex;
-    margin: 30px 200px 30px 30px;
+    /* display: flex; */
+    margin: 50px 250px 50px 60px;
+    font-size: 14px;
 }
 
-table, td, tr{
+td, tr{
     color: black;
     /* border:2px solid white; */
     border: inset 2px;
     border-collapse:collapse;
     font-size: small;
-    padding: 8px;
+    font-weight: 500;
+    font-family: OpenSans;
+    padding: 5px;
     text-align: left;
-    margin: 20px 50px 50px 50px;
+    margin: 20px 30px 20px 50px;
     /* font-family: 'Montserrat'; */
     background-color:rgb(227, 224, 221);
 }
@@ -104,12 +108,19 @@ th{
     border: inset 2px;
     color: white;
     border-collapse:collapse;
-    padding: 8px;
+    padding: 5x;
     text-align: left;
+    font-family: OpenSans;
     margin: 50px;
 }
 
+.btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+ }
 
-
-
-
+ table{
+   
+    font-family: OpenSans;
+    border-collapse:separate
+ }

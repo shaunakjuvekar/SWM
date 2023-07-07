@@ -44,7 +44,7 @@ The steps to be followed for using the system are as follows:
             </p>
             <ol>
                 <li>The motivation, background and details about the team who worked on SWEEP are on the <b>Home</b> page.</li> 
-                <li>Select the <b>Map</b> link found on the navigation bar. The map navigation is quite user friendly and intuitive, the user can scroll to zoom in/out and can navigate around by left clicking and then moving the mouse cursor accordingly.</li>
+                <li>Select the <b>Map</b> link found in the <b>Input</b> dropdown menu. The map navigation is quite user friendly and intuitive, the user can scroll to zoom in/out and can navigate around by left clicking and then moving the mouse cursor accordingly.</li>
                 
                 <li>Select the designated planning area in the <b>search bar</b> located towards the top left corner of the map. Enter both the name of the area or the zip code.</li>
                 <img src={searchBar} style={imgStyles1}></img>
@@ -85,10 +85,10 @@ The steps to be followed for using the system are as follows:
                     <li><b>Toggle Popups</b> - This button activates/deactivates all the popups of the nodes for better readability of the routes.</li> 
                 </ul>	
                 <img src={popups} style={imgStyles1}></img>
-                <li>For a tabular representation of the routes, click on the <b>Route Tables</b> link on the navigation bar. 
+                <li>For a tabular representation of the routes, click on the <b>Route Tables</b> link in the <b>Output</b> dropdown menu. 
                 After clicking on the <b>Show Tables</b> button, two tables will be displayed on the page, one table each per echelon level. In addition, click on the download buttons to download the respective CSV route file to your local machine.</li>
                 <img src={routeTables} style={imgStyles2}></img>    
-                <li>For a summary representation, click on the <b>Summary Tables</b> link on the navigation bar. After clicking on the <b>Show Tables</b> button, two tables will be displayed on the page, one echelon level and one facility level summary table. In addition, click on the download buttons to download the respective CSV route file to your local machine.</li>
+                <li>For a summary representation, click on the <b>Summary Tables</b> link in the <b>Output</b> dropdown menu. After clicking on the <b>Show Tables</b> button, two tables will be displayed on the page, one echelon level and one facility level summary table. In addition, click on the download buttons to download the respective CSV route file to your local machine.</li>
                 <img src={summaryTables} style={imgStyles2}></img>    
         </ol>
     </div>

@@ -283,9 +283,9 @@ function Routes(){
     return (
         <div>
           
-            <Button className="show-facilities" onClick={showFacilities}>Show All Facilities</Button>
-            <Button className="show-routes" onClick={showAllRoutes}>Show All Routes</Button>
-            <Button className="toggle-popups" onClick={() => setPopupState((prevState) => !prevState)}>Toggle Popups</Button>
+            <Button className="show-facilities" size='sm' onClick={showFacilities}>Show All Facilities</Button>
+            <Button className="show-routes" size='sm' onClick={showAllRoutes}>Show All Routes</Button>
+            <Button className="toggle-popups" size='sm' onClick={() => setPopupState((prevState) => !prevState)}>Toggle Popups</Button>
 
             
 
@@ -312,7 +312,7 @@ function Routes(){
                 :<></>
             )}
          
-            <div className="dropdown-btn">
+            <div className="dropdown-button">
                 <label>
                     Facility Level Routes
                     <div>
@@ -328,6 +328,24 @@ function Routes(){
                 
                 </label>
             </div>
+
+            <div className="echelon-button">
+                <label>
+                    Echelon Level Routes
+                <div>
+                         <select className="select-menu" defaultValue="0"
+                         onChange = {(e)=>showEchelonRoutes(e.target.value)}>
+                         {echelonLevels.map(level=>{       
+                            return (<option className='option-menu' value={level}>Level {level}</option>)
+                            
+                        })}
+                        </select>      
+                                   
+                </div>
+                
+                </label>
+            </div>
+
 
             <div className="legend">
                 <div>
@@ -356,23 +374,7 @@ function Routes(){
 
             
             </div>
-
-            <div className="echelon-btn">
-                <label>
-                    Echelon Level Routes
-                <div>
-                         <select className="select-menu" defaultValue="0"
-                         onChange = {(e)=>showEchelonRoutes(e.target.value)}>
-                         {echelonLevels.map(level=>{       
-                            return (<option className='option-menu' value={level}>Level {level}</option>)
-                            
-                        })}
-                        </select>      
-                                   
-                </div>
-                
-                </label>
-            </div>
+s
             {currentPaths.map((polyline,index)=>polyline!=undefined?
                 <Polyline positions={polyline} pathOptions={{color: colorArray[index%colorArray.length]}}></Polyline>
             :<></>)}

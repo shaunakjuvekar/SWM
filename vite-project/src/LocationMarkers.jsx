@@ -166,7 +166,7 @@ return (
   <div>
   {viewRoutes==false?<div>
     {routeButton==true?<Button className="viewrouteButton" variant="primary" size="sm" onClick={routeHandler}>View Routes</Button>:<></>}
-  {submitStatus==true?<Button className="calculateButton" variant="primary" size="sm" onClick={calculateRoutes}>Calculate</Button>:<></>}   
+  {submitStatus==true?<Button className="calculateButton" variant="danger" size="sm" onClick={calculateRoutes}>Calculate</Button>:<></>}   
 
 
    
@@ -176,7 +176,7 @@ return (
     <Modal.Title>Please enter node labels for every marker!</Modal.Title>
   </Modal.Header>
   <Modal.Footer>
-          <Button className='modal-btn' variant="secondary" onClick={handleClose}>
+          <Button className='modal-btn' variant="primary" size='sm' onClick={handleClose}>
             Close
           </Button>
   </Modal.Footer>
@@ -188,13 +188,13 @@ return (
        
       {echelon.echelonKey>1?
         <div className="text-input">
-          {echelon.echelonKey==2?<p>Enter Container Sizes</p>:<p>Enter Facility Sizes</p>}
+          {echelon.echelonKey==2?<p className="text-para">Enter Container Sizes</p>:<p className="text-para">Enter Facility Sizes</p>}
             <input name='containerSizes' value={formValues.containerSizes} placeholder=' Enter values' type='text' style={{ paddingLeft: 8, borderRadius: 10, width: 150, height: 20 }} 
             onChange={handleInputChange}></input>
-            {echelon.echelonKey==2?<p>Enter Container Costs</p>:<p>Enter Facility Costs</p>}
+            {echelon.echelonKey==2?<p className="text-para">Enter Container Costs</p>:<p className="text-para">Enter Facility Costs</p>}
             <input name='containerCosts' value={formValues.containerCosts} placeholder=' Enter values' type='text' style={{ paddingLeft: 8, borderRadius: 10, width: 150, height: 20 }} 
              onChange={handleInputChange}></input>
-            <p>Enter Vehicle Capacity</p>
+            <p className="text-para">Enter Vehicle Capacity</p>
             <input name='vehicleCapacity' value={formValues.vehicleCapacity} placeholder=' Enter value' type='text' style={{ paddingLeft: 8, borderRadius: 10, width: 150, height: 20 }} 
              onChange={handleInputChange}></input>
             <div className="button-div">

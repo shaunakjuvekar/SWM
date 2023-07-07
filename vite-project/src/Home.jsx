@@ -77,9 +77,9 @@ function Home(){
 
             <div className="row">
                 <div className="column">
-                    <h3 className="profile-team">
+                    <h4 className="profile-team">
                         Dr. Subhash Sarin 
-                    </h3>
+                    </h4>
                    
                         <img src={sarin} alt='profile image' 
                         style={{height: 300, width: 300, padding: 10, borderRadius: 30}}>
@@ -94,9 +94,9 @@ function Home(){
                 </div>
                 
                 <div className="column">
-                    <h3 className="profile-team">
+                    <h4 className="profile-team">
                         Akshat Kothyari 
-                    </h3>
+                    </h4>
                     
                     <img src={akshat} alt='profile image' style={{height: 300, width: 300, padding: 10, borderRadius: 30}}></img>
                     <p>  
@@ -109,9 +109,9 @@ function Home(){
                     <p className="contact">Contact : kakshat@vt.edu</p>
                 </div>
                 <div className="column">
-                    <h3 className="profile-team">
+                    <h4 className="profile-team">
                         Shaunak Juvekar 
-                    </h3>
+                    </h4>
                      
                     <img src={shaun} alt='profile image' style={{height: 300, width: 300, padding: 10, borderRadius: 30}}></img>
                     <p>
