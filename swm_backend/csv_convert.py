@@ -1,7 +1,6 @@
 import csv
 import ast
 import json
-import re
 
 def main():
     frontend_data = []
@@ -30,7 +29,8 @@ def main():
                 write_file_2.writerow(['Facility', 'Vehicle', 'Facilities served in echelon '+str(int(echelon)-1), 'Route Cost($)'])
                 file2_flag = True
             else:
-                print("This echelon number not handled : ", echelon)
+                #print("This echelon number not handled : ", echelon)
+                pass
             frontend_data.append(obj)
             if routes and row_number!=0:
                 #print("routes:" , routes)
@@ -44,7 +44,8 @@ def main():
                     elif echelon=='3':
                          write_file_2.writerow([node_label, i+1, routes_arr[i], truncated_cost])
                     else:
-                        print("This echelon number not handled : ", echelon)    
+                        #print("This echelon number not handled : ", echelon)   
+                        pass 
             
                 write_file_1.writerow([])
                 write_file_2.writerow([])
@@ -53,6 +54,6 @@ def main():
 
 
     with open("data_file.json", "w") as wf:
-        print("Writing to data_file.json")
+        #print("Writing to data_file.json")
         json.dump(frontend_data[1:], wf)
 #main()
