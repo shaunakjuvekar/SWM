@@ -35,7 +35,7 @@ function Guidelines(){
     return (
         <div className="guide">
         <div className="grid-container">
-            <h2>
+            <h2 style={{marginTop: 20}}>
                 Guidelines
             </h2>
             <p>

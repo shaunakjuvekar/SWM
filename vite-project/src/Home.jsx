@@ -42,7 +42,7 @@ function Home(){
                 
             </div>
 
-            <hr style={{height: 3, backgroundColor: 'black', marginTop: 20, marginBottom: 20}}></hr>
+            <hr style={{height: 1, backgroundColor: 'black', marginTop: 20, marginBottom: 20}}></hr>
             <p>    
 
             <b>SWEEP</b> (Solid Waste Echelon-Embedded Planner) is a web-based tool for designing a Municipal Solid Waste (MSW) 
@@ -69,7 +69,7 @@ function Home(){
 
             </p>
            
-            <hr style={{height: 3, backgroundColor: 'black', marginTop: 20}}></hr>
+            <hr style={{height: 1, backgroundColor: 'black', marginTop: 20}}></hr>
 
             </div>
             

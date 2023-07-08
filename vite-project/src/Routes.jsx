@@ -348,7 +348,7 @@ function Routes(){
 
 
             <div className="legend">
-                <div>
+                <div className="legend-heading">
                 LEGEND
                 </div>
 
@@ -356,18 +356,18 @@ function Routes(){
                 <img src={house} style={{
                     height: 20,
                     width: 30,
-                    marginLeft: -13
+                    marginLeft: -9
                 }}></img>
                  &nbsp;&nbsp;- Echelon 1 node
                 </div>
 
 
-                <div>
+                <div style={{marginTop: 5}}>
                 <img src={facility1_icon} style={imgStyles}></img>
                 &nbsp;&nbsp;- Echelon 2 facility
                 </div>
                 
-               <div>
+               <div style={{marginTop: 5}}>
                <img src={facility2_icon} style={imgStyles}></img>
                &nbsp;&nbsp;- Echelon 3 facility
                 </div>

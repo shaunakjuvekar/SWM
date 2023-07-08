@@ -40,7 +40,15 @@ function LocationMarker(props){
     const [routeButton, setRouteButton] = useState(false)
     const [viewRoutes, setViewRoutes] = useState(false)
     const [submitStatus, setSubmitStatus] = useState(false)
-    
+    const [textAreaSubmitStatus, setTextAreaSubmitStatus] = useState(false)
+    const [isNumVC, setIsNumVC] = useState(true)
+
+    const textAreaStyles = {
+        paddingLeft: 8, 
+        borderRadius: 10,
+        width: 150, 
+        height: 20 
+      }    
     //debugger;
    
     //console.log(formValues)
@@ -151,11 +159,16 @@ function LocationMarker(props){
     
     const rightFormHandler = (event) => {
       event.preventDefault();
+      setTextAreaSubmitStatus(true)
+    
     }
   
     const handleInputChange = (event) => {
       const { name, value } = event.target;
-      //console.log(name, value)
+      console.log(name, value)
+      if (name=='vehicleCapacity'){
+        isNaN(value)==true?setIsNumVC(false):setIsNumVC(true)
+      }
       setFormValues((prevProps) => ({
         ...prevProps,
         [name]: value
@@ -189,16 +202,18 @@ return (
       {echelon.echelonKey>1?
         <div className="text-input">
           {echelon.echelonKey==2?<p className="text-para">Enter Container Sizes</p>:<p className="text-para">Enter Facility Sizes</p>}
-            <input name='containerSizes' value={formValues.containerSizes} placeholder=' Enter values' type='text' style={{ paddingLeft: 8, borderRadius: 10, width: 150, height: 20 }} 
+            <input name='containerSizes' value={formValues.containerSizes} placeholder=' Enter values' type='text' style={textAreaStyles} 
             onChange={handleInputChange}></input>
             {echelon.echelonKey==2?<p className="text-para">Enter Container Costs</p>:<p className="text-para">Enter Facility Costs</p>}
-            <input name='containerCosts' value={formValues.containerCosts} placeholder=' Enter values' type='text' style={{ paddingLeft: 8, borderRadius: 10, width: 150, height: 20 }} 
+            <input name='containerCosts' value={formValues.containerCosts} placeholder=' Enter values' type='text' style={textAreaStyles} 
              onChange={handleInputChange}></input>
             <p className="text-para">Enter Vehicle Capacity</p>
-            <input name='vehicleCapacity' value={formValues.vehicleCapacity} placeholder=' Enter value' type='text' style={{ paddingLeft: 8, borderRadius: 10, width: 150, height: 20 }} 
+            <input name='vehicleCapacity' value={formValues.vehicleCapacity} placeholder=' Enter value' type='text' 
+            style={textAreaStyles}
              onChange={handleInputChange}></input>
+             {isNumVC==true?<></>:<div className="vc-msg">Please enter a numerical value</div>}
             <div className="button-div">
-            <button className='text-form-button'>Submit</button> 
+            {textAreaSubmitStatus==false?<button className='text-form-button'>Submit</button>:<button className='text-form-button'>Submitted!</button>}
         </div>
         </div>:<></>}
        
@@ -227,7 +242,6 @@ return (
             <input id='location_cost' placeholder=' Enter value' type='text' 
                   onChange={(e) => {
                   const value = e.target.value;
-                  //console.log(isNaN(+value))
                   setCostState(isNaN(+value)); // false if its a number, true if not 
                   
               }}
@@ -240,7 +254,8 @@ return (
               <input id='node_label' placeholder=' Enter value' type='text' required></input>
               </div>
             
-              <div className="button-div"><button className='form-button' 
+              <div className="button-div">
+              <button className='form-button' 
               disabled = {costInputState}>Submit</button>{costInputState?<span className="cost-msg">Please enter numerical cost</span>:<span></span>}</div>
               
             </form>
