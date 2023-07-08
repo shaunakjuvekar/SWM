@@ -1,14 +1,15 @@
 .viewrouteButton{
     position: absolute;
     top: 20px;
-    right: 300px;
-    padding: 15px;
+    right: 280px;
     z-index: 400;
+    font-size: 14px;
     border-radius: 10px;
     background-color: rgb(68, 64, 72);
+    padding: 8px;
     color: white;
-    font-weight: 700;
-  
+    box-shadow: 5px 5px 5px rgb(43, 40, 37);
+   
   }
 
 
@@ -17,222 +18,263 @@
   transition: 0.2s;
 }
   
-  .submitButton{
-    
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      padding: 15px;
-      z-index: 400;
-      border-radius: 10px;
-      background-color: blue;
-      color: white;
-      font-weight: 700;
-  }
+.submitButton{
   
-  .popup_submit{
-    position: absolute;
-    top: 60px;
-    right: 20px;
-    padding: 15px;
-    z-index: 400;
-    border-radius: 10px;
-    background-color: greenyellow;
-    color: white;
-    font-weight: 700;
-  }
-  
-  .calculateButton{
-    
     position: absolute;
     top: 20px;
-    right: 190px;
-    padding: 18px;
-    z-index: 400;
-    border-radius: 10px;
-    background-color: rgb(219, 29, 29);
-    color: white;
-    font-weight: 700;
-  }
-
-  .text-input{
-    position: absolute;
-    top: 100px;
-    font-size: 15px;
-    background-color: rgb(188, 117, 41);
-    box-shadow: 5px 5px 5px rgb(123, 76, 30);
-    color: white;
     right: 30px;
-    padding: 10px;
-    z-index: 400;
-    border-radius: 10px;
-  }
-  
-  .dropdown-btn{
-    position: absolute;
-    top: 50px;
-    
-    right: 170px;
+    font-size: 14px;
     padding: 8px;
     z-index: 400;
     border-radius: 10px;
-    background-color: rgb(35, 147, 22);
-    
+    background-color: rgb(44, 44, 226);
+    box-shadow: 5px 5px 5px rgb(23, 42, 110);
     color: white;
-    font-weight: 700;
-    font-size: small;
-    border-style: inset;
-  }
-  
-  .option-menu.modal-btn:hover{
-    background-color:#4a4f5d;
-    transition: 0.3s;
-  }
-  
-  .select-menu{
-    border-radius: 20px;
-    padding: 3px;
-    margin-top: 3px;
-  }
-  .select-menu:hover {
-    background-color:rgb(183, 183, 183);
-    transition: 0.1s;
-  }
-  
-  .submitButton:hover {
-    background-color:#0b329b;
-    transition: 0.3s;
-  }
-  
-  .calculateButton:hover {
-    background-color:rgb(139, 49, 49);
-    transition: 0.3s;
-  }
-  
-  
-  .del-marker{
-    text-align: center;
-    padding: 5px;
-    
-  }
-  
-  .del-btn{
-    background-color: darkred;
-    color: white;
-    font-weight: 700;
-    margin: 5px;
-    padding: 5px;
-    border-radius: 10px;
-  }
-  
-  .modal{
-    position: absolute;
-    top: 130px;
-    right: 30px;
-    padding: 10px;
-    z-index: 400;
-    border-radius: 10px;
-    background-color: white;
-    color: black;
-    font-weight: 600;
-    font-size: small;
-    border-style:dashed;
-    text-align: center;
-  }
-  
-  .modal-btn{
-    
-    border-radius: 10px;
-    font-weight: 600;
-    padding: 5px;
-  }
-  
-  .modal-btn:hover {
-    background-color:darkgray;
-    transition: 0.3s;
-  }
-  
-  
-  .cost-msg{
-    font-size: small;
-    color: red;
-    margin-left: 10px;
-  }
-  
-  #size{
-    width: 40%;
-    margin-right: 10px;
-    border: 2px solid black;
-    border-radius: 4px;
-    padding: 4px;
-    font-size: smaller;
-  }
+}
 
-  .input-field-div{
-    font-size: smaller;
-    margin-top: 6px;
-  }
+.calculateButton{
+  
+  position: absolute;
+  top: 20px;
+  right: 180px;
+  font-size: 14px;
+  z-index: 400;
+  padding: 9px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px rgb(87, 25, 25);
+  color: white;
+  
+}
+  
+.popup_submit{
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  padding: 15px;
+  z-index: 400;
+  border-radius: 10px;
+  background-color: greenyellow;
+  color: white;
+  font-weight: 700;
+}
+
+.text-input{
+  position: absolute;
+  top: 100px;
+  /* font-size: 15px; */
+  background-color: rgb(218, 150, 77);
+  box-shadow: 5px 5px 5px rgb(123, 76, 30);
+  color: white;
+  right: 30px;
+  padding: 10px;
+  z-index: 400;
+  border-radius: 10px;
+}
+
+.text-para {
+  margin-bottom: 5px;
+}
+
+.dropdown-btn{
+  position: absolute;
+  top: 50px;
+  
+  right: 170px;
+  padding: 8px;
+  z-index: 400;
+  border-radius: 10px;
+  background-color: rgb(35, 147, 22);
+  
+  color: white;
+  font-weight: 700;
+  font-size: small;
+  border-style: inset;
+}
+
+.option-menu.modal-btn:hover{
+  background-color:#4a4f5d;
+  transition: 0.3s;
+}
+
+.select-menu{
+  border-radius: 20px;
+  padding: 3px;
+  margin-top: 3px;
+}
+.select-menu:hover {
+  background-color:rgb(183, 183, 183);
+  transition: 0.1s;
+}
+
+.submitButton:hover {
+  background-color:#0b329b;
+  transition: 0.3s;
+}
+
+.calculateButton:hover {
+  background-color:rgb(139, 49, 49);
+  transition: 0.3s;
+}
 
 
-  #container_cost{
-    width: 40%;
-    margin-right: 10px;
-    border: 2px solid black;
-    border-radius: 4px;
-    padding: 4px;
-    font-size: smaller;
-  }
+.del-marker{
+  text-align: center;
+  padding: 5px;
   
-  #location_cost{
-    width: 40%;
-    margin-right: 10px;
-    border: 2px solid black;
-    border-radius: 4px;
-    padding: 4px;
-    font-size: smaller;
-  }
-  
-  
-  #node_label{
-    width: 50%;
-    margin-right: 10px;
-    border: 2px solid black;
-    border-radius: 4px;
-    padding: 4px;
-    font-size: smaller;
-  }
-  
-  
-  .button-div{
-    text-align: center;
-    margin-top: 5px;
-  }
-  
-  .form-button{
-    background-color:#295a17;
-    color: white;
-    font-weight: 550;
-    padding: 5px;
-    margin-top: 5px;
-    border-radius: 10px;
-  }
+}
 
-  .form-button:hover{
-    background-color:#339112;
-    transition: 0.3s;
-  }
+.del-btn{
+  background-color: darkred;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+}
 
-  .text-form-button{
-    background-color:#295a17;
-    color: white;
-    font-weight: 550;
-    padding: 5px;
-    margin-top: 5px;
-    border-radius: 10px;
-  }
-  .text-form-button:hover{
-    background-color:#377620;
-    transition: 0.3s;
-  }
-
+.modal{
+  position: absolute;
+  top: 130px;
+  left: 400px;
+  height: 300px;
+  width: 300px;
+  border-radius: 10px;
+  color: black;
   
+}
+
+.modal-btn{
+  
+  border-radius: 10px;
+  padding: 5px;
+  margin-right: 100px;  
+  
+}
+
+.modal-title {
+  margin-bottom: 0;
+  line-height: 1.5;
+  font-size: smaller;
+}
+
+.modal-footer {
+  padding: 3px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  /* align-items: center; */
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  /* padding: 1rem; */
+  border-top: 1px solid #e9ecef;
+}
+  
+.modal-btn:hover {
+  background-color:darkgray;
+  transition: 0.3s;
+}
+
+.vc-msg{
+  color:rgb(87, 25, 25);
+  font-weight: 500;
+  margin-top: 10px;
+  font-size: small;
+}
+
+.cost-msg{
+  font-size: small;
+  color: red;
+  margin-left: 10px;
+}
+
+#size{
+  width: 40%;
+  margin-right: 10px;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 4px;
+  font-size: smaller;
+}
+
+.input-field-div{
+  font-weight: 540;
+  margin-top: 6px;
+}
+
+
+#container_cost{
+  width: 40%;
+  margin-right: 10px;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 4px;
+  font-size: smaller;
+}
+
+#location_cost{
+  width: 40%;
+  margin-right: 10px;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 4px;
+  font-size: smaller;
+}
+
+
+#node_label{
+  width: 50%;
+  margin-right: 10px;
+  border: 2px solid black;
+  border-radius: 4px;
+  padding: 4px;
+  font-size: smaller;
+}
+
+
+.button-div{
+  text-align: center;
+  margin-top: 5px;
+}
+
+.form-button{
+  background-color:#295a17;
+  color: white;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 3px;
+  margin-top: 5px;
+  border-radius: 10px;
+}
+
+.form-button:hover{
+  background-color:#339112;
+  transition: 0.3s;
+}
+
+.text-form-button{
+  background-color:#295a17;
+  color: white;
+  font-weight: 550;
+  padding: 5px;
+  margin-top: 5px;
+  border-radius: 10px;
+}
+.text-form-button:hover{
+  background-color:#377620;
+  transition: 0.3s;
+}
+
+.leaflet-popup-content {
+  line-height: 1.3;
+  font-size: 13px;
+  /* font-size: 1.08333em; */
+  min-height: 1px;
+  font-weight: 400;
+}
+
+.btn:focus,.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}

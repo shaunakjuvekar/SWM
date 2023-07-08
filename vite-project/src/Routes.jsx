@@ -283,9 +283,9 @@ function Routes(){
     return (
         <div>
           
-            <Button className="show-facilities" onClick={showFacilities}>Show All Facilities</Button>
-            <Button className="show-routes" onClick={showAllRoutes}>Show All Routes</Button>
-            <Button className="toggle-popups" onClick={() => setPopupState((prevState) => !prevState)}>Toggle Popups</Button>
+            <Button className="show-facilities" size='sm' onClick={showFacilities}>Show All Facilities</Button>
+            <Button className="show-routes" size='sm' onClick={showAllRoutes}>Show All Routes</Button>
+            <Button className="toggle-popups" size='sm' onClick={() => setPopupState((prevState) => !prevState)}>Toggle Popups</Button>
 
             
 
@@ -312,7 +312,7 @@ function Routes(){
                 :<></>
             )}
          
-            <div className="dropdown-btn">
+            <div className="dropdown-button">
                 <label>
                     Facility Level Routes
                     <div>
@@ -329,35 +329,7 @@ function Routes(){
                 </label>
             </div>
 
-            <div className="legend">
-                <div>
-                LEGEND
-                </div>
-
-                <div>
-                <img src={house} style={{
-                    height: 20,
-                    width: 30,
-                    marginLeft: -13
-                }}></img>
-                 &nbsp;&nbsp;- Echelon 1 node
-                </div>
-
-
-                <div>
-                <img src={facility1_icon} style={imgStyles}></img>
-                &nbsp;&nbsp;- Echelon 2 facility
-                </div>
-                
-               <div>
-               <img src={facility2_icon} style={imgStyles}></img>
-               &nbsp;&nbsp;- Echelon 3 facility
-                </div>
-
-            
-            </div>
-
-            <div className="echelon-btn">
+            <div className="echelon-button">
                 <label>
                     Echelon Level Routes
                 <div>
@@ -373,6 +345,36 @@ function Routes(){
                 
                 </label>
             </div>
+
+
+            <div className="legend">
+                <div className="legend-heading">
+                LEGEND
+                </div>
+
+                <div>
+                <img src={house} style={{
+                    height: 20,
+                    width: 30,
+                    marginLeft: -9
+                }}></img>
+                 &nbsp;&nbsp;- Echelon 1 node
+                </div>
+
+
+                <div style={{marginTop: 5}}>
+                <img src={facility1_icon} style={imgStyles}></img>
+                &nbsp;&nbsp;- Echelon 2 facility
+                </div>
+                
+               <div style={{marginTop: 5}}>
+               <img src={facility2_icon} style={imgStyles}></img>
+               &nbsp;&nbsp;- Echelon 3 facility
+                </div>
+
+            
+            </div>
+s
             {currentPaths.map((polyline,index)=>polyline!=undefined?
                 <Polyline positions={polyline} pathOptions={{color: colorArray[index%colorArray.length]}}></Polyline>
             :<></>)}

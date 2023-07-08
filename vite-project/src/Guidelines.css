@@ -39,3 +39,14 @@ ol {
 
 
 
+.grid-container-fb{
+    margin: 0 80px 0 80px;
+    padding: 10px;
+    
+}
+
+.mini-heading{
+    text-align: left;
+    font-size: 20px;
+    color:  rgb(132, 5, 5);
+}

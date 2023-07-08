@@ -69,11 +69,11 @@ function RouteTable() {
 
             </div>
            
-            <Button className='submitTableButton' onClick={showTable}>Show Tables</Button>
+            <Button size='sm' className='submitTableButton' onClick={showTable}>Show Tables</Button>
             {summaryData_1.length>0?<div className="csv-container">
                 
                <span>
-                <h3 className="table-heading">Echelon 2 Route Table</h3>
+                <h5 className="table-heading">Echelon 2 Route Table</h5>
                 <CsvToHtmlTable
                 data={summaryData_1}
                 csvDelimiter=";"
@@ -83,7 +83,7 @@ function RouteTable() {
                </span>
                    
                 <span>
-                <h3 className="table-heading">Echelon 3 Route Table</h3>
+                <h5 className="table-heading">Echelon 3 Route Table</h5>
                 <CsvToHtmlTable
                 data={summaryData_2}
                 csvDelimiter=";"
@@ -95,12 +95,17 @@ function RouteTable() {
       
 
             <div >
-                <Button className="downloadButton1" onClick={downloadTxtFile1} value="download">Download File 1</Button>
+                <Button  size='sm' className="downloadButton1" onClick={downloadTxtFile1} value="download">Download File 1</Button>
             </div>
-            <Button className="downloadButton2" onClick={downloadTxtFile2} value="download">Download File 2</Button>
+            <Button  size='sm' className="downloadButton2" onClick={downloadTxtFile2} value="download">Download File 2</Button>
             </div>
             :<></>}
+            <div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>    
         </div>
+        
+        
       
 
     );

@@ -12,27 +12,55 @@
     
     color: white;
     text-align: left;
-    padding: 10px 20px 10px 20px;
+    /* padding: 10px 20px 10px 20px; */
     /* font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; */
     font-family: OpenSans;
     font-size: 17px;
 }
 
-.main-header{
+/* .main-header{
     font-size: 26px;
     color: rgb(223, 206, 78);
+} */
+
+.navbar-dark .navbar-brand {
+    color:rgb(223, 206, 78);
+    
 }
 
+.navbar-brand:active {
+    color:rgb(223, 206, 78);
+    
+}
+
+
+.navbar>.container, .navbar>.container-fluid {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: left;
+}
+
+
 .logo{
-    padding-top: 15px;
-    float: right;
+   
+    width: 130;
+    height: 30px;
+    position: absolute;
+    right: 30px
+    
 }
 
 .nav-link{
-    padding-left: 40px;
+    /* padding-left: 40px; */
     color: rgb(229, 219, 219);
-    
-    
 }
 
 .nav-link:hover {  color: rgb(183, 169, 66); transition: 0.3s;}
@@ -45,6 +73,18 @@
 
 .nav-link:active { text-decoration: none; }
 
+.dropdown-item {
+    display: block;
+    width: 100%;
+    /* padding: 0.25rem 1.5rem; */
+    clear: both;
+    font-weight: 470;
+    color: #191b1d;
+    text-align: inherit;
+    white-space: nowrap;
+    background-color: transparent;
+    border: 0;
+}
 
 h3{
     text-align: left;
@@ -58,4 +98,3 @@ h2{
     font-family: OpenSans;
 
 }
-

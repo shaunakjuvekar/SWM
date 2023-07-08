@@ -42,7 +42,7 @@ function Home(){
                 
             </div>
 
-            <hr style={{height: 3, backgroundColor: 'black', marginTop: 20, marginBottom: 20}}></hr>
+            <hr style={{height: 1, backgroundColor: 'black', marginTop: 20, marginBottom: 20}}></hr>
             <p>    
 
             <b>SWEEP</b> (Solid Waste Echelon-Embedded Planner) is a web-based tool for designing a Municipal Solid Waste (MSW) 
@@ -69,7 +69,7 @@ function Home(){
 
             </p>
            
-            <hr style={{height: 3, backgroundColor: 'black', marginTop: 20}}></hr>
+            <hr style={{height: 1, backgroundColor: 'black', marginTop: 20}}></hr>
 
             </div>
             
@@ -77,9 +77,9 @@ function Home(){
 
             <div className="row">
                 <div className="column">
-                    <h3 className="profile-team">
+                    <h4 className="profile-team">
                         Dr. Subhash Sarin 
-                    </h3>
+                    </h4>
                    
                         <img src={sarin} alt='profile image' 
                         style={{height: 300, width: 300, padding: 10, borderRadius: 30}}>
@@ -94,9 +94,9 @@ function Home(){
                 </div>
                 
                 <div className="column">
-                    <h3 className="profile-team">
+                    <h4 className="profile-team">
                         Akshat Kothyari 
-                    </h3>
+                    </h4>
                     
                     <img src={akshat} alt='profile image' style={{height: 300, width: 300, padding: 10, borderRadius: 30}}></img>
                     <p>  
@@ -109,9 +109,9 @@ function Home(){
                     <p className="contact">Contact : kakshat@vt.edu</p>
                 </div>
                 <div className="column">
-                    <h3 className="profile-team">
+                    <h4 className="profile-team">
                         Shaunak Juvekar 
-                    </h3>
+                    </h4>
                      
                     <img src={shaun} alt='profile image' style={{height: 300, width: 300, padding: 10, borderRadius: 30}}></img>
                     <p>

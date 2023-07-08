@@ -1,17 +1,25 @@
+@font-face {
+  font-family: OpenSans;
+  src: url(./assets/fonts/OpenSans-VariableFont_wdth,wght.ttf);
+  }
+  
+
 .show-facilities{
     position: absolute;
     top: 30px;
     right: 30px;
-    padding: 15px;
+    padding: 8px;
     z-index: 400;
     border-radius: 10px;
+    font-size: 14px;
     background-color: rgb(79, 79, 112);
+    box-shadow: 5px 5px 5px rgb(53, 45, 37);
     color: white;
-    font-weight: 700;
+   
 }
 
 .show-facilities:hover{
-    background-color: rgb(35, 42, 49);
+    background-color: rgb(62, 69, 77);
     transition: 0.1s;
   }
 
@@ -19,13 +27,15 @@
 .toggle-popups{
     position: absolute;
     top: 30px;
-    right: 200px;
-    padding: 15px;
+    right: 180px;
+    padding: 8px;
     z-index: 400;
     border-radius: 10px;
+    font-size: 14px;
     background-color: rgb(191, 59, 47);
+    box-shadow: 5px 5px 5px rgb(87, 25, 25);
     color: white;
-    font-weight: 700;
+   
 }
 
 .toggle-popups:hover{
@@ -41,14 +51,16 @@
 
 .show-routes{
     position: absolute;
-    top: 100px;
+    top: 90px;
     right: 30px;
-    padding: 15px 25px 15px 15px;
+    padding: 8px;
     z-index: 400;
     border-radius: 10px;
+    font-size: 14px;
     background-color: rgb(23, 108, 56);
+    box-shadow: 5px 5px 5px rgb(31, 47, 29);
     color: white;
-    font-weight: 700;
+   
 }
 
 .show-routes:hover{
@@ -63,7 +75,7 @@
     padding: 3px;
     margin-top: 3px;
     color: black;
-    padding: 3px 5px 3px 10px;
+    /* padding: 3px 5px 3px 10px; */
   }
 
   .select-menu:hover{
@@ -74,17 +86,26 @@
   }
 
 
-.dropdown-btn{
-    background-color: rgb(199, 104, 10);
+.dropdown-button{
+    background-color: rgb(210, 124, 37);
     color: white;
-    top: 260px;
+    position: absolute;
+    top: 250px;
+    padding: 10px;
     right: 30px;
+    z-index: 400;
+    font-size: 14px;
     border-radius: 10px;
+    box-shadow: 5px 5px 5px rgb(122, 76, 33);
 
 }
 
+.label-text{
+  font-family: OpenSans;
+}
+
 .legend{
-  background-color: rgb(124, 124, 22);
+  background-color: rgb(135, 135, 27);
   color: white;
   top: 300px;
   left: 10px;
@@ -95,16 +116,22 @@
 
 }
 
-.echelon-btn{
+.legend-heading{
+  background-color: rgb(82, 95, 38);
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+.echelon-button{
     background-color: rgb(38, 72, 207);
     color: white;
     position: absolute;
-    top: 170px;
-    font-size: smaller;
+    top: 150px; 
     right: 30px;
+    font-size: 14px;
     z-index: 400;
     border-radius: 10px;
-    padding: 12px;
+    padding: 10px;
     box-shadow: 5px 5px 5px rgb(35, 124, 157);
 }
     
@@ -114,3 +141,7 @@ background-color:#4a4f5d;
 transition: 0.3s;
 }
   
+.btn:focus,.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}

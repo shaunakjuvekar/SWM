@@ -76,7 +76,7 @@ function SummaryTables() {
                 
                 
                 <span>
-                    <h3 className="table-heading"> Echelon summary table</h3>
+                    <h5 className="table-heading"> Echelon summary table</h5>
                     <CsvToHtmlTable
                 data={summaryData_1}
                 csvDelimiter=";"
@@ -86,7 +86,7 @@ function SummaryTables() {
                 </span>
                    
                 <span>
-                <h3 className="table-heading">Facility summary table</h3>
+                <h5 className="table-heading">Facility summary table</h5>
                 <CsvToHtmlTable
                 data={summaryData_2}
                 csvDelimiter=";"
@@ -103,6 +103,9 @@ function SummaryTables() {
             <Button className="downloadButton2" onClick={downloadTxtFile2} value="download">Download File 2</Button>
             </div>
             :<></>}
+            <div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </div>    
         </div>
       
 
