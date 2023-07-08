@@ -6,6 +6,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import {Routes, Route} from "react-router-dom";
 import Home from "./Home";
 import MyMap from "./MyMap";
+import Feasibility from "./Feasibility";
 import Guidelines from "./Guidelines";
 import RouteTable from "./RouteTable";
 import SummaryTables from "./SummaryTables";
@@ -34,16 +35,17 @@ function Header() {
               <NavDropdown.Item href="/summary_tables">Summary Tables</NavDropdown.Item>
               
             </NavDropdown>
-            {/* <Nav.Link href="/map" className='nav-link'>Map</Nav.Link>
-            <Nav.Link href="/route_tables" className='nav-link'>Route Tables</Nav.Link>
-            <Nav.Link href="/summary_tables" className='nav-link'>Summary Tables</Nav.Link> */}
+          
             <img className='logo' src={vt_logo} alt='VT Logo'></img>
         
           </Container>
       </Navbar>
      <Routes>
         <Route path='/' element={<Home />}></Route>
-        <Route path='/guidelines' element={<Guidelines />}></Route>
+        <Route path='/guidelines'>
+          <Route index element={<Guidelines />} />
+          <Route path="feasibility" element={<Feasibility />}></Route>
+        </Route>
         <Route path='/map' element={<MyMap />}></Route>
         <Route path='/route_tables' element={<RouteTable />}></Route>
         <Route path='/summary_tables' element={<SummaryTables />}></Route>

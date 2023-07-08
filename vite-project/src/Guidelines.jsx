@@ -1,5 +1,7 @@
 import React from "react";
 import "./Guidelines.css";
+import Feasibility from "./Feasibility";
+import { Link, Routes, Route } from 'react-router-dom';
 import searchBar from "./assets/screenshots/Search bar.png";
 import marker from "./assets/screenshots/Filled marker.png";
 import cost_validation from "./assets/screenshots/Cost validation.png";
@@ -44,6 +46,7 @@ The steps to be followed for using the system are as follows:
             </p>
             <ol>
                 <li>The motivation, background and details about the team who worked on SWEEP are on the <b>Home</b> page.</li> 
+                <li>For information related to feasibility of solution refer to <Link to='/guidelines/feasibility'>Feasibility</Link>  </li>
                 <li>Select the <b>Map</b> link found in the <b>Input</b> dropdown menu. The map navigation is quite user friendly and intuitive, the user can scroll to zoom in/out and can navigate around by left clicking and then moving the mouse cursor accordingly.</li>
                 
                 <li>Select the designated planning area in the <b>search bar</b> located towards the top left corner of the map. Enter both the name of the area or the zip code.</li>
@@ -92,6 +95,7 @@ The steps to be followed for using the system are as follows:
                 <img src={summaryTables} style={imgStyles2}></img>    
         </ol>
     </div>
+    
     </div>
 
     )

@@ -111,6 +111,7 @@ function LocationMarker(props){
         setMarkers([{id: uuidv4()}])
         setLocationCosts([0])
         setLabels([''])
+        setTextAreaSubmitStatus(false)
         setFormValues({
           containerSizes:'',
           containerCosts:'',
