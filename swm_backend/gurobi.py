@@ -341,6 +341,43 @@ def main():
         x_bar={}
         for (i,n,k,t) in comb_N:
             x_bar[i,n,k,t]=x[i,n,k,t].X
+            
+            
+            
+        ###############Lat Long###################
+        lt = [i for i in data_f]
+        
+        lat_long=[]
+        for i in lt:
+            lat_long.append({
+                ("Echelon"): i["echelon"],
+                ("Node name"): i["node_label"],
+                ("Latitude"): i["lat"],
+                ("Longitude"): i["lng"]
+            })
+            
+                ############Writing to CSV###############
+        data_file = open('node_locations.csv', 'w', newline='')
+    
+        # create the csv writer object
+        csv_writer = csv.writer(data_file)
+        
+        # Counter variable used for writing
+        # headers to the CSV file
+        count = 0
+        
+        for emp in lat_long:
+            if count == 0:
+        
+                # Writing headers of CSV file
+                header = emp.keys()
+                csv_writer.writerow(header)
+                count += 1
+        
+            # Writing data of CSV file
+            csv_writer.writerow(emp.values())
+        
+        data_file.close()
         
         ###############Comprehensive Output################################    
         
