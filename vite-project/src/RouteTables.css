@@ -82,7 +82,7 @@
 
 .csv-container{
     /* display: flex; */
-    margin: 50px 250px 50px 60px;
+    margin: 30px 250px 50px 60px;
     font-size: 14px;
 }
 
@@ -117,10 +117,23 @@ th{
 .btn:focus,.btn:active {
     outline: none !important;
     box-shadow: none;
- }
+}
 
- table{
+table{
    
     font-family: OpenSans;
     border-collapse:separate
- }
+}
+
+.downloadButton3{
+    position: absolute;
+    top: 310px;
+    right: 50px;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 15px;
+    /* background-color: rgb(26, 69, 171); */
+    color: white;
+    font-weight: 500;
+}
+ 

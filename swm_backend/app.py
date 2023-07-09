@@ -1,9 +1,7 @@
-from flask import Flask, request, send_file
-from io import BytesIO
+from flask import Flask, request
 from flask_cors import CORS, cross_origin
 import json
 import gurobi as gc
-import csv
 import csv_convert 
 
 app = Flask(__name__)
@@ -20,13 +18,13 @@ def receive_data():
     try:
         with open("route_data.py", "w") as json_file:
            json.dump(locations, json_file)
-        print("test")    
+        #print("test")    
             
     except:
         print("Error while writing to file")
     
     finally:
-        print("Finally Block")
+        pass
 
     gc.main()
     csv_convert.main()
@@ -39,13 +37,14 @@ def send_data():
     try:
         with open("data_file.json", "r") as data:
             route_data = json.load(data)
-        print("get_data called")
+        #print("get_data called")
         return route_data
     except Exception as err:
         print(err)
         return {"failure":'0'}
     finally:
-        print("IN final block of get_data")
+        #print("IN final block of get_data")
+        pass
         #Can delete delete data_file.json in future
 
 @app.route("/get_route_tables", methods=["GET"], strict_slashes=False)
@@ -55,17 +54,19 @@ def send_route_tables():
 
     file_1 = open('output_final1.csv', 'r')
     file_2 = open('output_final2.csv', 'r')
+    file_3 = open('node_locations.csv', 'r')
     try:
         print("Sending route table data")
         data1 = file_1.read()
         data2 = file_2.read()
-        return [data1, data2]
+        data3 = file_3.read()
+        return [data1, data2, data3]
     
     except Exception as err:
         print("Error!!", err)
         return {"errorcode":1}
     finally:
-        print("IN final block of get_route_tables")
+        pass
         #Can delete delete data_file.json in future
 
 @app.route("/get_summary_tables", methods=["GET"], strict_slashes=False)
@@ -75,6 +76,7 @@ def send_summary_tables():
 
     file_1 = open('echelon_output.csv', 'r')
     file_2 = open('facility_output.csv', 'r')
+   
     try:
         print("Sending summary table data")
         data1 = file_1.read()
@@ -85,7 +87,7 @@ def send_summary_tables():
         print("Error!!", err)
         return {"errorcode":1}
     finally:
-        print("IN final block of get_summary_tables")
+        pass
         #Can delete delete data_file.json in future
     
 

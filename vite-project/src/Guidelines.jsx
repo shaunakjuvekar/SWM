@@ -89,13 +89,13 @@ The steps to be followed for using the system are as follows:
                 </ul>	
                 <img src={popups} style={imgStyles1}></img>
                 <li>For a tabular representation of the routes, click on the <b>Route Tables</b> link in the <b>Output</b> dropdown menu. 
-                After clicking on the <b>Show Tables</b> button, two tables will be displayed on the page, one table each per echelon level. In addition, click on the download buttons to download the respective CSV route file to your local machine.</li>
+                After clicking on the <b>Show Tables</b> button, two tables will be displayed on the page, one table each per echelon level. In addition, click on the download File 1 and File 2 buttons to download the respective CSV route file to the local machine. Node coordinates can be downloaded by clicking the <b>Download Node Locations</b> button.</li>
                 <img src={routeTables} style={imgStyles2}></img>    
-                <li>For a summary representation, click on the <b>Summary Tables</b> link in the <b>Output</b> dropdown menu. After clicking on the <b>Show Tables</b> button, two tables will be displayed on the page, one echelon level and one facility level summary table. In addition, click on the download buttons to download the respective CSV route file to your local machine.</li>
+                <li>For a summary representation, click on the <b>Summary Tables</b> link in the <b>Output</b> dropdown menu. After clicking on the <b>Show Tables</b> button, two tables will be displayed on the page, one echelon level and one facility level summary table. In addition, click on the download buttons to download the respective CSV route file to the local machine.</li>
                 <img src={summaryTables} style={imgStyles2}></img>    
         </ol>
     </div>
-    
+
     </div>
 
     )
