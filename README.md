@@ -2,6 +2,10 @@
 
 A ReactJs and Python-Flask web application.
 
+```
+SWEEP (Solid Waste Echelon-Embedded Planner) is a web-based tool for designing a Municipal Solid Waste (MSW) management system. Given potential locations, sizes, and relevant costs for facilities in each echelon, and capacities of vehicles (collection agents such as trucks, tractors, among others), it enables the user to choose the number, sizes, and locations of requisite facilities in each echelon, as well as the number of vehicles and their routes to use for transporting waste among echelons, thereby generating an execution plan. This plan is obtained by solving an underlying “Multi-Echelon Location Routing problem” using an optimal seeking method.
+```
+
 Developed by: Shaunak Juvekar, Akshat Kothyari
 
 # Frontend Vite/ReactJS Installation
