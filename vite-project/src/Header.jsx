@@ -11,7 +11,6 @@ import Guidelines from "./Guidelines";
 import RouteTable from "./RouteTable";
 import SummaryTables from "./SummaryTables";
 import "./Header.css";
-//import vt_logo from "./assets/vt-logo2.png"
 import vt_logo from "./assets/vt-white.png"
 
 
@@ -55,22 +54,3 @@ function Header() {
     );
   }
 export default Header;  
-
-
-/*
-
- {appContext.summaryTableKey==true?<Nav.Link href="/table" className='nav-link'>Summary 1</Nav.Link>:null}
-
-
-          
-            <NavDropdown title="Input" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/map">Map</NavDropdown.Item>
-              
-            </NavDropdown>
-            <NavDropdown title="Output" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/route_tables">Route Tables</NavDropdown.Item>
-              <NavDropdown.Item href="/summary_tables">Summary Tables</NavDropdown.Item>
-              
-            </NavDropdown>
-
-*/

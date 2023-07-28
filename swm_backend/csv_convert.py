@@ -29,7 +29,6 @@ def main():
                 write_file_2.writerow(['Facility', 'Vehicle', 'Facilities served in echelon '+str(int(echelon)-1), 'Route Cost($)'])
                 file2_flag = True
             else:
-                #print("This echelon number not handled : ", echelon)
                 pass
             frontend_data.append(obj)
             if routes and row_number!=0:
@@ -44,7 +43,6 @@ def main():
                     elif echelon=='3':
                          write_file_2.writerow([node_label, i+1, routes_arr[i], truncated_cost])
                     else:
-                        #print("This echelon number not handled : ", echelon)   
                         pass 
             
                 write_file_1.writerow([])

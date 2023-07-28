@@ -10,19 +10,14 @@ CORS(app, support_credentials=True)
 @app.route("/send", methods=["POST"], strict_slashes=False)
 @cross_origin(support_credentials=True)
 def receive_data():
-    #title = request.json['title']
-    #body = request.json['body']
+   
     locations = request.json
-    #print(locations)
     
     try:
         with open("route_data.py", "w") as json_file:
            json.dump(locations, json_file)
-        #print("test")    
-            
     except:
         print("Error while writing to file")
-    
     finally:
         pass
 
@@ -37,15 +32,13 @@ def send_data():
     try:
         with open("data_file.json", "r") as data:
             route_data = json.load(data)
-        #print("get_data called")
         return route_data
     except Exception as err:
         print(err)
         return {"failure":'0'}
     finally:
-        #print("IN final block of get_data")
         pass
-        #Can delete delete data_file.json in future
+        #Can potentially delete delete data_file.json in future
 
 @app.route("/get_route_tables", methods=["GET"], strict_slashes=False)
 @cross_origin(support_credentials=True)
@@ -63,11 +56,11 @@ def send_route_tables():
         return [data1, data2, data3]
     
     except Exception as err:
-        print("Error!!", err)
+        print("Error!! ", err)
         return {"errorcode":1}
     finally:
         pass
-        #Can delete delete data_file.json in future
+        #Can potentially delete delete data_file.json in future
 
 @app.route("/get_summary_tables", methods=["GET"], strict_slashes=False)
 @cross_origin(support_credentials=True)
@@ -84,12 +77,11 @@ def send_summary_tables():
         return [data1, data2]
     
     except Exception as err:
-        print("Error!!", err)
+        print("Error!! ", err)
         return {"errorcode":1}
     finally:
         pass
-        #Can delete delete data_file.json in future
+        #Can potentially delete delete data_file.json in future
     
-
 if __name__=='__main__':
     app.run(debug=True, port=5002, use_reloader=False)

@@ -3,10 +3,6 @@ import Button from 'react-bootstrap/Button';
 import APIService from "./APIService";
 import "./RouteTables.css"
 import { CsvToHtmlTable } from 'react-csv-to-table';
-//import {Link} from "react-router-dom";
-//import csvPath from "./output_final.csv"
-//import csvFile from "./assets/output_final.csv";
-
 
 function RouteTable() {
 
@@ -111,10 +107,6 @@ function RouteTable() {
                 />
                 </span>
                 
-            
-      
-
-            
             <Button size='sm' className="downloadButton1" onClick={downloadCSVFile1} value="download">Download File 1</Button>
             <Button size='sm' className="downloadButton2" onClick={downloadCSVFile2} value="download">Download File 2</Button>
             <Button size='sm' className="downloadButton3" onClick={downloadCSVFile3} value="download">Download Node Locations</Button>        
@@ -126,12 +118,8 @@ function RouteTable() {
             </div>    
         </div>
         
-        
-      
-
     );
 
-    
 }
 
 export default RouteTable;
