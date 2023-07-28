@@ -1,12 +1,22 @@
 # Solid Waste Management System
 
 A ReactJs and Python-Flask web application.
+
 Developed by: Shaunak Juvekar, Akshat Kothyari
 
-# Frontend Vite Installation
+# Frontend Vite/ReactJS Installation
 
-In the root directory of the repository, type npm install in the terminal.
+Open terminal in the root directory of the repository.
+
+## Build Setup
+
+```
+# install dependencies
+npm install
 This will install all the frontend dependencies.
+
+# serve with hot reload at localhost:5173
+npm run dev
 
 # Backend Python Installation
 
