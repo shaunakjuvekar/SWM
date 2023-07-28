@@ -3,16 +3,11 @@ import Button from 'react-bootstrap/Button';
 import APIService from "./APIService";
 import "./RouteTables.css"
 import { CsvToHtmlTable } from 'react-csv-to-table';
-//import {Link} from "react-router-dom";
-//import csvPath from "./output_final.csv"
-//import csvFile from "./assets/output_final.csv";
-
 
 function SummaryTables() {
 
     const [summaryData_1, setData_1] = useState([])
     const [summaryData_2, setData_2] = useState([])
-    //console.log(summaryData)
 
     function showSummaryTable(){
         console.log("In showSummaryTable()")
@@ -94,9 +89,6 @@ function SummaryTables() {
                 />
                 </span>
                 
-            
-      
-
             <div >
                 <Button className="downloadButton1" onClick={downloadTxtFile1} value="download">Download File 1</Button>
             </div>
@@ -108,10 +100,8 @@ function SummaryTables() {
             </div>    
         </div>
       
-
     );
 
-    
 }
 
 export default SummaryTables;

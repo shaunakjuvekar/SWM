@@ -6,7 +6,6 @@ import {Icon} from 'leaflet';
 import { GeoSearchControl, OpenStreetMapProvider } from "leaflet-geosearch";
 import { useMap } from 'react-leaflet';
 import icon from "./assets/location-pin.png"
-//import icon from "./red_icon.png";
 
 function SearchBar() {
 
@@ -20,7 +19,6 @@ function SearchBar() {
     const map = useMap();
     useEffect(() => {
       const provider = new OpenStreetMapProvider();
-      //console.log(provider)
   
       const searchControl = new GeoSearchControl({
         provider,

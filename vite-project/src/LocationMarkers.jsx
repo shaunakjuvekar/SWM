@@ -1,13 +1,13 @@
 import React from "react";
 import './LocationMarkers.css';
 import "leaflet/dist/leaflet.css";
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import { useMapEvents } from 'react-leaflet/hooks'
 import { Marker, Popup} from 'react-leaflet';
 import {Icon} from 'leaflet';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { v4 as uuidv4 } from 'uuid'; // Import the uuid library
+import { v4 as uuidv4 } from 'uuid'; 
 
 import redIcon from "./assets/red_icon.png";
 import AppContext from "./AppContext";
@@ -50,19 +50,15 @@ function LocationMarker(props){
         height: 20 
       }    
     //debugger;
-   
-    //console.log(formValues)
-    //console.log("Inside Location Marker-> initial markers: ",  markers);
   
     const map = useMapEvents({
       click(event) {
   
-          //console.log(event.originalEvent.srcElement.textContent)
           let text = event.originalEvent.srcElement.textContent
         
           if (text.search(/ Leaflet /)!=-1 || (text.search(/ OpenStreetMap /)!=-1)) 
             {
-              //console.log("Inside If condition")
+              
               let { lat,lng } = event.latlng;  
               lat = Math.round(lat * 100000) / 100000;
               lng = Math.round(lng * 100000) / 100000;
@@ -127,10 +123,10 @@ function LocationMarker(props){
         event.preventDefault();
         let location_cost = event.target.elements.location_cost.value
         let label = event.target.elements.node_label.value
-        //console.log(location_cost)
+        
         setLocationCosts((prevValue)=>[...prevValue, location_cost])        
         setLabels((prevVal) => [...prevVal, label])
-        //console.log(labels)
+        
         map.closePopup();
     }
 
@@ -275,29 +271,8 @@ return (
 export default LocationMarker;
 
 
+
 /*
-
- <div className="dropdown-btn">
-      <label>
-        Echelon Capacity
-        <div>
-          <select className="select-menu" defaultValue="0"
-          onChange = {e => setCapacity(e.target.value)}>
-        
-            <option className='option-menu' value="100" >100</option>
-
-            <option className='option-menu' value="300">300</option>
-
-            <option className='option-menu' value="500">500</option>
-
-          </select>
-      </div>
-      
-      </label>
-      </div>
-
-
-    /*
     const deleteMarker = (markerId) => {
       console.log("Inside delete Marker")
       //console.log(event.target.parentNode.parentNode)
@@ -318,27 +293,5 @@ export default LocationMarker;
       setMarkers(final_markers)
     }
    
-    const eventHandlers = useMemo(() => ({
-      
-      dragend(e) {
-        console.log(e)
-        console.log(e.target.getLatLng())
-        text.innerHTML = e.target.getLatLng();
-        
-      },
-    }), [text])
-
-      function handleDragEnd(event, index) {
-      console.log("event:" , event)
-      const marker = event.target;
-      const position = marker.getLatLng();
-      console.log("position:", position)
-        
-      setMarkers(prevMarkers => {
-        const newMarkers = [...prevMarkers];
-        newMarkers[index] = position;
-        return newMarkers;
-      });
-    }
 */
   
