@@ -6,6 +6,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import {Routes, Route} from "react-router-dom";
 import Home from "./Home";
 import MyMap from "./MyMap";
+import CSVInput from "./CSVInput";
 import Feasibility from "./Feasibility";
 import Guidelines from "./Guidelines";
 import RouteTable from "./RouteTable";
@@ -27,6 +28,7 @@ function Header() {
 
             <NavDropdown title="Input" id="basic-nav-dropdown">
               <NavDropdown.Item href="/map">Map</NavDropdown.Item>
+              <NavDropdown.Item href="/csv_input">CSV Input</NavDropdown.Item>
               
             </NavDropdown>
             <NavDropdown title="Output" id="basic-nav-dropdown">
@@ -46,6 +48,7 @@ function Header() {
           <Route path="feasibility" element={<Feasibility />}></Route>
         </Route>
         <Route path='/map' element={<MyMap />}></Route>
+        <Route path='/csv_input' element={<CSVInput />}></Route>
         <Route path='/route_tables' element={<RouteTable />}></Route>
         <Route path='/summary_tables' element={<SummaryTables />}></Route>
       

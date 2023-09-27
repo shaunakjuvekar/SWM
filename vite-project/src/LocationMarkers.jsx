@@ -34,7 +34,8 @@ function LocationMarker(props){
     const [formValues, setFormValues] = useState({
       containerSizes:'',
       containerCosts:'',
-      vehicleCapacity:''
+      vehicleCapacity:'',
+      vehicleCost:''
     })
     
     const [routeButton, setRouteButton] = useState(false)
@@ -95,6 +96,7 @@ function LocationMarker(props){
           obj['facility_costs'] = formValues.containerCosts
           obj['facility_sizes'] = formValues.containerSizes
           obj['vehicle_capacity'] = formValues.vehicleCapacity
+          obj['vehicle_cost'] = formValues.vehicleCost
           
           final_markers.push(obj)     
           
@@ -111,7 +113,8 @@ function LocationMarker(props){
         setFormValues({
           containerSizes:'',
           containerCosts:'',
-          vehicleCapacity:''
+          vehicleCapacity:'',
+          vehicleCost:'',
         })
              
       }
@@ -206,6 +209,11 @@ return (
              onChange={handleInputChange}></input>
             <p className="text-para">Enter Vehicle Capacity</p>
             <input name='vehicleCapacity' value={formValues.vehicleCapacity} placeholder=' Enter value' type='text' 
+            style={textAreaStyles}
+             onChange={handleInputChange}></input>
+             {isNumVC==true?<></>:<div className="vc-msg">Please enter a numerical value</div>}
+             <p className="text-para">Enter Vehicle Cost</p>
+             <input name='vehicleCost' value={formValues.vehicleCost} placeholder=' Enter value' type='text' 
             style={textAreaStyles}
              onChange={handleInputChange}></input>
              {isNumVC==true?<></>:<div className="vc-msg">Please enter a numerical value</div>}
