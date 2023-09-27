@@ -3,6 +3,9 @@ from flask_cors import CORS, cross_origin
 import json
 import gurobi as gc
 import csv_convert 
+import json_convert
+import csv
+import pandas as pd
 
 app = Flask(__name__)
 CORS(app, support_credentials=True)
@@ -12,7 +15,7 @@ CORS(app, support_credentials=True)
 def receive_data():
    
     locations = request.json
-    
+    print(locations)
     try:
         with open("route_data.py", "w") as json_file:
            json.dump(locations, json_file)
@@ -54,6 +57,46 @@ def send_route_tables():
         data2 = file_2.read()
         data3 = file_3.read()
         return [data1, data2, data3]
+    
+    except Exception as err:
+        print("Error!! ", err)
+        return {"errorcode":1}
+    finally:
+        pass
+        #Can potentially delete delete data_file.json in future
+
+@app.route("/get_location_data", methods=["GET"], strict_slashes=False)
+@cross_origin(support_credentials=True)
+def send_location_data():
+    print("get_location_data called")
+
+    file_1 = open('Location_Format.csv', 'r')
+    try:
+        print("Sending location data")
+        data1 = file_1.read()
+        return [data1]
+    
+    except Exception as err:
+        print("Error!! ", err)
+        return {"errorcode":1}
+    finally:
+        pass
+        #Can potentially delete delete data_file.json in future
+
+@app.route("/get_csv_and_compute", methods=["POST"], strict_slashes=False)
+@cross_origin(support_credentials=True)
+def get_csv_and_compute():
+    print("get_csv_and_compute called")
+
+    locations = request.json
+    print(locations)
+    json_convert.convert(locations)
+   
+    try:
+        gc.main()
+        csv_convert.main()
+        print("Computing routes from CSV data")
+        return {'status':"done"}
     
     except Exception as err:
         print("Error!! ", err)

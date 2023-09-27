@@ -49,6 +49,32 @@ export default class APIService{
     .catch(error => console.log(error))
     }
 
+    static getLocationData(){
+        console.log("getLocationData() called")
+        return fetch(`http://localhost:5002/get_location_data`,{
+            'method':'GET',
+             headers : {
+                'Content-Type':'application/json'
+      },
+    })
+    .then(response => response.json())
+    .catch(error => console.log(error))
+    }
+
+    static sendLocationData(body){
+        console.log(body)
+        return fetch(`http://localhost:5002/get_csv_and_compute`,{
+            'method':'POST',
+             headers : {
+            'Content-Type':'application/json'
+      },
+      body:JSON.stringify(body)
+    })
+    .then(response => response.json())
+    .catch(error => console.log(error))
+    }
+
+
     static getSummaryTables(){
         console.log("getSummaryTables() called")
         return fetch(`http://localhost:5002/get_summary_tables`,{
