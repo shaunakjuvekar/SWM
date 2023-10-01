@@ -93,9 +93,10 @@ def get_csv_and_compute():
     json_convert.convert(locations)
    
     try:
+        print("Computing routes from CSV data")
         gc.main()
         csv_convert.main()
-        print("Computing routes from CSV data")
+        
         return {'status':"done"}
     
     except Exception as err:

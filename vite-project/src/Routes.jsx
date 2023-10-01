@@ -119,6 +119,7 @@ function Routes(){
     function showNodesAndRoutes(currentNodes){
         let allMarkers = []
         let allPaths = []
+        console.log(currentNodes)
         for (let i=0;i<currentNodes.length;i++){
             let current_node = currentNodes[i]
           
