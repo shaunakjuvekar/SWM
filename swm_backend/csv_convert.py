@@ -18,31 +18,33 @@ def main():
             print(row)
             obj = {}
             
-            lat, long, id, cost_demand, node_label = row[0], row[1], row[2], row[3], row[4]
-            echelon, index = row[5], row[6]
-            routes, route_costs = row[11], row[12]
+            lat, long, cost_demand, node_label = row[0], row[1], row[2], row[3]
+            echelon, index = row[4], row[5]
+            routes, route_costs = row[10], row[11]
             obj['lat'], obj['lng'], obj['label'], obj['echelon'] =lat,long, node_label, echelon
             obj['routes'], obj['route_costs'] = routes, route_costs
-            print("on line 24")
-            if int(echelon)=='2' and file1_flag==False:
-                write_file_1.writerow(['Facility', 'Vehicle', 'Customers served in echelon '+str(int(echelon)-1), 'Route Cost($)'])
+            #print("on line 24", echelon, type(echelon))
+            if row_number!=0 and int(float(echelon))==2 and file1_flag==False:
+                print("inside if...line 28")
+                write_file_1.writerow(['Facility', 'Vehicle', 'Customers served in echelon '+str(int(float(echelon))-1), 'Route Cost($)'])
                 file1_flag = True
-            elif int(echelon)=='3' and file2_flag==False:
-                write_file_2.writerow(['Facility', 'Vehicle', 'Facilities served in echelon '+str(int(echelon)-1), 'Route Cost($)'])
+            elif row_number!=0 and int(float(echelon))==3 and file2_flag==False:
+                write_file_2.writerow(['Facility', 'Vehicle', 'Facilities served in echelon '+str(int(float(echelon))-1), 'Route Cost($)'])
                 file2_flag = True
             else:
                 pass
             frontend_data.append(obj)
             if routes and row_number!=0:
                 #print("routes:" , routes)
-                print("on line 36")
+                #print("on line 36")
+                
                 routes_arr = (ast.literal_eval(routes))
                 costs_arr = (ast.literal_eval(route_costs))
                 for i in range(len(routes_arr)):
                     truncated_cost = round(float(costs_arr[i]), 2)
-                    if int(echelon)=='2':
+                    if int(float(echelon))==2:
                         write_file_1.writerow([node_label, i+1, routes_arr[i], truncated_cost])
-                    elif int(echelon)=='3':
+                    elif int(float(echelon))==3:
                          write_file_2.writerow([node_label, i+1, routes_arr[i], truncated_cost])
                     else:
                         pass 
@@ -52,7 +54,7 @@ def main():
             row_number+=1
         #print(frontend_data)
 
-
+    print(write_file_1)
     with open("data_file.json", "w") as wf:
         #print("Writing to data_file.json")
         json.dump(frontend_data[1:], wf)
