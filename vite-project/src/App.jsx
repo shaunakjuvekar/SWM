@@ -38,6 +38,22 @@ function App() {
     body = []
   }
 
+  const updateCoordsMapfromCSV = (body) => {
+    let tempMap = {}
+    let arr = body.split('\n')
+    for (let i=1;i<arr.length;i++){
+      if (arr[i]!=''){
+        let lineArr = arr[i].split(',')
+        tempMap[lineArr[0]] = [parseFloat(lineArr[1]), parseFloat(lineArr[2]), parseInt(lineArr[3])]
+
+      }
+      
+    }
+    //console.log(tempMap)
+    setMap(tempMap)
+    
+  }
+
   const handleFlyLocation = (e) => {
     //console.log(e)
     setFlyLocation(e)
@@ -54,6 +70,7 @@ function App() {
     flyLocation,
     handleFlyLocation,
     nodeCoordsMapKey : nodeCoordsMap,
+    updateCoordsMapfromCSV,
     summaryTableKey : summaryTable
 
   };

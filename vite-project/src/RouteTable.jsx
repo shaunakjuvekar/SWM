@@ -75,7 +75,7 @@ function RouteTable() {
         <div className="table-container">
             <div className='route-about'>
                 <h2 className="summary">
-                    Route Tables:
+                    Route Tables
                 </h2>
                 <p className="table-para">
                     The route tables below display information related to each facility in an echelon. The vehicle

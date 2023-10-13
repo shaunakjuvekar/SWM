@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from 'react-bootstrap/Button';
 import { CsvToHtmlTable } from 'react-csv-to-table';
 import APIService from "./APIService";
+import AppContext from "./AppContext";
 import Routes from "./Routes"
 import "./RouteTables.css"
 import SearchBar from "./SearchBar";
+import MyMap from "./MyMap";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
   
 
@@ -15,8 +17,10 @@ function CSVInput(){
     const [locationData, setLocationData] = useState([])
     const [fileData, setFileData] = useState();
     const [viewRoutes, setViewRoutes] = useState([]);
-
+    
     const fileReader = new FileReader();
+
+    const appContext = useContext(AppContext);
 
     const handleOnChange = (e) => {
         setFileData(e.target.files[0]);
@@ -46,6 +50,7 @@ function CSVInput(){
             fileReader.onload = function (event) {
                 const csvOutput = event.target.result;
                 console.log(csvOutput)
+                appContext.updateCoordsMapfromCSV(csvOutput)
                 APIService.sendLocationData(csvOutput)
          
             };
@@ -104,12 +109,12 @@ return (
                 </span>
             </div>:<></>}
         </div>:
-         <MapContainer className='leaflet-container' center={initPosition} zoom={13} scrollWheelZoom={true}>
-         <SearchBar />
-         <TileLayer
-           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-         />
+        <MapContainer className='leaflet-container' center={initPosition} zoom={13} scrollWheelZoom={true}>
+        <SearchBar />
+        <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
         <Routes></Routes>
         </MapContainer>
         }
@@ -122,3 +127,6 @@ return (
 }
 
 export default CSVInput;
+
+
+

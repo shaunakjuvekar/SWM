@@ -55,7 +55,7 @@ function SummaryTables() {
         <div className="table-container">
             <div className='route-about'>
                 <h2 className="summary">
-                    Summary Tables:
+                    Summary Tables
                 </h2>
                 <p className="table-para">
                     The Echelon Table below summarizes the number of facilities, number of vehicles and total cost 

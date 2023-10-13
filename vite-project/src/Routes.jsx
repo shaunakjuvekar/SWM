@@ -111,6 +111,7 @@ function Routes(){
         setCurrentPaths([])
         //console.log("Polylines:" , [polylines])
         setMarkers(filtered_data)
+        console.log("Markers: ", markers)
     
         }
         let d = routeData();
@@ -126,7 +127,7 @@ function Routes(){
             current_node['routes'] = current_node['routes'].replace(/'/g,"\"")
             //console.log(current_node['routes'])
             let routeNodes = JSON.parse(current_node['routes'])
-           
+            //console.log(routeNodes)
             if (!allMarkers.includes(current_node.label)){
                 allMarkers.push(current_node.label)
             }
@@ -198,7 +199,7 @@ function Routes(){
                 }
             }
         })
-        //console.log(allPaths)
+        console.log(allPaths)
         setCurrentPaths(allPaths)
         setMarkers(newMarkers)
     }
