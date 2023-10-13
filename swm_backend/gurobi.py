@@ -132,6 +132,7 @@ def MELRP_dim(data_f):
                 h_c[i-sum(I_0[t] for t in range(int(e["echelon"])-1)), int(e["echelon"])-2]=float(e["location_cost"])
                 if int(e["index"])==1:
                     fac_cost_str=e["facility_costs"].split(',')
+                    print(e["facility_sizes"])
                     fac_size_str=e["facility_sizes"].split(',')
                     
                     if e["vehicle_capacity"]=='':
@@ -410,7 +411,13 @@ def main():
                 
         
             
-                ############Writing to CSV###############
+        ro_keys=["lat", "lng", "location_cost", "node_label", "echelon", "index", "facility_sizes", "facility_costs", "vehicle_capacity", "vehicle_cost", "routes", "route_costs", "Capacity", "Capacity costs"]
+            
+        ro_res=[]
+        for k in range(len(res)):
+            ro_res.append({j: res[k][j] for j in ro_keys})
+        
+            ############Writing to CSV###############
         data_file = open('sample_output.csv', 'w', newline='')
     
         # create the csv writer object
@@ -420,7 +427,7 @@ def main():
         # headers to the CSV file
         count = 0
         
-        for emp in res:
+        for emp in ro_res:
             if count == 0:
         
                 # Writing headers of CSV file

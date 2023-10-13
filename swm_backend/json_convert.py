@@ -1,3 +1,4 @@
+import ast
 import json
 import csv
 
@@ -6,34 +7,39 @@ def convert(data):
     print('inside json convert')
     text_data = data
 
-    # Split the text into lines
+    
     lines = text_data.split('\n')
 
-    # Create a CSV reader with custom settings
     csv_reader = csv.reader(lines, delimiter=',', quotechar='"')
 
-    # Read the header row
+    # Reading the header row
     field_names = next(csv_reader)
 
-    # Initialize a list to store dictionaries
-    json_data = []
-
-    # Iterate through the CSV rows and create dictionaries
+    json_data = [[],[],[]]
+    index_map = {0:0, 1:0, 2:0}
+    # Iterating through the CSV rows and creating dictionaries
     for row in csv_reader:
+        echelon_flag = 1
         data_dict = {}
         for i in range(len(field_names)):
-            value = row[i].strip()
-            if value.startswith('[') and value.endswith(']'):
-                try:
-                    # Attempt to parse the value as a JSON array
-                    value = json.loads(value)
-                except json.JSONDecodeError:
-                    pass  # If parsing fails, keep the original value
-            data_dict[field_names[i]] = value
-        json_data.append(data_dict)
+            if len(row)==0:
+                pass
+            else:   
+                value = row[i].strip()
+                if value.replace("-", "").replace(".", "").isnumeric():
+                    value = float(value)
 
-    # Serialize the JSON data list to a JSON string
-    json_result = json.dumps(json_data, indent=2)
+                data_dict[field_names[i]] = value
 
-    # Print the JSON result
-    print(json_result)
+        if data_dict != {}:
+            echelon_flag = int(data_dict['echelon'])
+            index_map[echelon_flag-1] += 1
+            data_dict['index'] = index_map[echelon_flag-1]
+            json_data[echelon_flag-1].append(data_dict)
+    
+    #print(json_data)
+
+    with open("route_data.py", "w") as json_file:
+           json.dump(json_data, json_file)
+
+    #print(json_result)
