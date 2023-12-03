@@ -126,6 +126,16 @@ def send_summary_tables():
     finally:
         pass
         #Can potentially delete delete data_file.json in future
-    
+
+@app.route("/", methods=["GET"], strict_slashes=False)
+@cross_origin(support_credentials=True)
+def home_route():
+    print("home route called")
+    return {
+        'status': "True",
+        'data': 'Hello World!'
+    }
+
 if __name__=='__main__':
-    app.run(debug=True, port=5002, use_reloader=False)
+    # app.run(debug=True, port=5002, use_reloader=False)
+    app.run(host="0.0.0.0", port=5002)

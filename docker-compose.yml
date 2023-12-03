@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./swm_backend
+      dockerfile: Dockerfile
+      target: backend  # Target name in your backend Dockerfile
+    container_name: backend
+    ports:
+      - "5002:5002"
+    networks:
+      - mynetwork
+
+  frontend:
+    build:
+      context: ./vite-project
+      dockerfile: Dockerfile
+      target: frontend  # Target name in your frontend Dockerfile
+    container_name: frontend
+    ports:
+      - "5175:5175"
+    depends_on:
+      - backend
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    driver: bridge
