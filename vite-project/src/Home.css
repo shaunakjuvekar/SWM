@@ -49,3 +49,13 @@ p{
     
 }
 
+.carousel-control-prev,
+.carousel-control-next {
+    visibility: visible;
+}
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: black;
+}
