@@ -1,8 +1,10 @@
+import { baseURL } from "./constants";
+
 
 export default class APIService{
     // Insert an article
     static InsertArticle(body){
-        return fetch(`http://localhost:5002/add`,{
+        return fetch(`${baseURL.sweep}/add`,{   // http://localhost:5002
             'method':'POST',
              headers : {
             'Content-Type':'application/json'
@@ -14,7 +16,7 @@ export default class APIService{
     }
 
     static sendCompleteData(body){
-        return fetch(`http://localhost:5002/send`,{
+        return fetch(`${baseURL.sweep}/send`,{
             'method':'POST',
              headers : {
             'Content-Type':'application/json'
@@ -26,7 +28,7 @@ export default class APIService{
     }
 
     static getRoutes(){
-        return fetch(`http://localhost:5002/get_data`,{
+        return fetch(`${baseURL.sweep}/get_data`,{   
             'method':'GET',
              headers : {
             'Content-Type':'application/json'
@@ -39,7 +41,7 @@ export default class APIService{
 
     static getRouteTables(){
         console.log("getRouteTables() called")
-        return fetch(`http://localhost:5002/get_route_tables`,{
+        return fetch(`${baseURL.sweep}/get_route_tables`,{
             'method':'GET',
              headers : {
                 'Content-Type':'application/json'
@@ -51,7 +53,7 @@ export default class APIService{
 
     static getLocationData(){
         console.log("getLocationData() called")
-        return fetch(`http://localhost:5002/get_location_data`,{
+        return fetch(`${baseURL.sweep}/get_location_data`,{
             'method':'GET',
              headers : {
                 'Content-Type':'application/json'
@@ -63,7 +65,7 @@ export default class APIService{
 
     static sendLocationData(body){
         console.log(body)
-        return fetch(`http://localhost:5002/get_csv_and_compute`,{
+        return fetch(`${baseURL.sweep}/get_csv_and_compute`,{
             'method':'POST',
              headers : {
             'Content-Type':'application/json'
@@ -77,7 +79,7 @@ export default class APIService{
 
     static getSummaryTables(){
         console.log("getSummaryTables() called")
-        return fetch(`http://localhost:5002/get_summary_tables`,{
+        return fetch(`${baseURL.sweep}/get_summary_tables`,{
             'method':'GET',
              headers : {
                 'Content-Type':'application/json'

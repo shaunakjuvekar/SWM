@@ -6,12 +6,15 @@ import garbage_truck_1 from "./assets/garbage-truck-1.jpg"
 import garbage_truck_2 from "./assets/garbage-truck-2.jpg"
 import garbage_bin from "./assets/garbage-bin.jpg"
 import garbage_toy from "./assets/garbage-toy.jpg"
+import { useState } from 'react';
+import Carousel from 'react-bootstrap/Carousel';
+// import ExampleCarouselImage from 'components/ExampleCarouselImage';
 
 function Home(){
 
     const imgStyles = {
-        height: 300, 
-        width:500, 
+        height: 500, 
+        width:750, 
         border: '10x solid black', 
         borderRadius: 15,
         marginLeft: 10,
@@ -20,6 +23,12 @@ function Home(){
     }
 
    
+    const [index, setIndex] = useState(0);
+
+    const handleSelect = (selectedIndex) => {
+    setIndex(selectedIndex);
+    };
+    
 
     return (
 
@@ -27,7 +36,21 @@ function Home(){
             <div className="about-section">
             <h2 className = 'heading-style'>About SWEEP</h2>
             
-            <div className="img-container">
+            <Carousel>
+          <Carousel.Item>
+            <img style={imgStyles} src={garbage_truck_1} alt="First slide" />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img style={imgStyles} src={garbage_truck_2} alt="Second slide" />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img style={imgStyles} src={garbage_bin} alt="Third slide" />
+          </Carousel.Item>
+          <Carousel.Item>
+            <img style={imgStyles} src={garbage_toy} alt="Fourth slide" />
+          </Carousel.Item>
+        </Carousel>
+            {/* <div className="img-container">
                 <span>
                 <img src={garbage_truck_1} alt='garbage-truck-1' 
                 style={imgStyles}></img>
@@ -40,7 +63,7 @@ function Home(){
 
                 </span>
                 
-            </div>
+            </div> */}
 
             <hr style={{height: 1, backgroundColor: 'black', marginTop: 20, marginBottom: 20}}></hr>
             <p>    

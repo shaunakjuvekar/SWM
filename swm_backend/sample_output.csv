@@ -1,4 +1,4 @@
-lat,lng,id,location_cost,node_label,echelon,index,facility_costs,facility_sizes,vehicle_capacity,vehicle_cost,routes,route_costs,Capacity,Capacity costs
-37.24183,-80.42971,ab7d007a-05ab-48fa-a72d-e24594886a78,2,bb,2,1,,,,,[['a']],[0.1557217665215982],148.5,1998
-37.21381,-80.4455,5328ac6d-1830-41ba-964a-959465c2e03d,3,cc,2,2,,,,,,,,
-37.22161,-80.40945,1f9ec5ff-db00-41d5-9e41-8e33bf99786e,22,ddd,3,1,,,,,[['bb']],[44.98134455805753],2004.75,2598
+lat,lng,location_cost,node_label,echelon,index,facility_sizes,facility_costs,vehicle_capacity,vehicle_cost,routes,route_costs,Capacity,Capacity costs
+37.21271,-80.45252,14.0,Oasis,2.0,1,"10,15,20","20,30,40",25.0,30.0,"[['Union Apts.', 'Hethwood', 'Burruss Hall']]",[47.439523872422555],20.0,40.0
+37.19644,-80.43346,16.0,Heritage Park,2.0,2,"10,15,20","20,30,40",25.0,30.0,,,,
+37.26069,-80.469,19.0,Squires Center,3.0,1,"25,30,35","50,60,70",40.0,50.0,[['Oasis']],[106.73614796710724],25.0,50.0
