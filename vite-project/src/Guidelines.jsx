@@ -37,7 +37,7 @@ function Guidelines(){
     return (
         <div className="guide">
         <div className="grid-container">
-            <h2 style={{marginTop: 20}}>
+            <h2>
                 Guidelines
             </h2>
             <p>
@@ -50,7 +50,7 @@ The steps to be followed for using the system are as follows:
                 <li>Select the <b>Map</b> link found in the <b>Input</b> dropdown menu. The map navigation is quite user friendly and intuitive, the user can scroll to zoom in/out and can navigate around by left clicking and then moving the mouse cursor accordingly.</li>
                 
                 <li>Select the designated planning area in the <b>search bar</b> located towards the top left corner of the map. Enter both the name of the area or the zip code.</li>
-                <img src={searchBar} style={imgStyles1}></img>
+                <img src={searchBar} style={imgStyles1} alt="Search bar"></img>
                 <li>Once in the area, start placing markers on the map by left clicking on the desired location indicating customers/facilities. The markers have the following options:- </li>
                 <ul>
                     <li><b>Demand/Location cost</b> - User can enter the appropriate value (number) here.</li>

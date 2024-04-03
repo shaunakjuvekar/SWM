@@ -8,19 +8,16 @@ import garbage_bin from "./assets/garbage-bin.jpg"
 import garbage_toy from "./assets/garbage-toy.jpg"
 import { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-// import ExampleCarouselImage from 'components/ExampleCarouselImage';
 
 function Home(){
 
     const imgStyles = {
-        height: 500, 
-        width:750, 
-        border: '10x solid black', 
+        maxHeight: '500px', // Set maximum height
+        width: 'auto', // Allow width to adjust automatically
+        border: '10x solid black',
         borderRadius: 15,
-        marginLeft: 10,
-        marginRight: 10,
         marginTop: 8
-    }
+    };
 
    
     const [index, setIndex] = useState(0);
@@ -36,7 +33,7 @@ function Home(){
             <div className="about-section">
             <h2 className = 'heading-style'>About SWEEP</h2>
             
-            <Carousel>
+             <Carousel style={{ maxWidth: '100%' }}>
           <Carousel.Item>
             <img style={imgStyles} src={garbage_truck_1} alt="First slide" />
           </Carousel.Item>
@@ -50,21 +47,7 @@ function Home(){
             <img style={imgStyles} src={garbage_toy} alt="Fourth slide" />
           </Carousel.Item>
         </Carousel>
-            {/* <div className="img-container">
-                <span>
-                <img src={garbage_truck_1} alt='garbage-truck-1' 
-                style={imgStyles}></img>
-                <img src={garbage_bin} alt='garbage-bin' 
-                style={imgStyles}></img>
-                 <img src={garbage_toy} alt='garbage-toy' 
-                style={imgStyles}></img>
-                  <img src={garbage_truck_2} alt='garbage-truck-2' 
-                style={imgStyles}></img>
-
-                </span>
-                
-            </div> */}
-
+         
             <hr style={{height: 1, backgroundColor: 'black', marginTop: 20, marginBottom: 20}}></hr>
             <p>    
 
@@ -144,13 +127,8 @@ function Home(){
                     </p>
                     <p className="contact">Contact : jshaunak@vt.edu</p>
                 </div>
-               
-
             </div>
-                
-
         </div>
-        
         
     )
 }
