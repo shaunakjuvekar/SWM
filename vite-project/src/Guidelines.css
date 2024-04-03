@@ -1,52 +1,52 @@
-@font-face {
+/* @font-face {
     font-family: Montserrat;
     src: url(./assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf);
-  }
+  } */
 
 @font-face {
 font-family: OpenSans;
 src: url(./assets/fonts/OpenSans-VariableFont_wdth,wght.ttf);
 }
 
-h2{
-    color:  rgb(222, 16, 16);
+.grid-container {
+    margin: 0 auto;
+    padding: 20px;
+    max-width: 80%; /* Adjust max-width to fit content comfortably */
 }
 
-.grid-container{
-    margin: 0 120px 0 120px;
-    padding: 10px;
-    /* font-family: "Canterell",sans-serif; */
-    
-    
+h2 {
+    color: rgb(222, 16, 16);
+    font-size: 28px;
+    margin-top: 20px; /* Add some spacing */
 }
 
-p, li{
+p, li, ol {
     color: black;
-    text-align: left;
     font-size: 16px;
-    /* font-family: Montserrat; */
-    /* font-family: 'Raleway', sans-serif; */
-    /* font-family: 'Open Sans', sans-serif; */
     font-family: OpenSans;
+    line-height: 1.6;
+    text-align: left; 
     font-weight: 500;
-    line-height: 1.7em;
+
 }
 
-ol {
-    list-style-position: inside;
-    color: black;
+img {
+    display: block; /* Ensure images don't have spacing issues */
+    max-width: 100%; /* Make images responsive */
+    margin: 0 auto 20px; /* Add some vertical spacing */
 }
 
+@media screen and (max-width: 576px) {
+    /* Adjustments for smaller screens (e.g., mobile devices) */
+    .grid-container {
+        padding: 10px;
+    }
 
+    h2 {
+        font-size: 24px;
+    }
 
-.grid-container-fb{
-    margin: 0 80px 0 80px;
-    padding: 10px;
-    
-}
-
-.mini-heading{
-    text-align: left;
-    font-size: 20px;
-    color:  rgb(132, 5, 5);
+    p, li, ol {
+        font-size: 14px;
+    }
 }

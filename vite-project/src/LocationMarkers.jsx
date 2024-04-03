@@ -35,7 +35,9 @@ function LocationMarker(props){
       containerSizes:'',
       containerCosts:'',
       vehicleCapacity:'',
-      vehicleCost:''
+      vehicleCost:'',
+      collectionTime: '',
+      truckSpeed: ''
     })
     
     const [routeButton, setRouteButton] = useState(false)
@@ -97,6 +99,8 @@ function LocationMarker(props){
           obj['facility_sizes'] = formValues.containerSizes
           obj['vehicle_capacity'] = formValues.vehicleCapacity
           obj['vehicle_cost'] = formValues.vehicleCost
+          obj['collection_time'] = formValues.collectionTime
+          obj['truck_speed'] = formValues.truckSpeed
           
           final_markers.push(obj)     
           
@@ -115,6 +119,8 @@ function LocationMarker(props){
           containerCosts:'',
           vehicleCapacity:'',
           vehicleCost:'',
+          collectionTime: '',
+          truckSpeed: ''
         })
              
       }
@@ -207,13 +213,25 @@ return (
             {echelon.echelonKey==2?<p className="text-para">Enter Container Costs</p>:<p className="text-para">Enter Facility Costs</p>}
             <input name='containerCosts' value={formValues.containerCosts} placeholder=' Enter values' type='text' style={textAreaStyles} 
              onChange={handleInputChange}></input>
+
             <p className="text-para">Enter Vehicle Capacity</p>
             <input name='vehicleCapacity' value={formValues.vehicleCapacity} placeholder=' Enter value' type='text' 
             style={textAreaStyles}
              onChange={handleInputChange}></input>
              {isNumVC==true?<></>:<div className="vc-msg">Please enter a numerical value</div>}
+
              <p className="text-para">Enter Vehicle Cost</p>
              <input name='vehicleCost' value={formValues.vehicleCost} placeholder=' Enter value' type='text' 
+            style={textAreaStyles}
+             onChange={handleInputChange}></input>
+
+              <p className="text-para">Enter Collection Time</p>
+             <input name='collectionTime' value={formValues.collectionTime} placeholder=' Enter value' type='text' 
+            style={textAreaStyles}
+             onChange={handleInputChange}></input>
+             
+             <p className="text-para">Enter Truck Speed</p>
+             <input name='truckSpeed' value={formValues.truckSpeed} placeholder=' Enter value' type='text' 
             style={textAreaStyles}
              onChange={handleInputChange}></input>
              {isNumVC==true?<></>:<div className="vc-msg">Please enter a numerical value</div>}
