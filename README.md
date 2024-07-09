@@ -5,7 +5,7 @@ A ReactJS and Python-Flask web application.
 
 SWEEP (Solid Waste Echelon-Embedded Planner) is a web-based tool for designing a Municipal Solid Waste (MSW) management system. Given potential locations, sizes, and relevant costs for facilities in each echelon, and capacities of vehicles (collection agents such as trucks, tractors, among others), it enables the user to choose the number, sizes, and locations of requisite facilities in each echelon, as well as the number of vehicles and their routes to use for transporting waste among echelons, thereby generating an execution plan. This plan is obtained by solving an underlying “Multi-Echelon Location Routing problem” using an optimal seeking method.
 
-How I Worked on This Project
+# How I Worked on This Project
 Initial Discussions: Collaborated with Dr. Subhash Sarin and Akshat Kothyari from the ISE department to discuss the project requirements and scope.
 
 UI Design: Designed and received approval for the UI wireframes.
@@ -18,7 +18,7 @@ Dockerization: Dockerized the frontend and backend separately for a production b
 
 Deployment: Used Virginia Tech's cloud server documentation to deploy the Docker containers on a Kubernetes cluster.
 
-How to Navigate This Project
+# How to Navigate This Project
 Folder Structure:
 
 vite-project contains the frontend React code.
@@ -27,14 +27,14 @@ Build Steps: Refer to the next section of this README for detailed build steps.
 
 Routing Logic: The project includes a somewhat complex routing logic, which can be found here.
 
-Why I Built the Project This Way
+# Why I Built the Project This Way
 ReactJS: Chose ReactJS due to familiarity with the framework and the project's requirement for state management.
 
 State Management: Used local states and the UseContext API instead of a state management library like Redux, as Redux seemed overkill for this project and the Context API felt more intuitive.
 
 Flask: Opted for Flask for developing backend APIs and integrating with the Gurobi solver due to its ease of setup and speed.
 
-Future Improvements
+# Future Improvements
 If I had more time, I would:
 
 Use a better tool for organizing workflow, such as Trello.
