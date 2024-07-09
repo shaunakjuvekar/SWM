@@ -21,8 +21,8 @@ SWEEP (Solid Waste Echelon-Embedded Planner) is a web-based tool for designing a
 # How to Navigate This Project
 - Folder Structure:
 
-vite-project contains the frontend React code.
-swm-backend contains the backend Python code.
+  - vite-project contains the frontend React code.
+  - swm-backend contains the backend Python code.
 
 - Build Steps: Refer to the next section of this README for detailed build steps.
 
