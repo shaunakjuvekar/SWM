@@ -1,7 +1,7 @@
-node_label;lat;lng;echelon;location_cost;container_sizes;container_costs;vehicle_capacity;vehicle_cost
+node_label;lat;lng;echelon;location_cost;facility_sizes;facility_costs;vehicle_capacity;vehicle_cost
 Burruss Hall;37.22835;-80.42314;1;2;;;;
 Hethwood;35.31251;-78.32451;1;6;;;;
 Union Apts.;38.94192;-82.13155;1;10;;;;
-Oasis;41.24151;-81.12316;2;14;[10,15,20];[20,30,40];25;30
-Heritage Park;36.31513;-79.52893;2;19;[10,15,20];[20,30,40];25;30
-Squires Center;37.44412;-80.51236;3;27;[25,30,35];[50,60,70];40;50
+Oasis;41.24151;-81.12316;2;14;10,15,20;20,30,40;25;30
+Heritage Park;36.31513;-79.52893;2;19;10,15,20;20,30,40;25;30
+Squires Center;37.44412;-80.51236;3;27;25,30,35;50,60,70;40;50

@@ -25,7 +25,7 @@ def main():
             obj['routes'], obj['route_costs'] = routes, route_costs
             #print("on line 24", echelon, type(echelon))
             if row_number!=0 and int(float(echelon))==2 and file1_flag==False:
-                print("inside if...line 28")
+                # print("inside if...line 28")
                 write_file_1.writerow(['Facility', 'Vehicle', 'Customers served in echelon '+str(int(float(echelon))-1), 'Route Cost($)'])
                 file1_flag = True
             elif row_number!=0 and int(float(echelon))==3 and file2_flag==False:
