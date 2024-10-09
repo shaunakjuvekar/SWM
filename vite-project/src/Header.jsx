@@ -11,6 +11,7 @@ import Feasibility from "./Feasibility";
 import Guidelines from "./Guidelines";
 import RouteTable from "./RouteTable";
 import SummaryTables from "./SummaryTables";
+import BingMap from "./BingMap";
 import "./Header.css";
 import vt_logo from "./assets/vt-white.png"
 
@@ -25,6 +26,7 @@ function Header() {
                         <Nav className="me-auto">
                             <Nav.Link as={Link} to="/" className='nav-link'>Home</Nav.Link>
                             <Nav.Link as={Link} to="/guidelines" className='nav-link'>Guidelines</Nav.Link>
+                            <Nav.Link as={Link} to="/bing-map" className='nav-link'>Bing Map</Nav.Link>
                             <NavDropdown title="Input" id="basic-nav-dropdown">
                                 <NavDropdown.Item as={Link} to="/map">Map</NavDropdown.Item>
                                 <NavDropdown.Item as={Link} to="/csv_input">CSV Input</NavDropdown.Item>
@@ -44,6 +46,7 @@ function Header() {
                     <Route index element={<Guidelines />} />
                     <Route path="feasibility" element={<Feasibility />}></Route>
                 </Route>
+                <Route path='/bing-map' element={<BingMap />}></Route>
                 <Route path='/map' element={<MyMap />}></Route>
                 <Route path='/csv_input' element={<CSVInput />}></Route>
                 <Route path='/route_tables' element={<RouteTable />}></Route>

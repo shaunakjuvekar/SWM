@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 import redIcon from "./assets/red_icon.png";
 import AppContext from "./AppContext";
 import Routes from "./Routes"
+import APIService from "./APIService";
 
 function LocationMarker(props){
     
@@ -24,7 +25,9 @@ function LocationMarker(props){
 
     const echelon = useContext(AppContext);
     
+    
     const [markers, setMarkers] = useState([{id: uuidv4()}]);
+    const [allInputNodes, setInputNodes] = useState(null);
     const [locationCosts, setLocationCosts] = useState([0])
     const [labels, setLabels] = useState([''])
     const [node_numbers, setNodes] = useState([0])
@@ -45,6 +48,8 @@ function LocationMarker(props){
     const [submitStatus, setSubmitStatus] = useState(false)
     const [textAreaSubmitStatus, setTextAreaSubmitStatus] = useState(false)
     const [isNumVC, setIsNumVC] = useState(true)
+
+    const [activeComponent, setActiveComponent] = useState('LocationMarkers');
 
     const textAreaStyles = {
         paddingLeft: 8, 
@@ -133,7 +138,7 @@ function LocationMarker(props){
         let location_cost = event.target.elements.location_cost.value
         let label = event.target.elements.node_label.value
         
-        setLocationCosts((prevValue)=>[...prevValue, location_cost])        
+        setLocationCosts((prevValue)=>[...prevValue, location_cost])
         setLabels((prevVal) => [...prevVal, label])
         
         map.closePopup();
@@ -145,8 +150,6 @@ function LocationMarker(props){
       setLabels(prevLabels => prevLabels.filter((elem, index) => index !== indexToRemove))
       setLocationCosts(prevCosts => prevCosts.filter((elem, index) => index !== indexToRemove))
       setMarkers(prevMarkers => prevMarkers.filter(marker => marker.id !== markerId));
-      
-      
     };
 
     const calculateRoutes = () => {
@@ -181,8 +184,50 @@ function LocationMarker(props){
       }));
     };
 
+    const showLocations = async () => {
+
+        // Get all node coordinates
+        let allNodes = []
+        allNodes = await APIService.getAllCoordinates()
+        await new Promise(r => setTimeout(r, 1000));
+        console.log("allNodes: ", allNodes)
+        setInputNodes(allNodes)
+        echelon.handleFlyLocation([allNodes[0]['Latitude'],allNodes[0]['Longitude']])
+    }
+
+    const showRoutes = () => {
+      setViewRoutes(true);
+      setInputNodes([]);
+    }
+
 return (
   <div>
+  <Button className="showLocationsButton" variant="primary" size="sm" onClick={showLocations}>Show All Locations</Button>
+  <Button className="showRoutes" variant="primary" size="sm" onClick={showRoutes}>Show All Routes</Button>
+  {/* {activeComponent === 'Routes' ? <Routes /> : <LocationMarker />} */}
+
+  {allInputNodes != null ? 
+      allInputNodes.map((marker, index) => 
+       <Marker
+         position={[marker.Latitude, marker.Longitude]}
+         icon={markerIcon} draggable={true} key = {index}>
+           <Popup>
+           <div className="input-field-div">
+              Lat: {marker.Latitude + ',  '} Lng: {marker.Longitude + '\n'}
+            </div>
+            <div className="input-field-div">
+              Node Label: {marker.Node_Name + '\n'} 
+            </div>
+            <div className="input-field-div">
+              echelon: {marker.Echelon} 
+            </div>
+            </Popup>
+            </Marker>)
+            :<div></div>
+    }
+        
+
+
   {viewRoutes==false?<div>
     {routeButton==true?<Button className="viewrouteButton" variant="primary" size="sm" onClick={routeHandler}>View Routes</Button>:<></>}
   {submitStatus==true?<Button className="calculateButton" variant="danger" size="sm" onClick={calculateRoutes}>Calculate</Button>:<></>}   
@@ -260,6 +305,11 @@ return (
             
             <form onSubmit={formHandler} >
            
+              <div className="input-field-div">
+                  Node Label:&nbsp;&nbsp;
+                  <input id='node_label' placeholder=' Enter value' type='text' required></input>
+              </div>
+
             <div className="input-field-div">
             {echelon.echelonKey==1?`Demand:\xa0\xa0`:`Location Cost:\xa0\xa0`}
             <input id='location_cost' placeholder=' Enter value' type='text' 
@@ -270,17 +320,17 @@ return (
               }}
               ></input>
             </div>
+
             <div>
               </div>  
-              <div className="input-field-div">
-              Node Label:&nbsp;&nbsp;
-              <input id='node_label' placeholder=' Enter value' type='text' required></input>
-              </div>
-            
-              <div className="button-div">
-              <button className='form-button' 
-              disabled = {costInputState}>Submit</button>{costInputState?<span className="cost-msg">Please enter numerical cost</span>:<span></span>}</div>
-              
+                  
+                
+                  <div className="button-div">
+                    <button className='form-button' 
+                    disabled = {costInputState}>Submit</button>{costInputState?<span className="cost-msg">Please enter numerical cost</span>
+                    :<span></span>}
+                  </div>
+                  
             </form>
            </Popup>
          </Marker>:<div></div>
@@ -295,29 +345,3 @@ return (
 }
    
 export default LocationMarker;
-
-
-
-/*
-    const deleteMarker = (markerId) => {
-      console.log("Inside delete Marker")
-      //console.log(event.target.parentNode.parentNode)
-      
-      const val = event.target.parentNode.parentNode.textContent
-      console.log(val)
-      //Coordinates: 37.22, -80.39DeleteSubmit
-      let pattern1 = /:\s\d/
-      const lat = parseFloat(val.substring(val.search(pattern1)+2, val.indexOf(',')));
-      let pattern2 = /\dDelete/
-      const long = parseFloat(val.substring(val.indexOf(',')+2,val.search(pattern2)+1));
-      
-      console.log(markers)
-      console.log(markerId)
-      //let final_markers = markers.filter((position)=> position.lat!=lat && position.lng!=long)
-      let final_markers = markers.filter((m)=> m.id!=markerId)
-      console.log(final_markers)
-      setMarkers(final_markers)
-    }
-   
-*/
-  

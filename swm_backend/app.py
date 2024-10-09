@@ -10,6 +10,7 @@ import bing_csv_convert
 import csv_convert
 import gurobi as gc
 import json_convert
+import store_locations
 
 # Set up the logger
 logging.basicConfig(level=logging.INFO)
@@ -30,16 +31,22 @@ def receive_data() -> Tuple[Response, int]:
         logger.error("Error while writing to file: %s", e)
         return jsonify({"failure": '0', "error": "File not found"}), 404
 
-    gc.main()
-    csv_convert.main()
-    
+    # Call Gurobi solver
+    gc.main()   
+
+    # Convert the Gurobi output into a json file format
+    csv_convert.main()    
+
+    # Store the node locations in node_locations.csv
+    store_locations.main()
+
     return jsonify({'success': '1'}), 200
 
 @app.route("/get_data", methods=["GET"], strict_slashes=False)
 @cross_origin(support_credentials=True)
 def send_data() -> Tuple[Response, int]:
     try:
-        with open("data_file.json", "r") as data:
+        with open("data_file_karnal.json", "r") as data:
             route_data = json.load(data)
         return jsonify(route_data), 200
     except FileNotFoundError as e:
@@ -116,7 +123,7 @@ def send_summary_tables() -> Tuple[Response, int]:
 def get_coordinates() -> Response:
     logger.info("get_coordinates called")
 
-    df = pd.read_csv('node_locations.csv')
+    df = pd.read_csv('karnal_node_locations.csv')
     data = df.to_dict(orient='records')
     return jsonify(data)
 

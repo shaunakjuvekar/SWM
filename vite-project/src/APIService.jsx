@@ -63,6 +63,18 @@ export default class APIService{
     .catch(error => console.log(error))
     }
 
+    static getAllCoordinates(){
+        console.log("getAllCoordinates() called")
+        return fetch(`${baseURL.sweep}/get_coordinates`,{
+            'method':'GET',
+             headers : {
+                'Content-Type':'application/json'
+      },
+    })
+    .then(response => response.json())
+    .catch(error => console.log(error))
+    }
+
     static sendLocationData(body){
         console.log(body)
         return fetch(`${baseURL.sweep}/get_csv_and_compute`,{

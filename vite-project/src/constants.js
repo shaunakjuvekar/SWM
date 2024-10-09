@@ -1,4 +1,5 @@
 export const baseURL = {
     sweep:
-        "https://sweep-backend.discovery.cs.vt.edu"
+    "http://127.0.0.1:5002" //"https://sweep-backend.discovery.cs.vt.edu"
   };
+

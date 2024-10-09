@@ -113,7 +113,7 @@
   border-radius: 10px;
   z-index: 700;
   position: absolute;
-
+  width: 150px;
 }
 
 .legend-heading{
