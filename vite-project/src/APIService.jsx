@@ -64,7 +64,7 @@ export default class APIService{
     }
 
     static getAllCoordinates(){
-        console.log("getAllCoordinates() called")
+        // console.log("getAllCoordinates() called")
         return fetch(`${baseURL.sweep}/get_coordinates`,{
             'method':'GET',
              headers : {

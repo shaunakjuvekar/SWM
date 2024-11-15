@@ -145,3 +145,16 @@ transition: 0.3s;
   outline: none !important;
   box-shadow: none;
 }
+
+#karnal-routes{
+  position: absolute;
+  top: 250px;
+  right: 30px;
+  padding: 8px;
+  z-index: 400;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: rgb(59, 59, 200);
+  box-shadow: 5px 5px 5px rgb(53, 45, 37);
+  color: white;
+}
