@@ -17,10 +17,10 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-CORS(app, support_credentials=True)
+CORS(app, supports_credentials=True)
 
 @app.route("/send", methods=["POST"], strict_slashes=False)
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
 def receive_data() -> Tuple[Response, int]:
     locations = request.json
     logger.info("Received data: %s", locations)
@@ -43,7 +43,7 @@ def receive_data() -> Tuple[Response, int]:
     return jsonify({'success': '1'}), 200
 
 @app.route("/get_data", methods=["GET"], strict_slashes=False)
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
 def send_data() -> Tuple[Response, int]:
     try:
         with open("data_file_karnal.json", "r") as data:
@@ -57,7 +57,7 @@ def send_data() -> Tuple[Response, int]:
         return jsonify({"failure": '0', "error": str(e)}), 500
 
 @app.route("/get_route_tables", methods=["GET"], strict_slashes=False)
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
 def send_route_tables() -> Tuple[Response, int]:
     logger.info("get_route_tables called")
 
@@ -73,7 +73,7 @@ def send_route_tables() -> Tuple[Response, int]:
         return jsonify({"errorcode": 1, "error": str(err)}), 500
 
 @app.route("/get_location_data", methods=["GET"], strict_slashes=False)
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
 def send_location_data() -> Tuple[Response, int]:
     logger.info("get_location_data called")
 
@@ -87,7 +87,7 @@ def send_location_data() -> Tuple[Response, int]:
         return jsonify({"errorcode": 1, "error": str(err)}), 500
 
 @app.route("/get_csv_and_compute", methods=["POST"], strict_slashes=False)
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
 def get_csv_and_compute() -> Tuple[Response, int]:
     logger.info("get_csv_and_compute called")
 
@@ -105,7 +105,7 @@ def get_csv_and_compute() -> Tuple[Response, int]:
         return jsonify({"errorcode": 1, "error": str(err)}), 500
 
 @app.route("/get_summary_tables", methods=["GET"], strict_slashes=False)
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
 def send_summary_tables() -> Tuple[Response, int]:
     logger.info("get_summary_tables called")
 
@@ -128,7 +128,7 @@ def get_coordinates() -> Response:
     return jsonify(data)
 
 @app.route("/", methods=["GET"], strict_slashes=False)
-@cross_origin(support_credentials=True)
+@cross_origin(supports_credentials=True)
 def home_route() -> Response:
     logger.info("home route called")
     return jsonify({

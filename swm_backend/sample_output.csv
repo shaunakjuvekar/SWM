@@ -1,4 +1,4 @@
 lat,lng,location_cost,node_label,echelon,index,facility_sizes,facility_costs,vehicle_capacity,vehicle_cost,routes,route_costs,Capacity,Capacity costs
-37.21271,-80.45252,14.0,Oasis,2.0,1,"10,15,20","20,30,40",25.0,30.0,"[['Union Apts.', 'Hethwood', 'Burruss Hall']]",[47.439523872422555],20.0,40.0
-37.19644,-80.43346,16.0,Heritage Park,2.0,2,"10,15,20","20,30,40",25.0,30.0,,,,
-37.26069,-80.469,19.0,Squires Center,3.0,1,"25,30,35","50,60,70",40.0,50.0,[['Oasis']],[106.73614796710724],25.0,50.0
+41.24151,-81.12316,14.0,Oasis,2.0,1,"10,15,20","20,30,40",25.0,30.0,,,,
+36.31513,-79.52893,19.0,Heritage Park,2.0,2,"10,15,20","20,30,40",25.0,30.0,"[['Union Apts.', 'Burruss Hall', 'Hethwood']]",[4036.986690218374],20.0,40.0
+37.44412,-80.51236,27.0,Squires Center,3.0,1,"25,30,35","50,60,70",40.0,50.0,[['Heritage Park']],[2511.5473883576788],25.0,50.0
