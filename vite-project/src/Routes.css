@@ -100,6 +100,21 @@
 
 }
 
+.routeHeading{
+  background-color: rgb(16, 78, 186);
+  color: white;
+  position: absolute;
+  top: 20px;
+  font-weight: 700;
+  padding: 10px;
+  right: 550px;
+  z-index: 400;
+  font-size: 14px;
+  border-radius: 10px;
+  width: 100px;
+  /* box-shadow: 5px 5px 5px rgb(17, 45, 124); */
+}
+
 .label-text{
   font-family: OpenSans;
 }
@@ -113,7 +128,7 @@
   border-radius: 10px;
   z-index: 700;
   position: absolute;
-
+  width: 150px;
 }
 
 .legend-heading{
@@ -144,4 +159,17 @@ transition: 0.3s;
 .btn:focus,.btn:active {
   outline: none !important;
   box-shadow: none;
+}
+
+#karnal-routes{
+  position: absolute;
+  top: 250px;
+  right: 30px;
+  padding: 8px;
+  z-index: 400;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: rgb(59, 59, 200);
+  box-shadow: 5px 5px 5px rgb(53, 45, 37);
+  color: white;
 }

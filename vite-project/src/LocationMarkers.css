@@ -12,6 +12,33 @@
    
   }
 
+.showLocationsButton{
+  position: absolute;
+  top: 20px;
+  left: 60px;
+  z-index: 400;
+  font-size: 14px;
+  border-radius: 10px;
+  background-color: rgb(55, 69, 161);
+  padding: 8px;
+  color: white;
+  box-shadow: 5px 5px 5px rgb(43, 40, 37);
+}
+
+.showRoutes{
+  position: absolute;
+  top: 20px;
+  left: 210px;
+  z-index: 400;
+  font-size: 14px;
+  border-radius: 10px;
+  background-color: rgb(179, 63, 63);
+  padding: 8px;
+  color: white;
+  box-shadow: 5px 5px 5px rgb(43, 40, 37);
+}
+
+
 
 .viewrouteButton:hover{
   background-color: rgb(106, 100, 114);

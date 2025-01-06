@@ -102,6 +102,7 @@ function Routes(){
         setEchelonLevels(echelon_levels)
        
         filtered_data = data.filter(e=>e.route_costs.length>0)
+        console.log("filtered_data: ", filtered_data)
        
         flyCoords.handleFlyLocation([filtered_data[0]['lat'],filtered_data[0]['lng']])
         
@@ -127,7 +128,7 @@ function Routes(){
             current_node['routes'] = current_node['routes'].replace(/'/g,"\"")
             //console.log(current_node['routes'])
             let routeNodes = JSON.parse(current_node['routes'])
-            //console.log(routeNodes)
+            console.log(routeNodes)
             if (!allMarkers.includes(current_node.label)){
                 allMarkers.push(current_node.label)
             }
@@ -152,7 +153,7 @@ function Routes(){
                 }
                 newPathMarkers.push(tempArr)
             }
-            //console.log("NewPathMarkers: ", newPathMarkers)
+            console.log("NewPathMarkers: ", newPathMarkers)
 
             let newPathCoords = []
             for (let i=0;i<newPathMarkers.length;i++){
@@ -160,7 +161,7 @@ function Routes(){
                 for (let j=0;j<newPathMarkers[i].length;j++){
                     let node = newPathMarkers[i][j]
                     let tempArr = []
-                    //console.log("Coords Map: " , coordsMap)
+                    console.log("Coords Map: " , coordsMap)
                     if (node in coordsMap){
                         for (let k=0;k<2;k++){
                             tempArr.push(coordsMap[node][k])
@@ -172,17 +173,17 @@ function Routes(){
                 }
                 newPathCoords.push(pathArr)
             }
-            //console.log("newPathCoords: " , newPathCoords)
+            console.log("newPathCoords: " , newPathCoords)
             
             routeNodes = [...routeNodes, [current_node.label]]
-            //console.log(currentLabelNodes)
+            console.log(routeNodes)
             let allCurrentNodes = []
             routeNodes.map(arr => {
                 for (let i=0;i<arr.length;i++){
                     allCurrentNodes.push(arr[i])
                 }
             })
-            //console.log(allCurrentNodes)
+            console.log(allCurrentNodes)
             allPaths.push(newPathCoords)
         }
         let newMarkers = []
@@ -358,7 +359,7 @@ function Routes(){
                 <img src={house} style={{
                     height: 20,
                     width: 30,
-                    marginLeft: -9
+                    // marginLeft: -9
                 }}></img>
                  &nbsp;&nbsp;- Echelon 1 node
                 </div>

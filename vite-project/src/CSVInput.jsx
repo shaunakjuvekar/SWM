@@ -47,11 +47,16 @@ function CSVInput(){
         e.preventDefault();
         
         if (fileData) {
-            fileReader.onload = function (event) {
+            fileReader.onload = async function (event) {
                 const csvOutput = event.target.result;
                 console.log(csvOutput)
                 appContext.updateCoordsMapfromCSV(csvOutput)
-                APIService.sendLocationData(csvOutput)
+                const resp = await APIService.sendLocationData(csvOutput)
+                console.log(resp)
+                // const data = resp.json();
+                // console.log(data)
+                
+              
          
             };
             fileReader.readAsText(fileData);

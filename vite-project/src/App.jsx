@@ -41,6 +41,7 @@ function App() {
   const updateCoordsMapfromCSV = (body) => {
     let tempMap = {}
     let arr = body.split('\n')
+    console.log(arr)
     for (let i=1;i<arr.length;i++){
       if (arr[i]!=''){
         let lineArr = arr[i].split(',')
@@ -49,7 +50,7 @@ function App() {
       }
       
     }
-    //console.log(tempMap)
+    console.log(tempMap)
     setMap(tempMap)
     
   }
